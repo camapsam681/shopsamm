@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>SAMM SHOP</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif;-webkit-tap-highlight-color:transparent}
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,Helvetica,sans-serif;-webkit-tap-highlight-color:transparent}
 body{background:#fff;color:#1a1a1a;padding-bottom:110px}
 header{position:sticky;top:0;background:#fff;border-bottom:2px solid #dc2626;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;z-index:10;box-shadow:0 2px 8px rgba(220,38,38,.1)}
 .logo{color:#dc2626;font-weight:900;font-size:15px;display:flex;align-items:center;gap:8px}
@@ -98,6 +98,42 @@ nav button.on{color:#dc2626}
 .social-icon svg{width:30px;height:30px;fill:#fff}
 .social-name{font-size:13px;font-weight:900;color:#1a1a1a;text-transform:uppercase}
 .social-sub{font-size:10px;color:#999}
+
+/* ADMIN FLOATING BUTTON */
+.admin-fab{position:fixed;top:70px;right:16px;z-index:99;background:linear-gradient(135deg,#dc2626,#991b1b);border:0;padding:10px 14px;border-radius:12px;color:#fff;font-weight:900;font-size:12px;cursor:pointer;font-family:inherit;display:none;align-items:center;gap:6px;text-transform:uppercase;box-shadow:0 4px 15px rgba(220,38,38,.4)}
+.admin-fab.on{display:flex}
+.admin-fab svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.5}
+
+/* BOT HỖ TRỢ */
+.bot-fab{position:fixed;bottom:90px;right:16px;z-index:99;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#dc2626,#991b1b);border:0;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(220,38,38,.5);transition:transform .2s}
+.bot-fab:hover{transform:scale(1.08)}
+.bot-fab:active{transform:scale(.95)}
+.bot-fab svg{width:28px;height:28px;stroke:#fff;fill:none;stroke-width:2}
+.bot-fab .badge-noti{position:absolute;top:-2px;right:-2px;width:14px;height:14px;background:#16a34a;border-radius:50%;border:2px solid #fff}
+
+.bot-window{position:fixed;bottom:160px;right:16px;width:min(360px,calc(100vw - 32px));height:min(500px,calc(100vh - 200px));background:#fff;border:2px solid #dc2626;border-radius:18px;z-index:999;display:none;flex-direction:column;box-shadow:0 10px 40px rgba(220,38,38,.3);overflow:hidden}
+.bot-window.on{display:flex}
+.bot-header{background:linear-gradient(135deg,#dc2626,#991b1b);color:#fff;padding:14px 16px;display:flex;justify-content:space-between;align-items:center}
+.bot-header .b-info{display:flex;align-items:center;gap:10px}
+.bot-header .b-av{width:36px;height:36px;border-radius:50%;background:#fff;color:#dc2626;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px}
+.bot-header .b-name{font-weight:900;font-size:14px;line-height:1.2}
+.bot-header .b-status{font-size:10px;opacity:.9}
+.bot-header .b-close{background:rgba(255,255,255,.2);border:0;width:32px;height:32px;border-radius:8px;color:#fff;font-size:20px;cursor:pointer;font-family:inherit;line-height:1}
+.bot-body{flex:1;overflow-y:auto;padding:16px;background:#fafafa}
+.bot-msg{margin-bottom:12px;display:flex;gap:8px}
+.bot-msg.me{justify-content:flex-end}
+.bot-msg .bubble{max-width:80%;padding:10px 14px;border-radius:14px;font-size:13px;line-height:1.5;word-wrap:break-word}
+.bot-msg.bot .bubble{background:#fff;border:1px solid #fee2e2;color:#1a1a1a;border-bottom-left-radius:4px}
+.bot-msg.me .bubble{background:linear-gradient(135deg,#dc2626,#991b1b);color:#fff;border-bottom-right-radius:4px}
+.bot-quick{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.bot-quick button{background:#fff;border:1.5px solid #dc2626;color:#dc2626;padding:8px 12px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit}
+.bot-quick button:active{background:#fef2f2}
+.bot-input-wrap{padding:12px;background:#fff;border-top:1px solid #fee2e2;display:flex;gap:8px}
+.bot-input{flex:1;padding:10px 14px;background:#fafafa;border:1.5px solid #fee2e2;border-radius:20px;color:#1a1a1a;outline:none;font-family:inherit;font-size:13px;margin:0}
+.bot-input:focus{border-color:#dc2626}
+.bot-send{background:linear-gradient(135deg,#dc2626,#991b1b);border:0;width:42px;height:42px;border-radius:50%;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.bot-send svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:2.5}
+
 .admin-corner{display:none;position:absolute;top:20px;right:16px;z-index:5}
 .admin-corner.on{display:block}
 .admin-btn{background:linear-gradient(135deg,#dc2626,#991b1b);border:0;padding:8px 14px;border-radius:10px;color:#fff;font-weight:900;font-size:11px;cursor:pointer;font-family:inherit;text-transform:uppercase}
@@ -134,6 +170,39 @@ nav button.on{color:#dc2626}
 
 <audio id="bgMusic" src="https://files.catbox.moe/cxjo25.mp3" loop preload="auto"></audio>
 <div class="loading-overlay" id="loadingOverlay"><div class="spinner"></div></div>
+
+<!-- ADMIN FLOATING BUTTON -->
+<button class="admin-fab" id="adminFab" onclick="openAdminPanel()">
+<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 6 6 1-4.5 4.5L18 20l-6-3-6 3 1.5-6.5L3 9l6-1z"/></svg>
+ADMIN
+</button>
+
+<!-- BOT FAB -->
+<button class="bot-fab" id="botFab" onclick="toggleBot()">
+<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="13" rx="3"/><circle cx="9" cy="13" r="1.2" fill="#fff"/><circle cx="15" cy="13" r="1.2" fill="#fff"/><path d="M9 17h6"/><path d="M12 7V4"/><circle cx="12" cy="3" r="1" fill="#fff"/></svg>
+<span class="badge-noti"></span>
+</button>
+
+<!-- BOT WINDOW -->
+<div class="bot-window" id="botWindow">
+<div class="bot-header">
+<div class="b-info">
+<div class="b-av">🤖</div>
+<div>
+<div class="b-name">SAMM BOT</div>
+<div class="b-status">● Đang hoạt động</div>
+</div>
+</div>
+<button class="b-close" onclick="toggleBot()">×</button>
+</div>
+<div class="bot-body" id="botBody"></div>
+<div class="bot-input-wrap">
+<input class="bot-input" id="botInput" placeholder="Nhập câu hỏi..." onkeypress="if(event.key==='Enter') sendBotMsg()">
+<button class="bot-send" onclick="sendBotMsg()">
+<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+</button>
+</div>
+</div>
 
 <div class="toast" id="toast">
 <div class="toast-icon" id="toastIcon">OK</div>
@@ -225,9 +294,6 @@ nav button.on{color:#dc2626}
 
 <div class="page" id="p-acc">
 <div class="title">Tài khoản</div>
-<div class="admin-corner" id="adminCorner">
-<button class="admin-btn" onclick="openAdminPanel()">ADMIN</button>
-</div>
 <div id="guestView">
 <div class="empty">Vui lòng đăng nhập.</div>
 <button class="create" onclick="openAuth()">Đăng nhập / Đăng ký</button>
@@ -372,19 +438,16 @@ var firebaseConfig = {
     appId: "1:781318384131:web:d6bad64e19c3a770667c36"
 };
 
-var ADMIN_USERNAME = "Cavan";
+var ADMIN_USERNAME = "Kaimomo2011";
 var ADMIN_PASSWORD = "samm2026";
 
 var db = null;
 var firebaseReady = false;
-
 try {
     firebase.initializeApp(firebaseConfig);
     db = firebase.database();
     firebaseReady = true;
-} catch (e) {
-    console.log("Firebase error:", e);
-}
+} catch (e) { console.log("Firebase error:", e); }
 
 var users = {};
 var products = [];
@@ -396,6 +459,7 @@ var authMode = "login";
 var adminUnlocked = false;
 var currentOrderUrl = "";
 var musicPlaying = false;
+var botOpen = false;
 
 function $(id){ return document.getElementById(id); }
 function money(v){ return Number(v||0).toLocaleString("vi-VN") + " d"; }
@@ -413,6 +477,7 @@ function esc(v){
 function user(){ return (cur && users[cur]) ? users[cur] : null; }
 function isAdmin(){ return cur === ADMIN_USERNAME; }
 
+/* ============ NHẠC ============ */
 var bgMusic = $("bgMusic");
 function playMusic(){
     bgMusic.volume = 0.4;
@@ -424,6 +489,7 @@ document.addEventListener("click", function(){
     if(!musicPlaying) bgMusic.play().then(function(){ musicPlaying = true; }).catch(function(){});
 });
 
+/* ============ TOAST ============ */
 function showToast(icon, text, type){
     var t = $("toast");
     $("toastIcon").textContent = icon;
@@ -449,6 +515,7 @@ function showServerStatus(ok, msg){
     }
 }
 
+/* ============ FIREBASE SYNC ============ */
 function startFirebaseSync(){
     if(!firebaseReady || !db){
         showServerStatus(false, "Khong ket noi duoc Firebase!");
@@ -478,7 +545,6 @@ function startFirebaseSync(){
         renderNotice();
     });
 }
-
 function saveUserFB(username, data){
     if(!firebaseReady || !db) return;
     db.ref("users/" + username).set(data);
@@ -501,6 +567,107 @@ function clearNoticeFB(){
     db.ref("notices").remove();
 }
 
+/* ============ BOT HỖ TRỢ ============ */
+function toggleBot(){
+    botOpen = !botOpen;
+    var w = $("botWindow");
+    if(botOpen){
+        w.classList.add("on");
+        if($("botBody").children.length === 0){
+            botWelcome();
+        }
+    } else {
+        w.classList.remove("on");
+    }
+}
+function botWelcome(){
+    botAddMsg("bot", "Xin chào! Tôi là <b>SAMM BOT</b> 🤖<br>Tôi có thể giúp bạn:<br>• Cách nạp tiền<br>• Cách mua hàng<br>• Xem đơn hàng<br>• Liên hệ hỗ trợ<br><br>Bạn cần hỏi gì?");
+    botAddQuick([
+        { text: "💰 Cách nạp tiền", value: "nạp" },
+        { text: "🛒 Cách mua hàng", value: "mua" },
+        { text: "📦 Xem đơn hàng", value: "đơn" },
+        { text: "💬 Liên hệ Admin", value: "liên hệ" }
+    ]);
+}
+function botAddMsg(who, html){
+    var body = $("botBody");
+    var div = document.createElement("div");
+    div.className = "bot-msg " + (who === "me" ? "me" : "bot");
+    div.innerHTML = '<div class="bubble">' + html + '</div>';
+    body.appendChild(div);
+    body.scrollTop = body.scrollHeight;
+}
+function botAddQuick(items){
+    var body = $("botBody");
+    var wrap = document.createElement("div");
+    wrap.className = "bot-quick";
+    for(var i=0;i<items.length;i++){
+        var btn = document.createElement("button");
+        btn.textContent = items[i].text;
+        btn.setAttribute("data-value", items[i].value);
+        btn.onclick = (function(v){
+            return function(){ botAnswer(v); };
+        })(items[i].value);
+        wrap.appendChild(btn);
+    }
+    body.appendChild(wrap);
+    body.scrollTop = body.scrollHeight;
+}
+function botAnswer(value){
+    botAddMsg("me", esc(value));
+    setTimeout(function(){
+        var v = value.toLowerCase();
+        var reply = "";
+        if(v.indexOf("nạp") >= 0 || v.indexOf("nap") >= 0){
+            reply = "💰 <b>Cách nạp tiền:</b><br>1. Vào tab <b>NẠP</b><br>2. Chọn số tiền (50k/100k/200k/500k)<br>3. Bấm <b>Tạo yêu cầu nạp</b><br>4. Quét QR chuyển khoản<br>5. Chờ Admin duyệt 1-3 phút<br>6. Số dư tự cộng ✓";
+        } else if(v.indexOf("mua") >= 0){
+            reply = "🛒 <b>Cách mua hàng:</b><br>1. Vào tab <b>SHOP</b><br>2. Chọn sản phẩm<br>3. Bấm <b>Mua ngay</b><br>4. Xác nhận<br>5. Nhận link/acc trong modal<br>6. Xem lại trong tab <b>ĐƠN</b> ✓";
+        } else if(v.indexOf("đơn") >= 0 || v.indexOf("don") >= 0){
+            reply = "📦 <b>Xem đơn hàng:</b><br>1. Vào tab <b>ĐƠN</b> (biểu tượng giấy)<br>2. Xem danh sách đơn đã mua<br>3. Mỗi đơn có mã <b>DH...</b> và thời gian<br>4. Nếu có link giao hàng sẽ hiện ✓";
+        } else if(v.indexOf("liên hệ") >= 0 || v.indexOf("admin") >= 0 || v.indexOf("hỗ trợ") >= 0 || v.indexOf("hotro") >= 0){
+            reply = "💬 <b>Liên hệ Admin:</b><br>• Discord: <a href='https://discord.gg/AMVw7aF35' target='_blank' style='color:#dc2626'>Nhấn vào đây</a><br>• Zalo: <a href='https://zalo.me/g/wqnmgz1abybxpub2p9w9' target='_blank' style='color:#dc2626'>Nhấn vào đây</a><br><br>Hoặc vào tab <b>BOX</b> để xem ✓";
+        } else if(v.indexOf("tài khoản") >= 0 || v.indexOf("đăng ký") >= 0 || v.indexOf("dangnhap") >= 0){
+            reply = "👤 <b>Tài khoản:</b><br>1. Bấm chip góc phải trên<br>2. Chọn <b>Đổi</b> để đăng ký mới<br>3. Nhập tên + mật khẩu (≥ 6 ký tự)<br>4. Tên 3-20 ký tự, chỉ chữ/số/gạch dưới ✓";
+        } else if(v.indexOf("mật khẩu") >= 0 || v.indexOf("đổi mk") >= 0){
+            reply = "🔒 <b>Đổi mật khẩu:</b><br>1. Vào tab <b>TÀI KHOẢN</b><br>2. Bấm <b>Đổi mật khẩu</b><br>3. Nhập mật khẩu cũ + mới<br>4. Bấm Xác nhận ✓";
+        } else if(v.indexOf("admin panel") >= 0 || v.indexOf("vào admin") >= 0){
+            reply = "⚡ <b>Vào Admin Panel:</b><br>Chỉ dành cho Admin.<br>• Đăng nhập bằng tên admin<br>• Nút ADMIN sẽ hiện góc phải<br>• Bấm → nhập mật khẩu admin ✓";
+        } else if(v.indexOf("xin chào") >= 0 || v.indexOf("hello") >= 0 || v.indexOf("hi") >= 0 || v.indexOf("chào") >= 0){
+            reply = "👋 Chào bạn! Tôi có thể giúp gì?<br>Hỏi tôi: <b>nạp tiền</b>, <b>mua hàng</b>, <b>đơn hàng</b>, <b>liên hệ admin</b>...";
+        } else {
+            reply = "🤔 Tôi chưa hiểu rõ. Bạn thử hỏi:<br>• <b>Cách nạp tiền</b><br>• <b>Cách mua hàng</b><br>• <b>Xem đơn hàng</b><br>• <b>Liên hệ Admin</b><br>• <b>Đổi mật khẩu</b>";
+        }
+        botAddMsg("bot", reply);
+        setTimeout(botWelcomeQuickAgain, 100);
+    }, 400);
+}
+function botWelcomeQuickAgain(){
+    var body = $("botBody");
+    var wrap = document.createElement("div");
+    wrap.className = "bot-quick";
+    var items = [
+        { text: "💰 Nạp tiền", value: "nạp" },
+        { text: "🛒 Mua hàng", value: "mua" },
+        { text: "💬 Liên hệ", value: "liên hệ" }
+    ];
+    for(var i=0;i<items.length;i++){
+        var btn = document.createElement("button");
+        btn.textContent = items[i].text;
+        btn.onclick = (function(v){ return function(){ botAnswer(v); }; })(items[i].value);
+        wrap.appendChild(btn);
+    }
+    body.appendChild(wrap);
+    body.scrollTop = body.scrollHeight;
+}
+function sendBotMsg(){
+    var input = $("botInput");
+    var v = input.value.trim();
+    if(!v) return;
+    input.value = "";
+    botAnswer(v);
+}
+
+/* ============ NAV ============ */
 function go(name){
     if(name === "admin" && (!isAdmin() || !adminUnlocked)) name = "shop";
     var pages = document.querySelectorAll(".page");
@@ -515,6 +682,7 @@ function go(name){
     if(name === "admin") renderAdmin();
 }
 
+/* ============ ADMIN PANEL ============ */
 function openAdminPanel(){
     if(!isAdmin()){ showToast("X", "Ban khong phai admin!", "error"); return; }
     if(!adminUnlocked){ openAdminPass(); return; }
@@ -537,6 +705,7 @@ function verifyAdminPass(){
     }
 }
 
+/* ============ AUTH ============ */
 function chipClick(){
     if(user()) go("acc");
     else openAuth();
@@ -558,16 +727,13 @@ function switchAuth(){
         $("aSubmit").textContent = "Đăng nhập";
     }
 }
-
 function validUsername(name){
     var re = /^[a-zA-Z0-9_]{3,20}$/;
     return re.test(name);
 }
-
 function submitAuth(){
     var username = $("aUser").value.trim();
     var pass = $("aPass").value;
-
     if(!validUsername(username)){
         showToast("X", "Ten tai khoan 3-20 ky tu, chi chu/so/gach duoi!", "error");
         return;
@@ -576,13 +742,10 @@ function submitAuth(){
         showToast("X", "Mat khau can it nhat 6 ky tu!", "error");
         return;
     }
-
     showLoading(true);
     $("aSubmit").disabled = true;
     $("aSubmit").textContent = "...";
-
-    if(!firebaseReady || !db) return;
-
+    if(!firebaseReady || !db){ showLoading(false); return; }
     db.ref("users/" + username).once("value").then(function(snap){
         var existing = snap.val();
         if(authMode === "register"){
@@ -594,12 +757,8 @@ function submitAuth(){
                 return;
             }
             var newUser = {
-                username: username,
-                password: pass,
-                balance: 0,
-                orders: {},
-                deposits: {},
-                createdAt: Date.now()
+                username: username, password: pass, balance: 0,
+                orders: {}, deposits: {}, createdAt: Date.now()
             };
             db.ref("users/" + username).set(newUser).then(function(){
                 finishLogin(username);
@@ -633,7 +792,6 @@ function submitAuth(){
         showToast("X", "Loi ket noi may chu!", "error");
     });
 }
-
 function finishLogin(username){
     showLoading(false);
     $("aSubmit").disabled = false;
@@ -646,7 +804,6 @@ function finishLogin(username){
     var msg = authMode === "register" ? "Dang ky thanh cong!" : "Dang nhap thanh cong!";
     showToast("OK", msg, "success");
 }
-
 function doLogout(){
     if(!confirm("Dang xuat?")) return;
     cur = "";
@@ -656,6 +813,7 @@ function doLogout(){
     go("shop");
 }
 
+/* ============ ĐỔI MẬT KHẨU ============ */
 function openChangePass(){
     $("passModal").classList.add("on");
     $("oldPass").value = "";
@@ -678,6 +836,7 @@ function submitChangePass(){
     showToast("OK", "Doi mat khau thanh cong!", "success");
 }
 
+/* ============ NẠP ============ */
 var amtInput = $("amt");
 amtInput.oninput = function(e){
     var v = e.target.value.replace(/\D/g, "");
@@ -739,6 +898,7 @@ function cancelDeposit(ask){
     $("timer").textContent = "10:00";
 }
 
+/* ============ MUA ============ */
 function buy(id){
     if(!user()){ openAuth(); showToast("!", "Vui long dang nhap!", "error"); return; }
     var p = null;
@@ -777,6 +937,7 @@ function viewOrderInHistory(){
     showToast("OK", "Da chuyen den Don hang!", "success");
 }
 
+/* ============ ADMIN ACTIONS ============ */
 function checkAdmin(){
     if(!isAdmin()){ showToast("X", "Ban khong phai admin!", "error"); return false; }
     if(!adminUnlocked){ showToast("X", "Chua xac thuc!", "error"); return false; }
@@ -859,6 +1020,7 @@ function clearAllUsers(){
     });
 }
 
+/* ============ RENDER ============ */
 function renderProducts(){
     var box = $("products");
     if(!box) return;
@@ -884,7 +1046,6 @@ function renderProducts(){
     }
     box.innerHTML = html;
 }
-
 function renderNotice(){
     var n = $("notice");
     if(!n) return;
@@ -895,7 +1056,6 @@ function renderNotice(){
         n.style.display = "none";
     }
 }
-
 function renderOrders(){
     var u = user();
     var ob = $("orders");
@@ -920,7 +1080,6 @@ function renderOrders(){
     }
     ob.innerHTML = html;
 }
-
 function renderProfile(){
     var u = user();
     if(!u){
@@ -947,14 +1106,12 @@ function renderProfile(){
         $("pJoined").textContent = "";
     }
 }
-
-function renderAdminCorner(){
-    var c = $("adminCorner");
+function renderAdminFab(){
+    var c = $("adminFab");
     if(!c) return;
     if(isAdmin()) c.classList.add("on");
     else c.classList.remove("on");
 }
-
 function renderAdmin(){
     if(!isAdmin() || !adminUnlocked) return;
     var pl = $("productList");
@@ -1007,16 +1164,14 @@ function renderAdmin(){
         }
     }
 }
-
 function renderAll(){
     renderProducts();
     renderNotice();
     renderOrders();
     renderProfile();
-    renderAdminCorner();
+    renderAdminFab();
     checkApprovedNotification();
 }
-
 function checkApprovedNotification(){
     var u = user();
     if(!u || !u.deposits) return;
@@ -1031,7 +1186,6 @@ function checkApprovedNotification(){
         }
     }
 }
-
 function toggleDepHistory(){
     var el = $("depHistory");
     var arw = $("depArrow");
@@ -1065,6 +1219,7 @@ function toggleDepHistory(){
     }
 }
 
+/* ============ START ============ */
 go("shop");
 startFirebaseSync();
 
