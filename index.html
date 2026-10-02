@@ -346,7 +346,7 @@ function waitForFirebase(cb, r){
 }
 
 waitForFirebase(function(){
-    var firebaseConfig = { databaseURL: "https://samm-shop-default-rtdb.firebaseio.com" };
+    var firebaseConfig = { databaseURL: "https://samm-37427-default-rtdb.firebaseio.com/" };
     firebase.initializeApp(firebaseConfig);
     var db = firebase.database();
 
@@ -370,12 +370,22 @@ waitForFirebase(function(){
         });
     }
 
+    // Kiem tra mat khau manh - KHONG dung regex, KHONG dung ?.
     function isStrongPass(p){
-        if(p.length < 6) return false;
-        if(!/[a-z]/.test(p)) return false;
-        if(!/[A-Z]/.test(p)) return false;
-        if(!/[0-9]/.test(p)) return false;
-        if(!/[!@#$%^&*(),.?":{}|<>_\-\[\]\\\/~`+=;']/.test(p)) return false;
+        if(!p || p.length < 6) return false;
+        var hasLower = false, hasUpper = false, hasNumber = false, hasSpecial = false;
+        var specialChars = "!@#$%^&*(),.?\":{}|<>_-[]/~`+=;'";
+        for(var i = 0; i < p.length; i++){
+            var c = p.charAt(i);
+            if(c >= "a" && c <= "z") hasLower = true;
+            else if(c >= "A" && c <= "Z") hasUpper = true;
+            else if(c >= "0" && c <= "9") hasNumber = true;
+            else if(specialChars.indexOf(c) !== -1) hasSpecial = true;
+        }
+        if(!hasLower) return false;
+        if(!hasUpper) return false;
+        if(!hasNumber) return false;
+        if(!hasSpecial) return false;
         return true;
     }
 
@@ -394,15 +404,11 @@ waitForFirebase(function(){
     function currentUser(){ return (cur && users[cur]) ? users[cur] : null; }
     function isAdmin(){ return cur === ADMIN_USER; }
 
-    // Hiện nút admin mini nếu là thiết bị của admin
     function updateAdminMini(){
         var btn = el("adminMini");
         if(!btn) return;
-        if(localStorage.getItem("isAdminDevice") === "yes"){
-            btn.classList.add("show");
-        } else {
-            btn.classList.remove("show");
-        }
+        if(localStorage.getItem("isAdminDevice") === "yes"){ btn.classList.add("show"); }
+        else { btn.classList.remove("show"); }
     }
 
     function go(name){
@@ -420,10 +426,7 @@ waitForFirebase(function(){
     }
 
     function openAdminPanel(){
-        if(localStorage.getItem("isAdminDevice") !== "yes"){
-            alert("Ban khong co quyen!");
-            return;
-        }
+        if(localStorage.getItem("isAdminDevice") !== "yes"){ alert("Ban khong co quyen!"); return; }
         if(!isAdmin()){ alert("Vui long dang nhap bang tai khoan admin!"); return; }
         if(!adminUnlocked){ el("adminPassModal").classList.add("on"); el("adminPassInput").value = ""; return; }
         go("admin");
@@ -447,15 +450,12 @@ waitForFirebase(function(){
             if(logoTapCount >= 5){
                 logoTapCount = 0;
                 if(logoTapTimer) clearTimeout(logoTapTimer);
-                // Kích hoạt thiết bị này là thiết bị admin
                 var code = prompt("Nhap ma kich hoat thiet bi Admin:");
                 if(code === "SAMM2026"){
                     localStorage.setItem("isAdminDevice", "yes");
                     updateAdminMini();
                     showToast("OK", "Da kich hoat thiet bi Admin!", "success");
-                } else {
-                    alert("Ma kich hoat sai!");
-                }
+                } else { alert("Ma kich hoat sai!"); }
             }
         });
     }
@@ -470,11 +470,8 @@ waitForFirebase(function(){
     }
     function closeAuth(){ el("authModal").classList.remove("on"); }
     function switchAuth(){
-        if(authMode === "login"){
-            authMode = "register"; el("aTitle").textContent = "Dang ky"; el("aSubmit").textContent = "Dang ky";
-        } else {
-            authMode = "login"; el("aTitle").textContent = "Dang nhap"; el("aSubmit").textContent = "Dang nhap";
-        }
+        if(authMode === "login"){ authMode = "register"; el("aTitle").textContent = "Dang ky"; el("aSubmit").textContent = "Dang ky"; }
+        else { authMode = "login"; el("aTitle").textContent = "Dang nhap"; el("aSubmit").textContent = "Dang nhap"; }
     }
 
     function submitAuth(){
