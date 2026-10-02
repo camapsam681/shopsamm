@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SAMM SHOP</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Arial,sans-serif;-webkit-tap-highlight-color:transparent}
+body{background:#f5f7fa;color:#1f2937;padding-bottom:110px;min-height:100vh}
+header{position:sticky;top:0;background:rgba(255,255,255,.95);backdrop-filter:blur(20px);border-bottom:1px solid #e5e7eb;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;z-index:10}
+.logo{color:#0d9488;font-weight:900;font-size:15px;display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none}
+.logo i{width:34px;height:34px;background:linear-gradient(135deg,#5eead4,#0d9488);border-radius:10px;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:17px}
+.header-right{display:flex;align-items:center;gap:8px}
+.chip{display:flex;align-items:center;gap:8px;background:#f0fdfa;border:1px solid #99f6e4;border-radius:14px;padding:5px 5px 5px 12px;cursor:pointer}
+.chip .name{font-weight:800;color:#0f766e;font-size:12px}
+.chip .bal{color:#0d9488;font-size:11px;font-weight:700}
+.chip .av{width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900}
+.admin-mini{display:none;width:26px;height:26px;border-radius:8px;background:#ef4444;color:#fff;align-items:center;justify-content:center;font-size:12px;cursor:pointer;border:0}
+.admin-mini.show{display:flex}
+main{padding:16px}
+.title{display:flex;align-items:center;gap:10px;color:#111827;font-size:22px;font-weight:900;text-transform:uppercase;margin:8px 0 18px}
+.title::before{content:"";width:38px;height:34px;border:2.5px solid #0d9488;border-radius:10px;flex-shrink:0;background:linear-gradient(135deg,#ccfbf1,transparent)}
+.card{background:#fff;border:1px solid #e5e7eb;border-radius:18px;padding:18px;margin-bottom:14px}
+label{color:#0d9488;font-size:11px;font-weight:800;text-transform:uppercase;display:block;margin-bottom:8px}
+input,textarea{width:100%;padding:14px;background:#f9fafb;border:1.5px solid #e5e7eb;border-radius:12px;color:#111827;outline:none;font-family:inherit;font-size:14px;margin-bottom:10px}
+input:focus,textarea:focus{border-color:#0d9488;background:#fff}
+textarea{resize:vertical;min-height:60px}
+.amt{position:relative;margin-bottom:14px}
+.amt input{padding:20px 50px 20px 18px;font-size:24px;font-weight:800;margin:0;color:#0d9488}
+.amt span{position:absolute;right:18px;top:50%;transform:translateY(-50%);color:#0d9488;font-size:22px;font-weight:900}
+.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
+.quick button{padding:14px 2px;background:#f9fafb;border:1.5px solid #e5e7eb;border-radius:12px;color:#6b7280;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit}
+.quick button.on{border-color:#0d9488;color:#0d9488;background:#f0fdfa}
+.create{width:100%;padding:16px;background:linear-gradient(135deg,#14b8a6,#0d9488);border:0;border-radius:14px;color:#fff;font-size:14px;font-weight:900;cursor:pointer;font-family:inherit;text-transform:uppercase;letter-spacing:1px}
+.create.red{background:linear-gradient(135deg,#ef4444,#dc2626)}
+.warn{margin-top:16px;padding:16px;background:#fffbeb;border:1px solid #fde68a;border-left:3px solid #f59e0b;border-radius:14px}
+.warn h3{color:#b45309;font-size:12px;font-weight:900;text-transform:uppercase;margin-bottom:12px}
+.warn li{color:#78716c;font-size:12px;line-height:1.6;padding-left:14px;position:relative;margin-bottom:8px;list-style:none}
+.warn li::before{content:"";position:absolute;left:0;top:7px;width:5px;height:5px;background:#f59e0b;border-radius:50%}
+.qr{background:#fff;border:1px solid #e5e7eb;border-radius:18px;padding:22px;text-align:center}
+.qr img{background:#fff;padding:16px;border-radius:14px;width:100%;max-width:240px;border:2px solid #0d9488;margin-bottom:16px}
+.timer{font-size:44px;font-weight:900;letter-spacing:4px;color:#0d9488;margin:8px 0}
+.timer-lb{color:#6b7280;font-size:10px;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px}
+.cancel{width:100%;padding:14px;background:#fef2f2;border:1.5px solid #fecaca;border-radius:12px;color:#dc2626;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit}
+.info{color:#6b7280;font-size:11px;line-height:1.6;margin-top:14px;padding:12px;background:#f9fafb;border-radius:12px}
+.info b{color:#0d9488}
+nav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.98);backdrop-filter:blur(20px);border-top:1px solid #e5e7eb;display:grid;grid-template-columns:repeat(5,1fr);z-index:100;padding:6px 0}
+nav button{background:none;border:0;color:#9ca3af;font-size:9px;font-weight:800;padding:6px 2px;cursor:pointer;font-family:inherit;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:3px}
+nav button svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2}
+nav button.on{color:#0d9488}
+.page{display:none}
+.page.on{display:block}
+#p-acc{position:relative;padding-bottom:20px}
+.empty{padding:50px 20px;text-align:center;color:#9ca3af;font-size:13px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:18px;z-index:500}
+.modal.on{display:flex}
+.mbox{background:#fff;border:1px solid #e5e7eb;border-radius:20px;padding:24px;width:100%;max-width:400px;max-height:90vh;overflow-y:auto}
+.mbox h2{color:#0d9488;font-size:17px;text-transform:uppercase;margin-bottom:16px}
+.mbox input{background:#f9fafb;border:1.5px solid #e5e7eb;border-radius:12px}
+.btns{display:flex;gap:8px;margin-top:6px}
+.btns button{flex:1;padding:12px;border:0;border-radius:12px;font-weight:800;cursor:pointer;font-family:inherit;font-size:12px;text-transform:uppercase}
+.bt{background:linear-gradient(135deg,#14b8a6,#0d9488);color:#fff}
+.bd{background:#f3f4f6;color:#374151}
+.profile-head{text-align:center;padding:22px 0 18px;border-bottom:1px solid #e5e7eb;margin-bottom:18px}
+.big-av{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#fff;font-size:32px;font-weight:900;display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
+.profile-head .email{color:#0d9488;font-size:13px;font-weight:700;margin-bottom:4px}
+.profile-head .joined{color:#9ca3af;font-size:10px}
+.stat-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.stat{background:#f9fafb;border:1px solid #e5e7eb;border-radius:14px;padding:16px;text-align:center}
+.stat .lb{color:#6b7280;font-size:10px;text-transform:uppercase;margin-bottom:6px;font-weight:800}
+.stat .vl{color:#0d9488;font-size:20px;font-weight:900}
+.menu-item{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:14px;margin-bottom:8px;cursor:pointer;font-size:13px;font-weight:600;color:#374151}
+.menu-item .ico{margin-right:10px}
+.menu-item .arw{color:#9ca3af}
+.dep-item{background:#f9fafb;border:1px solid #e5e7eb;border-radius:12px;padding:12px 14px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;font-size:12px}
+.dep-item .st{font-size:10px;padding:3px 8px;border-radius:6px;font-weight:800;text-transform:uppercase}
+.st.wait{background:#fef3c7;color:#92400e}
+.st.done{background:#dcfce7;color:#166534}
+.st.cancel{background:#fee2e2;color:#991b1b}
+.notice-box{padding:14px;background:#f0fdfa;border:1px solid #99f6e4;color:#0f766e;border-radius:14px;margin-bottom:14px;font-size:12px;font-weight:600}
+.products-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.product{background:#fff;border:1px solid #e5e7eb;border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+.product .img-wrap{position:relative;aspect-ratio:1.3;overflow:hidden;background:#f3f4f6}
+.product img{width:100%;height:100%;object-fit:cover;display:block}
+.product .badge{position:absolute;top:8px;left:8px;background:linear-gradient(135deg,#14b8a6,#0d9488);color:#fff;padding:3px 8px;border-radius:8px;font-size:9px;font-weight:900;text-transform:uppercase}
+.product-body{padding:12px;display:flex;flex-direction:column;flex:1}
+.product-title{font-size:12px;font-weight:800;color:#111827;margin-bottom:4px;line-height:1.3}
+.product-desc{color:#6b7280;font-size:10px;margin-bottom:8px;line-height:1.3;flex:1}
+.product-price{color:#0d9488;font-weight:900;font-size:14px;margin-bottom:8px}
+.buy{width:100%;border:0;padding:14px;border-radius:10px;background:linear-gradient(135deg,#14b8a6,#0d9488);color:#fff;font-weight:900;cursor:pointer;font-family:inherit;font-size:12px;text-transform:uppercase;display:block;position:relative;z-index:5}
+.order-card{background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.order-card .o-name{color:#111827;font-weight:700;font-size:12px;margin-bottom:4px}
+.order-card .o-time{color:#9ca3af;font-size:10px}
+.order-card .o-price{color:#0d9488;font-weight:900;font-size:13px;text-align:right}
+.social-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.social-card{background:#fff;border:1px solid #e5e7eb;border-radius:18px;padding:24px 14px;display:flex;flex-direction:column;align-items:center;gap:10px;text-decoration:none}
+.social-icon{width:60px;height:60px;border-radius:18px;display:flex;align-items:center;justify-content:center}
+.social-card.discord .social-icon{background:linear-gradient(135deg,#5865F2,#4752C4)}
+.social-card.zalo .social-icon{background:linear-gradient(135deg,#0068FF,#0047B3)}
+.social-icon svg{width:32px;height:32px;fill:#fff}
+.social-name{font-size:13px;font-weight:900;color:#111827;text-transform:uppercase}
+.social-sub{font-size:10px;color:#9ca3af}
+.admin-item{display:flex;align-items:center;gap:10px;padding:10px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:12px;margin-bottom:6px}
+.admin-item img{width:44px;height:44px;object-fit:cover;border-radius:10px;background:#e5e7eb}
+.admin-item .info{flex:1;min-width:0}
+.admin-item .n{font-weight:700;font-size:12px;color:#111827;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.admin-item .p{color:#0d9488;font-size:11px;font-weight:700}
+.admin-item .del{background:#ef4444;color:#fff;border:0;width:30px;height:30px;border-radius:10px;cursor:pointer;font-weight:900}
+.dep-approve{background:#f9fafb;border:1px solid #e5e7eb;border-radius:12px;padding:12px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;font-size:12px;gap:8px}
+.dep-approve .amt{color:#0d9488;font-weight:900;font-size:14px}
+.dep-approve .email{color:#6b7280;font-size:10px}
+.dep-approve button{border:0;padding:6px 12px;border-radius:8px;font-weight:800;cursor:pointer;font-size:11px;margin-left:4px}
+.btn-ok{background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff}
+.btn-no{background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff}
+.lock-icon{font-size:52px;text-align:center;margin-bottom:14px}
+.toast{position:fixed;top:20px;left:50%;transform:translate(-50%,-200%);background:linear-gradient(135deg,#14b8a6,#0d9488);color:#fff;padding:16px 22px;border-radius:16px;font-weight:900;font-size:13px;z-index:9999;transition:transform .4s;display:flex;align-items:center;gap:12px;max-width:90%}
+.toast.show{transform:translate(-50%,0)}
+.toast.success{background:linear-gradient(135deg,#22c55e,#16a34a)}
+.toast.error{background:linear-gradient(135deg,#ef4444,#dc2626)}
+.toast.notify{background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#000}
+.toast .toast-icon{font-size:26px;flex-shrink:0}
+.toast .toast-text{flex:1}
+.order-success-box{text-align:center;padding:8px 0 16px}
+.order-success-icon{width:84px;height:84px;border-radius:50%;background:linear-gradient(135deg,#22c55e,#16a34a);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:44px;color:#fff}
+.order-success-box h2{color:#16a34a;font-size:20px;margin-bottom:6px;text-transform:uppercase}
+.order-success-box p{color:#6b7280;font-size:12px}
+.order-detail{background:#f9fafb;border:1px solid #e5e7eb;border-radius:14px;padding:14px;margin:16px 0}
+.order-detail-row{display:flex;justify-content:space-between;padding:8px 0;font-size:13px;border-bottom:1px solid #e5e7eb}
+.order-detail-row:last-child{border-bottom:0}
+.order-detail-row .lbl{color:#6b7280}
+.order-detail-row .val{color:#111827;font-weight:700;text-align:right}
+.order-detail-row .val.price{color:#0d9488;font-size:16px}
+.btn-full{width:100%;padding:14px;border:0;border-radius:12px;font-weight:900;cursor:pointer;font-family:inherit;font-size:13px;text-transform:uppercase;margin-top:8px}
+.btn-view-order{background:linear-gradient(135deg,#14b8a6,#0d9488);color:#fff}
+.btn-open-link{background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff}
+.btn-close-modal{background:#f3f4f6;color:#374151}
+@media(max-width:380px){.products-grid{grid-template-columns:1fr}.social-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<audio id="bgMusic" src="https://files.catbox.moe/cxjo25.mp3" loop preload="auto"></audio>
+
+<div class="toast" id="toast">
+<div class="toast-icon" id="toastIcon">✓</div>
+<div class="toast-text" id="toastText"></div>
+</div>
+
+<header>
+<div class="logo" id="secretLogo"><i>🎮</i>SAMM SHOP</div>
+<div class="header-right">
+<button class="admin-mini" id="adminMini" onclick="openAdminPanel()">🛡️</button>
+<div class="chip" onclick="chipClick()">
+<div><div class="name" id="cName">Đăng nhập</div><div class="bal" id="cBal">0 VND</div></div>
+<div class="av" id="cAv">?</div>
+</div>
+</div>
+</header>
+
+<main>
+<div class="page on" id="p-shop">
+<div class="title">Shop</div>
+<div class="products-grid" id="products"></div>
+</div>
+
+<div class="page" id="p-nap">
+<div id="notice" class="notice-box" style="display:none"></div>
+<div id="form">
+<div class="title">Nạp tiền</div>
+<div class="card">
+<label>Số tiền cần nạp (VND)</label>
+<div class="amt">
+<input id="amt" inputmode="numeric" value="50.000">
+<span>₫</span>
+</div>
+<div class="quick">
+<button data-a="50000" class="on">50k</button>
+<button data-a="100000">100k</button>
+<button data-a="200000">200k</button>
+<button data-a="500000">500k</button>
+</div>
+<button class="create" onclick="createDeposit()">Tạo yêu cầu nạp</button>
+</div>
+</div>
+<div id="qr" style="display:none">
+<div class="title">Nạp tiền</div>
+<div class="qr">
+<img src="https://files.catbox.moe/7e2kkm.png" alt="QR">
+<div class="timer" id="timer">10:00</div>
+<div class="timer-lb">Phiên chờ xác nhận</div>
+<button class="cancel" onclick="cancelDeposit(true)">Hủy yêu cầu nạp</button>
+<div class="info"><b>Số tiền: <span id="qrAmt"></span></b><br>Quét QR để chuyển khoản.</div>
+</div>
+</div>
+<div class="warn" id="warn">
+<h3>Lưu ý quan trọng</h3>
+<ul>
+<li>Số dư chỉ được cộng sau khi xác nhận.</li>
+<li>Không tạo nhiều yêu cầu cùng lúc.</li>
+<li>Liên hệ hỗ trợ nếu chưa được cộng.</li>
+</ul>
+</div>
+</div>
+
+<div class="page" id="p-don">
+<div class="title">Đơn hàng</div>
+<div id="orders"></div>
+</div>
+
+<div class="page" id="p-box">
+<div class="title">Box</div>
+<div class="card" style="text-align:center;margin-bottom:14px">
+<h3 style="color:#111827;font-size:14px;margin-bottom:6px">Tham gia cộng đồng</h3>
+<p style="color:#6b7280;font-size:12px">Nhấn Discord hoặc Zalo để tham gia</p>
+</div>
+<div class="social-grid">
+<a href="https://discord.gg/AMVw7aF35" target="_blank" class="social-card discord">
+<div class="social-icon"><svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg></div>
+<div class="social-name">Discord</div>
+<div class="social-sub">Group chat</div>
+</a>
+<a href="https://zalo.me/g/wqnmgz1abybxpub2p9w9" target="_blank" class="social-card zalo">
+<div class="social-icon"><svg viewBox="0 0 24 24"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/></svg></div>
+<div class="social-name">Zalo</div>
+<div class="social-sub">Hỗ trợ 24/7</div>
+</a>
+</div>
+</div>
+
+<div class="page" id="p-acc">
+<div class="title">Tài khoản</div>
+<div id="guestView">
+<div class="empty">Vui lòng đăng nhập.</div>
+<button class="create" onclick="openAuth()">Đăng nhập / Đăng ký</button>
+</div>
+<div id="profileView" style="display:none">
+<div class="card">
+<div class="profile-head">
+<div class="big-av" id="pAv">?</div>
+<div class="email" id="pEmail"></div>
+<div class="joined" id="pJoined"></div>
+</div>
+<div class="stat-row">
+<div class="stat"><div class="lb">Số dư</div><div class="vl" id="pBal">0 đ</div></div>
+<div class="stat"><div class="lb">Đơn hàng</div><div class="vl" id="pOrderCount">0</div></div>
+</div>
+<div class="menu-item" onclick="toggleDepHistory()"><span><span class="ico">💰</span>Lịch sử nạp</span><span class="arw" id="depArrow">▼</span></div>
+<div id="depHistory" style="display:none;margin-bottom:8px"></div>
+<div class="menu-item" onclick="openChangePass()"><span><span class="ico">🔒</span>Đổi mật khẩu</span><span class="arw">›</span></div>
+<div class="menu-item" onclick="doLogout()" style="color:#ef4444"><span><span class="ico">🚪</span>Đăng xuất</span><span class="arw">›</span></div>
+</div>
+</div>
+</div>
+
+<div class="page" id="p-admin">
+<div class="title">Admin Panel</div>
+<div class="card">
+<h3 style="color:#0d9488;font-size:13px;text-transform:uppercase;margin-bottom:14px">Thêm sản phẩm</h3>
+<label>Tên sản phẩm</label>
+<input id="pName" placeholder="VD: Acc Free Fire VIP">
+<label>Mô tả</label>
+<textarea id="pDesc" placeholder="Mô tả..."></textarea>
+<label>Giá (VND)</label>
+<input id="pPrice" type="number" placeholder="50000">
+<label>Ảnh (URL)</label>
+<input id="pImage" placeholder="https://...">
+<label>Link giao hàng</label>
+<input id="pUrl" placeholder="https://...">
+<button class="create" onclick="addProduct()">Đẩy lên Shop</button>
+</div>
+<div class="card">
+<h3 style="color:#0d9488;font-size:13px;text-transform:uppercase;margin-bottom:14px">Danh sách sản phẩm</h3>
+<div id="productList"></div>
+</div>
+<div class="card">
+<h3 style="color:#0d9488;font-size:13px;text-transform:uppercase;margin-bottom:14px">Thông báo</h3>
+<input id="nText" placeholder="Nội dung...">
+<div class="btns">
+<button class="bt" onclick="setNotice()">Gửi</button>
+<button class="bd" onclick="clearNotice()">Xóa</button>
+</div>
+</div>
+<div class="card">
+<h3 style="color:#0d9488;font-size:13px;text-transform:uppercase;margin-bottom:14px">Duyệt nạp</h3>
+<div id="depositList"></div>
+</div>
+<div class="card">
+<h3 style="color:#ef4444;font-size:13px;text-transform:uppercase;margin-bottom:14px">Nguy hiểm</h3>
+<button class="create red" onclick="clearAllProducts()" style="margin-bottom:8px">Xóa tất cả sản phẩm</button>
+<button class="create red" onclick="clearAllUsers()">Xóa tất cả users</button>
+</div>
+</div>
+</main>
+
+<nav>
+<button data-p="shop" class="on" onclick="go('shop')"><svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>SHOP</button>
+<button data-p="nap" onclick="go('nap')"><svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>NẠP</button>
+<button data-p="don" onclick="go('don')"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg>ĐƠN</button>
+<button data-p="box" onclick="go('box')"><svg viewBox="0 0 24 24"><path d="M14.5 17.5 3 6V3h3l11.5 11.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/><line x1="19" y1="21" x2="21" y2="19"/></svg>BOX</button>
+<button data-p="acc" onclick="go('acc')"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>TÀI KHOẢN</button>
+</nav>
+
+<div class="modal" id="authModal"><div class="mbox">
+<h2 id="aTitle">Đăng nhập</h2>
+<input id="aUser" type="text" placeholder="Tên đăng nhập">
+<input id="aPass" type="password" placeholder="Mật khẩu (>= 6 ký tự, có HOA, thường, số, ký tự đặc biệt)">
+<div class="btns"><button class="bt" id="aSubmit" onclick="submitAuth()">Đăng nhập</button><button class="bd" onclick="switchAuth()">Đổi</button><button class="bd" onclick="closeAuth()">Đóng</button></div>
+</div></div>
+
+<div class="modal" id="passModal"><div class="mbox">
+<h2>Đổi mật khẩu</h2>
+<input id="oldPass" type="password" placeholder="Mật khẩu hiện tại">
+<input id="newPass" type="password" placeholder="Mật khẩu mới">
+<input id="newPass2" type="password" placeholder="Nhập lại">
+<div class="btns"><button class="bt" onclick="submitChangePass()">Xác nhận</button><button class="bd" onclick="closeChangePass()">Đóng</button></div>
+</div></div>
+
+<div class="modal" id="adminPassModal"><div class="mbox">
+<div class="lock-icon">🔐</div>
+<h2 style="text-align:center">Nhập mật khẩu Admin</h2>
+<input id="adminPassInput" type="password" placeholder="Mật khẩu admin">
+<div class="btns"><button class="bt" onclick="verifyAdminPass()">Xác nhận</button><button class="bd" onclick="closeAdminPass()">Đóng</button></div>
+</div></div>
+
+<div class="modal" id="orderModal"><div class="mbox">
+<div class="order-success-box"><div class="order-success-icon">✓</div><h2>Mua thành công!</h2><p>Cảm ơn bạn đã mua hàng</p></div>
+<div class="order-detail">
+<div class="order-detail-row"><span class="lbl">Sản phẩm</span><span class="val" id="odName">-</span></div>
+<div class="order-detail-row"><span class="lbl">Giá</span><span class="val price" id="odPrice">-</span></div>
+<div class="order-detail-row"><span class="lbl">Thời gian</span><span class="val" id="odTime">-</span></div>
+<div class="order-detail-row"><span class="lbl">Mã đơn</span><span class="val" id="odCode">-</span></div>
+</div>
+<button class="btn-full btn-open-link" id="odLinkBtn" onclick="openOrderLink()" style="display:none">Mở link giao hàng</button>
+<button class="btn-full btn-view-order" onclick="viewOrderInHistory()">Xem trong Đơn hàng</button>
+<button class="btn-full btn-close-modal" onclick="closeOrderModal()">Đóng</button>
+</div></div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<script>
+function waitForFirebase(cb, r){
+    r = r || 0;
+    if(typeof firebase !== 'undefined' && firebase.database){ cb(); }
+    else if(r < 50){ setTimeout(function(){ waitForFirebase(cb, r+1); }, 100); }
+    else { alert("Khong tai duoc Firebase!"); }
+}
+
+waitForFirebase(function(){
+    var firebaseConfig = { databaseURL: "https://samm-shop-default-rtdb.firebaseio.com" };
+    firebase.initializeApp(firebaseConfig);
+    var db = firebase.database();
+
+    var ADMIN_USER = "admin";
+    var ADMIN_PASSWORD = "Admin@123";
+    var users = {}, products = [], notices = [];
+    var cur = "", deposit = null, timerId = null;
+    var authMode = "login", adminUnlocked = false;
+    var currentOrderUrl = "";
+
+    function el(id){ return document.getElementById(id); }
+    function money(v){ return Number(v||0).toLocaleString("vi-VN")+" d"; }
+    function esc(v){
+        return String(v == null ? "" : v).replace(/[&<>"']/g, function(c){
+            if(c === "&") return "&amp;";
+            if(c === "<") return "&lt;";
+            if(c === ">") return "&gt;";
+            if(c === '"') return "&quot;";
+            if(c === "'") return "&#39;";
+            return c;
+        });
+    }
+
+    function isStrongPass(p){
+        if(p.length < 6) return false;
+        if(!/[a-z]/.test(p)) return false;
+        if(!/[A-Z]/.test(p)) return false;
+        if(!/[0-9]/.test(p)) return false;
+        if(!/[!@#$%^&*(),.?":{}|<>_\-\[\]\\\/~`+=;']/.test(p)) return false;
+        return true;
+    }
+
+    function showToast(icon, text, type){
+        var t = el("toast");
+        el("toastIcon").textContent = icon;
+        el("toastText").innerHTML = text;
+        t.className = "toast";
+        if(type === "success") t.classList.add("success");
+        else if(type === "error") t.classList.add("error");
+        else if(type === "notify") t.classList.add("notify");
+        setTimeout(function(){ t.classList.add("show"); }, 50);
+        setTimeout(function(){ t.classList.remove("show"); }, 5000);
+    }
+
+    function currentUser(){ return (cur && users[cur]) ? users[cur] : null; }
+    function isAdmin(){ return cur === ADMIN_USER; }
+
+    // Hiện nút admin mini nếu là thiết bị của admin
+    function updateAdminMini(){
+        var btn = el("adminMini");
+        if(!btn) return;
+        if(localStorage.getItem("isAdminDevice") === "yes"){
+            btn.classList.add("show");
+        } else {
+            btn.classList.remove("show");
+        }
+    }
+
+    function go(name){
+        if(name === "admin" && (!isAdmin() || !adminUnlocked)) name = "shop";
+        var pages = document.querySelectorAll(".page");
+        for(var i=0;i<pages.length;i++) pages[i].classList.remove("on");
+        var btns = document.querySelectorAll("nav button");
+        for(var j=0;j<btns.length;j++) btns[j].classList.remove("on");
+        var page = el("p-" + name);
+        if(page) page.classList.add("on");
+        var btn = document.querySelector("nav button[data-p='" + name + "']");
+        if(btn) btn.classList.add("on");
+        window.scrollTo(0, 0);
+        if(name === "admin") renderAdmin();
+    }
+
+    function openAdminPanel(){
+        if(localStorage.getItem("isAdminDevice") !== "yes"){
+            alert("Ban khong co quyen!");
+            return;
+        }
+        if(!isAdmin()){ alert("Vui long dang nhap bang tai khoan admin!"); return; }
+        if(!adminUnlocked){ el("adminPassModal").classList.add("on"); el("adminPassInput").value = ""; return; }
+        go("admin");
+    }
+    function closeAdminPass(){ el("adminPassModal").classList.remove("on"); }
+    function verifyAdminPass(){
+        if(el("adminPassInput").value === ADMIN_PASSWORD){
+            adminUnlocked = true; closeAdminPass();
+            showToast("OK", "Xac thuc thanh cong!", "success");
+            setTimeout(function(){ go("admin"); }, 800);
+        } else { alert("Mat khau admin sai!"); el("adminPassInput").value = ""; }
+    }
+
+    var logoTapCount = 0, logoTapTimer = null;
+    var secretLogoEl = el("secretLogo");
+    if(secretLogoEl){
+        secretLogoEl.addEventListener("click", function(){
+            logoTapCount++;
+            if(logoTapTimer) clearTimeout(logoTapTimer);
+            logoTapTimer = setTimeout(function(){ logoTapCount = 0; }, 2000);
+            if(logoTapCount >= 5){
+                logoTapCount = 0;
+                if(logoTapTimer) clearTimeout(logoTapTimer);
+                // Kích hoạt thiết bị này là thiết bị admin
+                var code = prompt("Nhap ma kich hoat thiet bi Admin:");
+                if(code === "SAMM2026"){
+                    localStorage.setItem("isAdminDevice", "yes");
+                    updateAdminMini();
+                    showToast("OK", "Da kich hoat thiet bi Admin!", "success");
+                } else {
+                    alert("Ma kich hoat sai!");
+                }
+            }
+        });
+    }
+
+    function chipClick(){ if(currentUser()) go("acc"); else openAuth(); }
+    function openAuth(){
+        el("authModal").classList.add("on");
+        el("aUser").value = ""; el("aPass").value = "";
+        authMode = "login";
+        el("aTitle").textContent = "Dang nhap";
+        el("aSubmit").textContent = "Dang nhap";
+    }
+    function closeAuth(){ el("authModal").classList.remove("on"); }
+    function switchAuth(){
+        if(authMode === "login"){
+            authMode = "register"; el("aTitle").textContent = "Dang ky"; el("aSubmit").textContent = "Dang ky";
+        } else {
+            authMode = "login"; el("aTitle").textContent = "Dang nhap"; el("aSubmit").textContent = "Dang nhap";
+        }
+    }
+
+    function submitAuth(){
+        var user = el("aUser").value.trim();
+        var pass = el("aPass").value;
+        if(!user || user.length < 3){ showToast("X", "Ten dang nhap >= 3 ky tu!", "error"); return; }
+        if(!isStrongPass(pass)){ showToast("X", "Mat khau phai >= 6 ky tu, gom chu HOA, thuong, so va ky tu dac biet!", "error"); return; }
+        db.ref('shopData/users').once('value').then(function(s){
+            var currentUsers = s.val() || {};
+            if(authMode === "register"){
+                if(currentUsers[user]){ showToast("X", "Ten dang nhap da ton tai!", "error"); return; }
+                currentUsers[user] = { email: user, password: pass, balance: 0, orders: [], deposits: [], createdAt: Date.now() };
+                db.ref('shopData/users').set(currentUsers).then(function(){
+                    users = currentUsers; cur = user;
+                    localStorage.setItem("sammCurrent", user);
+                    closeAuth(); renderAll(); go("shop");
+                    showToast("OK", "Dang ky thanh cong!", "success");
+                });
+            } else {
+                if(!currentUsers[user]){ showToast("X", "Tai khoan chua ton tai!", "error"); return; }
+                if(currentUsers[user].password !== pass){ showToast("X", "Sai mat khau!", "error"); return; }
+                users = currentUsers; cur = user;
+                localStorage.setItem("sammCurrent", user);
+                closeAuth(); renderAll(); go("shop");
+                showToast("OK", "Dang nhap thanh cong!", "success");
+            }
+        }).catch(function(){ showToast("X", "Khong ket noi duoc may chu!", "error"); });
+    }
+
+    function doLogout(){
+        if(!confirm("Dang xuat?")) return;
+        cur = ""; adminUnlocked = false;
+        localStorage.removeItem("sammCurrent");
+        renderAll(); go("shop");
+    }
+
+    function openChangePass(){ el("passModal").classList.add("on"); el("oldPass").value = ""; el("newPass").value = ""; el("newPass2").value = ""; }
+    function closeChangePass(){ el("passModal").classList.remove("on"); }
+    function submitChangePass(){
+        var u = currentUser(); if(!u) return;
+        var o = el("oldPass").value, n = el("newPass").value, n2 = el("newPass2").value;
+        if(o !== u.password){ alert("Mat khau hien tai sai"); return; }
+        if(!isStrongPass(n)){ alert("Mat khau moi phai >= 6 ky tu, gom HOA, thuong, so, ky tu dac biet"); return; }
+        if(n !== n2){ alert("Nhap lai khong khop"); return; }
+        db.ref('shopData/users/' + cur + '/password').set(n).then(function(){
+            users[cur].password = n;
+            closeChangePass();
+            showToast("OK", "Doi mat khau thanh cong!", "success");
+        });
+    }
+
+    var amtInput = el("amt");
+    if(amtInput){
+        amtInput.oninput = function(e){ var v = e.target.value.replace(/\D/g, ""); e.target.value = v ? Number(v).toLocaleString("vi-VN") : ""; };
+    }
+    var qbs = document.querySelectorAll(".quick button");
+    for(var qi=0; qi<qbs.length; qi++){
+        qbs[qi].onclick = function(){
+            for(var j=0;j<qbs.length;j++) qbs[j].classList.remove("on");
+            this.classList.add("on");
+            amtInput.value = Number(this.dataset.a).toLocaleString("vi-VN");
+        };
+    }
+    function createDeposit(){
+        if(!currentUser()){ openAuth(); return; }
+        if(deposit){ alert("Dang co phien nap!"); return; }
+        var amt = Number(amtInput.value.replace(/\D/g, ""));
+        if(amt < 10000){ alert("Toi thieu 10.000 d"); return; }
+        if(amt > 50000000){ alert("Toi da 50.000.000 d"); return; }
+        deposit = { amount: amt, expiresAt: Date.now() + 600000 };
+        users[cur].deposits = users[cur].deposits || [];
+        users[cur].deposits.unshift({ amount: amt, status: "Cho xac nhan", time: Date.now() });
+        db.ref('shopData/users/' + cur + '/deposits').set(users[cur].deposits).then(function(){
+            el("qrAmt").textContent = money(amt);
+            el("form").style.display = "none"; el("warn").style.display = "none"; el("qr").style.display = "block";
+            startTimer();
+            showToast("OK", "Yeu cau nap da gui!", "info");
+        });
+    }
+    function startTimer(){
+        clearInterval(timerId); el("timer").style.color = "#0d9488"; tick();
+        timerId = setInterval(tick, 1000);
+    }
+    function tick(){
+        if(!deposit) return;
+        var r = Math.max(0, deposit.expiresAt - Date.now());
+        var m = Math.floor(r / 60000), s = Math.floor((r % 60000) / 1000);
+        el("timer").textContent = String(m).padStart(2, "0") + ":" + String(s).padStart(2, "0");
+        if(r <= 0){ clearInterval(timerId); el("timer").style.color = "#ef4444"; cancelDeposit(false); }
+    }
+    function cancelDeposit(ask){
+        if(ask && !confirm("Huy yeu cau nap?")) return;
+        clearInterval(timerId); timerId = null; deposit = null;
+        el("qr").style.display = "none"; el("form").style.display = "block"; el("warn").style.display = "block";
+        el("timer").style.color = "#0d9488"; el("timer").textContent = "10:00";
+    }
+
+    function buy(id){
+        if(!currentUser()){ openAuth(); showToast("!", "Vui long dang nhap!", "info"); return; }
+        var p = null;
+        for(var i=0;i<products.length;i++){ if(products[i].id === id){ p = products[i]; break; } }
+        if(!p){ alert("San pham khong ton tai!"); return; }
+        var price = Number(p.price || 0);
+        if(Number(users[cur].balance || 0) < price){
+            showToast("!", "So du khong du! Can " + money(price), "info");
+            setTimeout(function(){ go("nap"); }, 800);
+            return;
+        }
+        if(!confirm("Mua \"" + p.name + "\" voi gia " + money(price) + "?")) return;
+        var t = Date.now();
+        var code = "DH" + String(t).slice(-8);
+        users[cur].balance = Number(users[cur].balance || 0) - price;
+        users[cur].orders = users[cur].orders || [];
+        users[cur].orders.unshift({ name: p.name, price: price, time: t, code: code, url: p.url || "" });
+        db.ref('shopData/users/' + cur).update({ balance: users[cur].balance, orders: users[cur].orders }).then(function(){
+            renderAll();
+            currentOrderUrl = p.url || "";
+            el("odName").textContent = p.name; el("odPrice").textContent = money(price);
+            el("odTime").textContent = new Date(t).toLocaleString("vi-VN"); el("odCode").textContent = code;
+            if(p.url) el("odLinkBtn").style.display = "block"; else el("odLinkBtn").style.display = "none";
+            el("orderModal").classList.add("on");
+        });
+    }
+    function closeOrderModal(){ el("orderModal").classList.remove("on"); }
+    function openOrderLink(){ if(currentOrderUrl) window.open(currentOrderUrl, "_blank"); }
+    function viewOrderInHistory(){ closeOrderModal(); go("don"); showToast("OK", "Da chuyen den Don hang!", "success"); }
+
+    function checkAdmin(){ if(!isAdmin()){ alert("Ban khong phai admin!"); return false; } if(!adminUnlocked){ alert("Chua xac thuc!"); return false; } return true; }
+
+    function addProduct(){
+        if(!checkAdmin()) return;
+        var name = el("pName").value.trim(), desc = el("pDesc").value.trim();
+        var price = Number(el("pPrice").value), image = el("pImage").value.trim(), url = el("pUrl").value.trim();
+        if(!name){ alert("Nhap ten san pham"); return; }
+        if(!price || price <= 0){ alert("Nhap gia hop le"); return; }
+        products.unshift({ id: Date.now(), name: name, desc: desc, price: price, image: image, url: url, createdAt: Date.now() });
+        db.ref('shopData/products').set(products).then(function(){
+            el("pName").value = ""; el("pDesc").value = ""; el("pPrice").value = ""; el("pImage").value = ""; el("pUrl").value = "";
+            showToast("OK", "Da day san pham!", "success");
+            renderAll();
+        });
+    }
+    function delProduct(id){
+        if(!checkAdmin()) return;
+        if(!confirm("Xoa san pham?")) return;
+        var arr = [];
+        for(var i=0;i<products.length;i++){ if(products[i].id !== id) arr.push(products[i]); }
+        products = arr;
+        db.ref('shopData/products').set(products).then(function(){ renderAll(); });
+    }
+    function setNotice(){
+        if(!checkAdmin()) return;
+        var text = el("nText").value.trim();
+        if(!text){ alert("Nhap noi dung"); return; }
+        notices = [{ text: text, time: Date.now() }];
+        db.ref('shopData/notices').set(notices).then(function(){
+            el("nText").value = "";
+            showToast("OK", "Da gui thong bao!", "success");
+            renderNotice();
+        });
+    }
+    function clearNotice(){
+        if(!checkAdmin()) return;
+        notices = [];
+        db.ref('shopData/notices').set([]).then(function(){ renderNotice(); });
+    }
+    function approveDeposit(email, index){
+        if(!checkAdmin()) return;
+        db.ref('shopData/users/' + email + '/deposits/' + index).once('value').then(function(s){
+            var d = s.val();
+            if(!d) return;
+            var newBalance = Number(users[email].balance || 0) + Number(d.amount);
+            db.ref('shopData/users/' + email + '/balance').set(newBalance);
+            db.ref('shopData/users/' + email + '/deposits/' + index).update({ status: "Da duyet", approvedAt: Date.now() }).then(function(){
+                showToast("OK", "Da duyet " + money(d.amount), "success");
+            });
+        });
+    }
+    function rejectDeposit(email, index){
+        if(!checkAdmin()) return;
+        db.ref('shopData/users/' + email + '/deposits/' + index).update({ status: "Da huy" }).then(function(){
+            showToast("OK", "Da huy yeu cau", "success");
+        });
+    }
+    function clearAllProducts(){
+        if(!checkAdmin()) return;
+        if(!confirm("Xoa TAT CA san pham?")) return;
+        products = [];
+        db.ref('shopData/products').set([]).then(function(){ renderAll(); });
+    }
+    function clearAllUsers(){
+        if(!checkAdmin()) return;
+        if(!confirm("Xoa TAT CA users?")) return;
+        users = {}; cur = ""; adminUnlocked = false;
+        db.ref('shopData/users').set({}).then(function(){
+            localStorage.removeItem("sammCurrent");
+            renderAll(); go("shop");
+        });
+    }
+
+    function renderProducts(){
+        var box = el("products");
+        if(!box) return;
+        if(!products.length){ box.innerHTML = '<div class="empty" style="grid-column:1/-1">Chua co san pham</div>'; return; }
+        var html = "";
+        for(var i=0;i<products.length;i++){
+            var p = products[i];
+            var img = p.image ? esc(p.image) : "https://placehold.co/400x300/f5f7fa/0d9488?text=SAMM";
+            html += '<div class="product"><div class="img-wrap"><img src="' + img + '" onerror="this.src=\'https://placehold.co/400x300?text=SAMM\'"><div class="badge">HOT</div></div><div class="product-body"><div class="product-title">' + esc(p.name) + '</div><div class="product-desc">' + esc(p.desc || "") + '</div><div class="product-price">' + money(p.price) + '</div><button class="buy" onclick="buy(' + p.id + ')">Mua ngay</button></div></div>';
+        }
+        box.innerHTML = html;
+    }
+    function renderNotice(){
+        var n = el("notice");
+        if(!n) return;
+        if(notices.length){ n.innerHTML = "TB: " + esc(notices[0].text); n.style.display = "block"; }
+        else { n.style.display = "none"; }
+    }
+    function renderOrders(){
+        var u = currentUser();
+        var ob = el("orders");
+        if(!ob) return;
+        if(!u || !u.orders || !u.orders.length){ ob.innerHTML = '<div class="empty">Chua co don hang</div>'; return; }
+        var html = "";
+        for(var i=0;i<u.orders.length;i++){
+            var o = u.orders[i];
+            html += '<div class="order-card"><div><div class="o-name">' + esc(o.name) + '</div><div class="o-time">' + new Date(o.time).toLocaleString("vi-VN");
+            if(o.code) html += " • " + esc(o.code);
+            html += '</div></div><div class="o-price">' + money(o.price) + '</div></div>';
+        }
+        ob.innerHTML = html;
+    }
+    function renderProfile(){
+        var u = currentUser();
+        if(!u){
+            el("cName").textContent = "Dang nhap"; el("cBal").textContent = "0 VND"; el("cAv").textContent = "?";
+            el("guestView").style.display = "block"; el("profileView").style.display = "none";
+            return;
+        }
+        el("cName").textContent = u.email;
+        el("cBal").textContent = Number(u.balance || 0).toLocaleString("vi-VN") + " VND";
+        el("cAv").textContent = u.email[0].toUpperCase();
+        el("guestView").style.display = "none"; el("profileView").style.display = "block";
+        el("pAv").textContent = u.email[0].toUpperCase(); el("pEmail").textContent = u.email;
+        el("pBal").textContent = money(u.balance); el("pOrderCount").textContent = (u.orders || []).length;
+        if(u.createdAt) el("pJoined").textContent = "Thanh vien tu " + new Date(u.createdAt).toLocaleDateString("vi-VN");
+    }
+    function renderAdmin(){
+        if(!isAdmin() || !adminUnlocked) return;
+        var pl = el("productList");
+        if(pl){
+            if(!products.length){ pl.innerHTML = '<div class="empty">Chua co san pham</div>'; }
+            else {
+                var html = "";
+                for(var i=0;i<products.length;i++){
+                    var p = products[i];
+                    var img = p.image ? esc(p.image) : "https://placehold.co/100x100/f3f4f6/0d9488?text=S";
+                    html += '<div class="admin-item"><img src="' + img + '" onerror="this.src=\'https://placehold.co/100x100?text=S\'"><div class="info"><div class="n">' + esc(p.name) + '</div><div class="p">' + money(p.price) + '</div></div><button class="del" onclick="delProduct(' + p.id + ')">X</button></div>';
+                }
+                pl.innerHTML = html;
+            }
+        }
+        var dl = el("depositList");
+        if(dl){
+            var pending = [];
+            for(var email in users){
+                if(!users.hasOwnProperty(email)) continue;
+                var deps = users[email].deposits || [];
+                for(var k=0;k<deps.length;k++){
+                    if(deps[k].status === "Cho xac nhan") pending.push({ email: email, index: k, amount: deps[k].amount });
+                }
+            }
+            if(!pending.length){ dl.innerHTML = '<div class="empty">Khong co yeu cau nap</div>'; }
+            else {
+                var h = "";
+                for(var j=0;j<pending.length;j++){
+                    var d = pending[j];
+                    h += '<div class="dep-approve"><div><div class="amt">' + money(d.amount) + '</div><div class="email">' + esc(d.email) + '</div></div><div><button class="btn-ok" onclick="approveDeposit(\'' + d.email + '\',' + d.index + ')">Duyet</button><button class="btn-no" onclick="rejectDeposit(\'' + d.email + '\',' + d.index + ')">Huy</button></div></div>';
+                }
+                dl.innerHTML = h;
+            }
+        }
+    }
+    function renderAll(){
+        renderProducts(); renderNotice(); renderOrders(); renderProfile();
+        updateAdminMini();
+        checkApprovedNotification();
+    }
+    function checkApprovedNotification(){
+        var u = currentUser();
+        if(!u || !u.deposits) return;
+        for(var i=0;i<u.deposits.length;i++){
+            var d = u.deposits[i];
+            if(d.status === "Da duyet" && d.approvedAt && !d.notified){
+                users[cur].deposits[i].notified = true;
+                db.ref('shopData/users/' + cur + '/deposits/' + i + '/notified').set(true);
+                showToast("OK", "Ban da thanh toan thanh cong! So du " + money(d.amount) + " da duoc cong.", "success");
+                return;
+            }
+        }
+    }
+    function toggleDepHistory(){
+        var elh = el("depHistory"), arw = el("depArrow");
+        if(elh.style.display === "none"){
+            var u = currentUser(); var list = (u && u.deposits) ? u.deposits : [];
+            if(!list.length){ elh.innerHTML = '<div class="empty" style="padding:16px">Chua co lich su</div>'; }
+            else {
+                var html = "";
+                for(var i=0;i<list.length;i++){
+                    var d = list[i];
+                    var cls = "wait";
+                    if(d.status === "Da duyet") cls = "done";
+                    else if(d.status === "Da huy") cls = "cancel";
+                    html += '<div class="dep-item"><div><b style="color:#111827">' + money(d.amount) + '</b><br><span style="color:#9ca3af;font-size:10px">' + new Date(d.time).toLocaleString("vi-VN") + '</span></div><span class="st ' + cls + '">' + esc(d.status) + '</span></div>';
+                }
+                elh.innerHTML = html;
+            }
+            elh.style.display = "block"; arw.textContent = "UP";
+        } else { elh.style.display = "none"; arw.textContent = "DOWN"; }
+    }
+
+    window.go = go; window.openAdminPanel = openAdminPanel; window.closeAdminPass = closeAdminPass;
+    window.verifyAdminPass = verifyAdminPass; window.chipClick = chipClick; window.openAuth = openAuth;
+    window.closeAuth = closeAuth; window.switchAuth = switchAuth; window.submitAuth = submitAuth;
+    window.doLogout = doLogout; window.openChangePass = openChangePass; window.closeChangePass = closeChangePass;
+    window.submitChangePass = submitChangePass; window.createDeposit = createDeposit; window.cancelDeposit = cancelDeposit;
+    window.buy = buy; window.closeOrderModal = closeOrderModal; window.openOrderLink = openOrderLink;
+    window.viewOrderInHistory = viewOrderInHistory; window.addProduct = addProduct; window.delProduct = delProduct;
+    window.setNotice = setNotice; window.clearNotice = clearNotice; window.approveDeposit = approveDeposit;
+    window.rejectDeposit = rejectDeposit; window.clearAllProducts = clearAllProducts; window.clearAllUsers = clearAllUsers;
+    window.toggleDepHistory = toggleDepHistory;
+
+    cur = localStorage.getItem("sammCurrent") || "";
+
+    db.ref('shopData').on('value', function(s){
+        var d = s.val() || {};
+        users = d.users || {}; products = d.products || []; notices = d.notices || [];
+        renderAll();
+        if(el("p-admin") && el("p-admin").classList.contains("on") && adminUnlocked) renderAdmin();
+    });
+
+    var lastPendingCount = -1;
+    db.ref('shopData/users').on('value', function(s){
+        if(!isAdmin() || !adminUnlocked) return;
+        var allUsers = s.val() || {};
+        var pendingList = [];
+        for(var email in allUsers){
+            if(!allUsers.hasOwnProperty(email)) continue;
+            var deps = allUsers[email].deposits || [];
+            for(var i=0;i<deps.length;i++){
+                if(deps[i].status === "Cho xac nhan") pendingList.push({ email: email, amount: deps[i].amount });
+            }
+        }
+        if(lastPendingCount === -1){ lastPendingCount = pendingList.length; return; }
+        if(pendingList.length > lastPendingCount){
+            var newDep = pendingList[pendingList.length - 1];
+            showToast("BELL", "Co yeu cau nap " + money(newDep.amount) + " tu " + newDep.email, "notify");
+            try { var audio = new Audio("https://files.catbox.moe/8pv4gm.mp3"); audio.volume = 1; audio.play(); } catch(e){}
+        }
+        lastPendingCount = pendingList.length;
+    });
+
+    updateAdminMini();
+    go("shop"); renderAll();
+});
+</script>
+</body>
+</html>
