@@ -75,15 +75,18 @@ nav button.on{color:#ef4444}
 .st.cancel{background:#ef4444;color:#fff}
 .notice-box{padding:12px 14px;background:rgba(220,38,38,.25);border:1px solid #ef4444;color:#fff;border-radius:10px;margin-bottom:14px;font-size:13px;font-weight:700}
 .products-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.product{background:rgba(40,15,15,.75);border:1px solid rgba(255,255,255,.15);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+.product{background:rgba(40,15,15,.75);border:1px solid rgba(255,255,255,.15);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;position:relative}
 .product .img-wrap{position:relative;aspect-ratio:1.3;overflow:hidden;background:#000}
 .product img{width:100%;height:100%;object-fit:cover;display:block}
 .product .badge{position:absolute;top:8px;left:8px;background:#dc2626;color:#fff;padding:3px 8px;border-radius:6px;font-size:9px;font-weight:900}
+.product .stock{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.75);color:#4ade80;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:900}
+.product .stock.out{color:#ef4444}
 .product-body{padding:12px;display:flex;flex-direction:column;flex:1}
 .product-title{font-size:13px;font-weight:800;color:#fff;margin-bottom:4px}
 .product-desc{color:#fca5a5;font-size:11px;margin-bottom:8px;flex:1}
 .product-price{color:#fbbf24;font-weight:900;font-size:16px;margin-bottom:8px}
 .buy{width:100%;border:0;padding:12px;border-radius:8px;background:#dc2626;color:#fff;font-weight:900;cursor:pointer;font-family:inherit;font-size:12px;text-transform:uppercase}
+.buy:disabled{background:#555;cursor:not-allowed;opacity:.5}
 .order-card{background:rgba(40,15,15,.75);border:1px solid rgba(255,255,255,.15);border-radius:14px;padding:16px;margin-bottom:12px}
 .order-card .o-name{color:#fff;font-weight:900;font-size:14px;margin-bottom:6px}
 .order-card .o-time{color:#fca5a5;font-size:11px;margin-bottom:8px}
@@ -131,6 +134,8 @@ nav button.on{color:#ef4444}
 .detail-row .lbl{color:#fca5a5}
 .detail-row .val{color:#fff;font-weight:800;text-align:right;max-width:60%}
 .detail-row .val.price{color:#fbbf24;font-size:16px}
+.link-box{padding:12px;background:rgba(22,163,74,.2);border:1px solid #16a34a;border-radius:10px;margin-top:12px;word-break:break-all;color:#86efac;font-size:12px;line-height:1.6}
+.link-box a{color:#4ade80;text-decoration:underline;font-weight:800}
 @media(max-width:380px){.products-grid{grid-template-columns:1fr}.social-grid{grid-template-columns:1fr}}
 </style>
 </head>
@@ -247,9 +252,11 @@ nav button.on{color:#ef4444}
 <textarea id="pDesc" placeholder="Mô tả..."></textarea>
 <label>Giá (VND)</label>
 <input id="pPrice" type="number" placeholder="50000">
+<label>Số lượng kho (số acc có sẵn)</label>
+<input id="pStock" type="number" placeholder="100" value="100" min="1" max="1000000">
 <label>Ảnh (URL)</label>
 <input id="pImage" placeholder="https://...">
-<label>Link giao hàng (URL)</label>
+<label>Link giao hàng / Link file (URL)</label>
 <input id="pUrl" placeholder="https://...">
 <button class="create" onclick="addProduct()">🚀 Đẩy lên Shop</button>
 </div>
@@ -343,7 +350,8 @@ nav button.on{color:#ef4444}
 <div class="detail-row"><span class="lbl">Thời gian</span><span id="odTime" class="val">-</span></div>
 <div class="detail-row"><span class="lbl">Mã đơn</span><span id="odCode" class="val">-</span></div>
 </div>
-<button id="odLinkBtn" onclick="openOrderLink()" style="display:none;width:100%;padding:14px;border:0;border-radius:12px;font-weight:900;cursor:pointer;font-family:inherit;font-size:13px;text-transform:uppercase;margin-top:8px;background:#16a34a;color:#fff">🚀 MỞ LINK GIAO HÀNG</button>
+<div id="odLinkBox" class="link-box" style="display:none">🔗 Link giao hàng:<br><a id="odLinkHref" href="#" target="_blank">-</a></div>
+<button id="odLinkBtn" onclick="openOrderLink()" style="display:none;width:100%;padding:14px;border:0;border-radius:12px;font-weight:900;cursor:pointer;font-family:inherit;font-size:13px;text-transform:uppercase;margin-top:10px;background:#16a34a;color:#fff">🚀 MỞ LINK GIAO HÀNG</button>
 <button onclick="viewOrderInHistory()" style="width:100%;padding:14px;border:0;border-radius:12px;font-weight:900;cursor:pointer;font-family:inherit;font-size:13px;text-transform:uppercase;margin-top:8px;background:#dc2626;color:#fff">📦 XEM ĐƠN HÀNG</button>
 <button onclick="closeOrderModal()" style="width:100%;padding:14px;border:0;border-radius:12px;font-weight:900;cursor:pointer;font-family:inherit;font-size:13px;text-transform:uppercase;margin-top:8px;background:rgba(255,255,255,.15);color:#fff">ĐÓNG</button>
 </div>
@@ -406,6 +414,7 @@ db.ref("banned").on("value",function(snap){banned=snap.val()||{};if(cur&&banned[
 }
 function saveUserFB(u,d){if(db)db.ref("users/"+u).set(d);}
 function saveProductFB(id,d){if(db)db.ref("products/"+id).set(d);}
+function updateProductStock(id,newStock){if(db)db.ref("products/"+id+"/stock").set(newStock);}
 function deleteProductFB(id){if(db)db.ref("products/"+id).remove();}
 function saveNoticeFB(t){if(db){db.ref("notices").remove();db.ref("notices/"+Date.now()).set({text:t,time:Date.now()});}}
 function clearNoticeFB(){if(db)db.ref("notices").remove();}
@@ -532,8 +541,10 @@ var p=null;
 for(var i=0;i<products.length;i++){if(products[i].id===id){p=products[i];break;}}
 if(!p){showToast("Sản phẩm không tồn tại!","error");return;}
 var price=Number(p.price||0);
+var stock=Number(p.stock||0);
+if(stock<=0){showToast("Sản phẩm đã hết hàng!","error");return;}
 if(Number(user().balance||0)<price){showToast("Số dư không đủ! Cần "+money(price),"error");setTimeout(function(){go("nap");},700);return;}
-if(!confirm("Mua \""+p.name+"\" giá "+money(price)+"?"))return;
+if(!confirm("Mua \""+p.name+"\" giá "+money(price)+"?\nCòn "+stock+" sản phẩm"))return;
 var t=Date.now();
 var code="DH"+String(t).slice(-8);
 var u=users[cur];
@@ -541,13 +552,21 @@ u.balance=Number(u.balance||0)-price;
 if(!u.orders)u.orders={};
 u.orders["o"+t]={name:p.name,price:price,time:t,code:code,url:p.url||"",image:p.image||"",desc:p.desc||"",status:"done"};
 saveUserFB(cur,u);
+updateProductStock(p.id,stock-1);
 currentOrderUrl=p.url||"";
 $("odName").textContent=p.name;
 $("odPrice").textContent=money(price);
 $("odTime").textContent=new Date(t).toLocaleString("vi-VN");
 $("odCode").textContent=code;
-if(p.url)$("odLinkBtn").style.display="block";
-else $("odLinkBtn").style.display="none";
+if(p.url){
+$("odLinkBox").style.display="block";
+$("odLinkHref").textContent=p.url;
+$("odLinkHref").href=p.url;
+$("odLinkBtn").style.display="block";
+}else{
+$("odLinkBox").style.display="none";
+$("odLinkBtn").style.display="none";
+}
 $("orderModal").classList.add("on");
 }
 function closeOrderModal(){$("orderModal").classList.remove("on");}
@@ -565,7 +584,10 @@ html+='<div class="detail-row"><span class="lbl">Mã đơn</span><span class="va
 html+='<div class="detail-row"><span class="lbl">Thời gian</span><span class="val">'+d.toLocaleString("vi-VN")+'</span></div>';
 html+='<div class="detail-row"><span class="lbl">Trạng thái</span><span class="val" style="color:#4ade80">Hoàn tất</span></div>';
 html+='</div>';
-if(o.url){html+='<button onclick="window.open(\''+o.url+'\',\'_blank\')" style="width:100%;padding:14px;border:0;border-radius:12px;font-weight:900;cursor:pointer;font-family:inherit;font-size:13px;text-transform:uppercase;margin-top:14px;background:#16a34a;color:#fff">🚀 MỞ LINK GIAO HÀNG</button>';}
+if(o.url){
+html+='<div class="link-box">🔗 Link giao hàng:<br><a href="'+esc(o.url)+'" target="_blank">'+esc(o.url)+'</a></div>';
+html+='<button onclick="window.open(\''+o.url+'\',\'_blank\')" style="width:100%;padding:14px;border:0;border-radius:12px;font-weight:900;cursor:pointer;font-family:inherit;font-size:13px;text-transform:uppercase;margin-top:14px;background:#16a34a;color:#fff">🚀 MỞ LINK GIAO HÀNG</button>';
+}
 $("detailBody").innerHTML=html;
 $("detailModal").classList.add("on");
 }
@@ -577,13 +599,15 @@ if(!checkAdmin())return;
 var name=$("pName").value.trim();
 var desc=$("pDesc").value.trim();
 var price=Number($("pPrice").value);
+var stock=Number($("pStock").value)||100;
 var image=$("pImage").value.trim();
 var url=$("pUrl").value.trim();
 if(!name){showToast("Nhập tên sản phẩm","error");return;}
 if(!price||price<=0){showToast("Nhập giá hợp lệ","error");return;}
+if(stock<1||stock>1000000){showToast("Số lượng 1-1.000.000","error");return;}
 var id=Date.now();
-saveProductFB(id,{id:id,name:name,desc:desc,price:price,image:image,url:url,createdAt:Date.now()});
-$("pName").value="";$("pDesc").value="";$("pPrice").value="";$("pImage").value="";$("pUrl").value="";
+saveProductFB(id,{id:id,name:name,desc:desc,price:price,stock:stock,image:image,url:url,createdAt:Date.now()});
+$("pName").value="";$("pDesc").value="";$("pPrice").value="";$("pImage").value="";$("pUrl").value="";$("pStock").value="100";
 showToast("Đã đẩy sản phẩm!","success");
 }
 function delProduct(id){if(!checkAdmin())return;if(!confirm("Xóa sản phẩm?"))return;deleteProductFB(id);showToast("Đã xóa","success");}
@@ -635,7 +659,11 @@ var html="";
 for(var i=0;i<products.length;i++){
 var p=products[i];
 var img=p.image?esc(p.image):"https://placehold.co/400x300/1a0505/ef4444?text=SAMM";
-html+='<div class="product"><div class="img-wrap"><img src="'+img+'" onerror="this.src=\'https://placehold.co/400x300?text=SAMM\'"><div class="badge">HOT</div></div><div class="product-body"><div class="product-title">'+esc(p.name)+'</div><div class="product-desc">'+esc(p.desc||"")+'</div><div class="product-price">'+money(p.price)+'</div><button class="buy" onclick="buy('+p.id+')">Mua ngay</button></div></div>';
+var stock=Number(p.stock||0);
+var stockClass=stock<=0?"out":"";
+var stockText=stock<=0?"HẾT HÀNG":"Còn "+stock;
+var disabled=stock<=0?" disabled":"";
+html+='<div class="product"><div class="img-wrap"><img src="'+img+'" onerror="this.src=\'https://placehold.co/400x300?text=SAMM\'"><div class="badge">HOT</div><div class="stock '+stockClass+'">'+stockText+'</div></div><div class="product-body"><div class="product-title">'+esc(p.name)+'</div><div class="product-desc">'+esc(p.desc||"")+'</div><div class="product-price">'+money(p.price)+'</div><button class="buy" onclick="buy('+p.id+')"'+disabled+'>'+(stock<=0?"HẾT HÀNG":"Mua ngay")+'</button></div></div>';
 }
 box.innerHTML=html;
 }
@@ -695,7 +723,7 @@ var html="";
 for(var i=0;i<products.length;i++){
 var p=products[i];
 var img=p.image?esc(p.image):"https://placehold.co/100x100/1a0505/ef4444?text=S";
-html+='<div class="admin-item"><img src="'+img+'" onerror="this.src=\'https://placehold.co/100x100?text=S\'"><div class="info"><div class="n">'+esc(p.name)+'</div><div class="p">'+money(p.price)+'</div></div><button class="del" onclick="delProduct('+p.id+')">x</button></div>';
+html+='<div class="admin-item"><img src="'+img+'" onerror="this.src=\'https://placehold.co/100x100?text=S\'"><div class="info"><div class="n">'+esc(p.name)+'</div><div class="p">'+money(p.price)+' • Kho: '+(p.stock||0)+'</div></div><button class="del" onclick="delProduct('+p.id+')">x</button></div>';
 }
 pl.innerHTML=html;
 }
