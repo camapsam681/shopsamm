@@ -3,188 +3,162 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SAMM SHOP</title>
+<title>SHOP HACK SAMM.NET VIP</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif;-webkit-tap-highlight-color:transparent}
-body{background:#1a0808;background-image:linear-gradient(rgba(20,5,5,.75),rgba(20,5,5,.85)),url('https://files.catbox.moe/cemtij.jpeg');background-size:cover;background-position:center;background-attachment:fixed;color:#fff;padding-bottom:100px;min-height:100vh}
-header{position:sticky;top:0;background:rgba(30,10,10,.9);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.15);padding:12px 16px;display:flex;justify-content:space-between;align-items:center;z-index:10}
-.logo{font-weight:900;font-size:16px;color:#ef4444;display:flex;align-items:center;gap:8px}
-.chip{display:flex;align-items:center;gap:8px;background:rgba(60,20,20,.8);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:6px 10px;cursor:pointer}
-.chip .name{font-weight:700;color:#fff;font-size:12px}
-.chip .bal{color:#fbbf24;font-size:11px;font-weight:700}
-.chip .av{width:30px;height:30px;border-radius:8px;background:#fbbf24;color:#000;display:flex;align-items:center;justify-content:center;font-weight:900}
-main{padding:16px;max-width:600px;margin:0 auto}
-.title{display:flex;align-items:center;gap:10px;color:#fff;font-size:22px;font-weight:900;text-transform:uppercase;margin:8px 0 18px}
-.title:before{content:"";width:36px;height:32px;border:3px solid #ef4444;border-radius:8px;flex-shrink:0}
-.card{background:rgba(40,15,15,.75);backdrop-filter:blur(15px);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:18px;margin-bottom:14px}
-label{color:#fca5a5;font-size:11px;font-weight:800;text-transform:uppercase;display:block;margin-bottom:8px}
-input,textarea{width:100%;padding:13px;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;color:#fff;outline:none;font-family:inherit;font-size:14px;margin-bottom:10px}
-input:focus,textarea:focus{border-color:#ef4444;background:rgba(255,255,255,.15)}
-input::placeholder,textarea::placeholder{color:rgba(255,255,255,.5)}
+*{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;-webkit-tap-highlight-color:transparent}
+:root{--red:#dc2626;--red-dark:#991b1b;--gold:#fbbf24;--text:#1a1a1a;--muted:#64748b;--border:#e2e8f0}
+html,body{height:100%}
+body{background:#f1f5f9;background-image:linear-gradient(rgba(255,255,255,.92),rgba(255,255,255,.96)),url('https://files.catbox.moe/cemtij.jpeg');background-size:cover;background-position:center;background-attachment:fixed;color:var(--text);padding-bottom:100px;min-height:100vh;position:relative;overflow-x:hidden}
+header{position:sticky;top:0;background:rgba(255,255,255,.9);backdrop-filter:blur(24px);border-bottom:1px solid rgba(220,38,38,.1);padding:14px 16px;display:flex;justify-content:space-between;align-items:center;z-index:10;box-shadow:0 2px 20px rgba(220,38,38,.06)}
+.logo{display:flex;align-items:center;gap:10px;font-weight:900;max-width:70%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.logo-icon{width:40px;height:40px;flex-shrink:0;background:linear-gradient(135deg,#dc2626,#991b1b);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 4px 15px rgba(220,38,38,.4)}
+.logo-text{display:flex;flex-direction:column;line-height:1.1;min-width:0}
+.logo-text .top{font-size:9px;color:#dc2626;font-weight:800;letter-spacing:1.5px;opacity:.7}
+.logo-text .name{font-size:14px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:linear-gradient(135deg,#dc2626,#f59e0b);-webkit-background-clip:text;background-clip:text;color:transparent}
+.chip{display:flex;align-items:center;gap:8px;background:#fff;border:1.5px solid rgba(220,38,38,.15);border-radius:14px;padding:6px 6px 6px 12px;cursor:pointer;box-shadow:0 2px 10px rgba(220,38,38,.08);flex-shrink:0}
+.chip .info{text-align:right;line-height:1.2}
+.chip .name{font-weight:800;color:#991b1b;font-size:11px;max-width:80px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chip .bal{color:#dc2626;font-size:10px;font-weight:800}
+.chip .av{width:34px;height:34px;border-radius:11px;background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#000;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px}
+main{padding:16px;max-width:640px;margin:0 auto;position:relative;z-index:1}
+.title{display:flex;align-items:center;gap:12px;font-size:24px;font-weight:900;text-transform:uppercase;margin:8px 0 20px;letter-spacing:1px}
+.title .icon-box{width:44px;height:40px;border:3px solid #dc2626;border-radius:11px;position:relative;background:linear-gradient(135deg,rgba(220,38,38,.1),transparent);flex-shrink:0}
+.title .icon-box:before{content:"";position:absolute;top:-3px;left:9px;right:9px;height:3px;background:#f1f5f9;border-radius:2px}
+.title .icon-box:after{content:"";position:absolute;bottom:-8px;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#dc2626,transparent)}
+.title span{background:linear-gradient(135deg,#1a1a1a,#dc2626);-webkit-background-clip:text;background-clip:text;color:transparent}
+.card{background:#fff;border:1px solid var(--border);border-radius:20px;padding:20px;margin-bottom:14px;box-shadow:0 4px 20px rgba(220,38,38,.08)}
+label{color:#dc2626;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:1px;display:flex;align-items:center;gap:6px;margin-bottom:10px}
+label:before{content:"";width:4px;height:4px;background:#dc2626;border-radius:50%}
+input,textarea{width:100%;padding:14px;background:#f8fafc;border:1.5px solid var(--border);border-radius:12px;color:var(--text);outline:none;font-family:inherit;font-size:14px;margin-bottom:10px}
+input:focus,textarea:focus{border-color:#dc2626;background:#fff;box-shadow:0 0 0 4px rgba(220,38,38,.1)}
 textarea{resize:vertical;min-height:60px}
 .amt{position:relative;margin-bottom:14px}
-.amt input{padding:18px 45px 18px 16px;font-size:22px;font-weight:800;margin:0}
-.amt span{position:absolute;right:16px;top:50%;transform:translateY(-50%);color:#fca5a5;font-size:20px;font-weight:900}
+.amt input{padding:20px 50px 20px 18px;font-size:24px;font-weight:800;margin:0}
+.amt span{position:absolute;right:20px;top:50%;transform:translateY(-50%);color:#dc2626;font-size:22px;font-weight:900}
 .quick{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
-.quick button{padding:14px 2px;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;color:#fff;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit}
-.quick button.on{border-color:#ef4444;color:#fff;background:#dc2626}
-.create{width:100%;padding:16px;background:#dc2626;border:0;border-radius:12px;color:#fff;font-size:14px;font-weight:900;cursor:pointer;font-family:inherit;text-transform:uppercase}
-.create.red{background:#991b1b}
-.create.green{background:#16a34a}
-.create.purple{background:linear-gradient(135deg,#9333ea,#6b21a8)}
-.warn{margin-top:16px;padding:16px;background:rgba(220,38,38,.2);border:1px solid rgba(220,38,38,.4);border-left:4px solid #ef4444;border-radius:12px}
-.warn h3{color:#fca5a5;font-size:13px;font-weight:900;text-transform:uppercase;margin-bottom:12px}
-.warn li{color:#fecaca;font-size:12px;line-height:1.6;padding-left:14px;margin-bottom:8px;list-style:none;position:relative}
-.warn li:before{content:"•";position:absolute;left:0;color:#ef4444;font-weight:900}
-.qr{background:rgba(40,15,15,.75);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:20px;text-align:center}
-.qr img{background:#fff;padding:16px;border-radius:12px;width:100%;max-width:240px;border:2px solid #ef4444;margin-bottom:16px}
-.timer{font-size:40px;font-weight:900;letter-spacing:3px;color:#fff;margin:10px 0}
-.timer-lb{color:#fca5a5;font-size:11px;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px}
-.cancel{width:100%;padding:14px;background:rgba(220,38,38,.3);border:1.5px solid #ef4444;border-radius:10px;color:#fff;font-size:13px;font-weight:900;cursor:pointer;font-family:inherit;margin-top:12px}
-.info{color:#fecaca;font-size:12px;line-height:1.6;margin-top:14px;padding:12px;background:rgba(255,255,255,.05);border-radius:10px}
-.info b{color:#fbbf24}
-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(30,10,10,.95);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,.15);display:grid;grid-template-columns:repeat(5,1fr);z-index:100;padding:8px 0}
-nav button{background:none;border:0;color:#9ca3af;font-size:9px;font-weight:800;padding:6px 2px;cursor:pointer;font-family:inherit;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:3px}
+.quick button{padding:15px 4px;background:#fff;border:1.5px solid var(--border);border-radius:12px;color:var(--muted);font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;position:relative}
+.quick button.on{border-color:#dc2626;color:#fff;background:linear-gradient(135deg,#dc2626,#991b1b)}
+.quick button.on:before{content:"v";position:absolute;top:3px;right:6px;font-size:9px;color:#fff}
+.create{width:100%;padding:18px;background:linear-gradient(135deg,#dc2626,#991b1b);border:0;border-radius:14px;color:#fff;font-size:15px;font-weight:900;cursor:pointer;font-family:inherit;text-transform:uppercase;letter-spacing:1px;box-shadow:0 6px 20px rgba(220,38,38,.4)}
+.create.red{background:linear-gradient(135deg,#dc2626,#7f1d1d)}
+.warn{margin-top:16px;padding:18px;background:#fef2f2;border:1px solid rgba(220,38,38,.2);border-left:4px solid #dc2626;border-radius:14px}
+.warn h3{color:#dc2626;font-size:13px;font-weight:900;text-transform:uppercase;margin-bottom:14px}
+.warn li{color:#64748b;font-size:13px;line-height:1.7;padding-left:18px;position:relative;margin-bottom:10px;list-style:none}
+.warn li:before{content:"";position:absolute;left:0;top:8px;width:6px;height:6px;background:#dc2626;border-radius:50%}
+.qr{background:#fff;border:1px solid var(--border);border-radius:20px;padding:22px;text-align:center}
+.qr img{background:#fff;padding:16px;border-radius:14px;width:100%;max-width:240px;border:2px solid #dc2626;margin-bottom:16px}
+.timer{font-size:44px;font-weight:900;letter-spacing:3px;color:var(--text);margin:10px 0 4px}
+.timer-lb{color:var(--muted);font-size:11px;letter-spacing:3px;text-transform:uppercase;font-weight:800;margin-bottom:18px}
+.cancel{width:100%;padding:14px;background:#fef2f2;border:1.5px solid rgba(220,38,38,.3);border-radius:12px;color:#dc2626;font-size:13px;font-weight:900;cursor:pointer;font-family:inherit}
+.info{color:var(--muted);font-size:12px;line-height:1.7;margin-top:14px;padding:14px;background:#f8fafc;border-radius:12px}
+.info b{color:#dc2626;font-weight:800}
+nav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.95);backdrop-filter:blur(24px);border-top:1px solid rgba(220,38,38,.1);display:grid;grid-template-columns:repeat(5,1fr);z-index:100;padding:8px 0 max(8px,env(safe-area-inset-bottom))}
+nav button{background:none;border:0;color:#94a3b8;font-size:9px;font-weight:800;padding:6px 2px;cursor:pointer;font-family:inherit;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:4px;position:relative}
 nav button svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2}
-nav button.on{color:#ef4444}
+nav button.on{color:#dc2626}
+nav button.on:before{content:"";position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:24px;height:2.5px;background:#dc2626;border-radius:2px}
 .page{display:none}
 .page.on{display:block}
-.empty{padding:60px 20px;text-align:center;color:#9ca3af;font-size:14px}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;align-items:center;justify-content:center;padding:18px;z-index:9999;overflow-y:auto}
+.empty{padding:60px 20px;text-align:center;color:var(--muted);font-size:14px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:18px;z-index:9999;overflow-y:auto}
 .modal.on{display:flex}
-.mbox{background:#2a0f0f;border:2px solid #ef4444;border-radius:18px;padding:22px;width:100%;max-width:400px;margin:auto}
-.mbox h2{color:#fca5a5;font-size:18px;text-transform:uppercase;margin-bottom:16px}
-.mbox input{background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;color:#fff}
+.mbox{background:#fff;border:2px solid #dc2626;border-radius:22px;padding:24px;width:100%;max-width:420px;margin:auto}
+.mbox h2{font-size:19px;text-transform:uppercase;margin-bottom:18px;color:#dc2626}
+.mbox input{background:#f8fafc}
 .btns{display:flex;gap:8px;margin-top:8px}
-.btns button{flex:1;padding:13px;border:0;border-radius:10px;font-weight:900;cursor:pointer;font-family:inherit;font-size:12px;text-transform:uppercase}
-.bt{background:#dc2626;color:#fff}
-.bd{background:rgba(255,255,255,.15);color:#fff}
-.profile-head{text-align:center;padding:24px 0 20px;border-bottom:1px solid rgba(255,255,255,.15);margin-bottom:18px}
-.big-av{width:80px;height:80px;border-radius:50%;background:#fbbf24;color:#000;font-size:32px;font-weight:900;display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
-.profile-head .email{color:#fbbf24;font-size:14px;font-weight:800;margin-bottom:4px}
-.profile-head .joined{color:#fca5a5;font-size:11px}
-.stat-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
-.stat{background:rgba(220,38,38,.2);border:1px solid rgba(220,38,38,.4);border-radius:12px;padding:14px;text-align:center}
-.stat .lb{color:#fca5a5;font-size:10px;text-transform:uppercase;margin-bottom:6px;font-weight:800}
-.stat .vl{color:#fff;font-size:18px;font-weight:900}
-.menu-item{display:flex;align-items:center;justify-content:space-between;padding:15px 16px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:12px;margin-bottom:8px;cursor:pointer;font-size:14px;color:#fff;font-weight:600}
-.menu-item .ico{margin-right:10px}
-.menu-item .arw{color:#9ca3af}
-.dep-item{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;font-size:13px;color:#fff}
-.dep-item .st{font-size:10px;padding:3px 8px;border-radius:5px;font-weight:800;text-transform:uppercase}
-.st.wait{background:#fbbf24;color:#000}
-.st.done{background:#16a34a;color:#fff}
-.st.cancel{background:#ef4444;color:#fff}
-.notice-box{padding:12px 14px;background:rgba(220,38,38,.25);border:1px solid #ef4444;color:#fff;border-radius:10px;margin-bottom:14px;font-size:13px;font-weight:700}
+.btns button{flex:1;padding:13px;border:0;border-radius:12px;font-weight:900;cursor:pointer;font-family:inherit;font-size:12px;text-transform:uppercase}
+.bt{background:linear-gradient(135deg,#dc2626,#991b1b);color:#fff}
+.bd{background:#f1f5f9;color:#64748b}
+.profile-head{text-align:center;padding:26px 0 22px;border-bottom:1px solid var(--border);margin-bottom:20px}
+.big-av{width:86px;height:86px;border-radius:50%;background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#000;font-size:34px;font-weight:900;display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
+.profile-head .email{color:#dc2626;font-size:15px;font-weight:800;margin-bottom:6px}
+.profile-head .joined{color:var(--muted);font-size:11px;text-transform:uppercase}
+.stat-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.stat{background:#fef2f2;border:1px solid rgba(220,38,38,.2);border-radius:14px;padding:16px;text-align:center}
+.stat .lb{color:#dc2626;font-size:10px;text-transform:uppercase;margin-bottom:8px;font-weight:900}
+.stat .vl{color:#dc2626;font-size:20px;font-weight:900}
+.menu-item{display:flex;align-items:center;justify-content:space-between;padding:15px 18px;background:#fff;border:1px solid var(--border);border-radius:14px;margin-bottom:10px;cursor:pointer;font-size:14px;font-weight:600;color:var(--text)}
+.menu-item .ico{font-size:18px;margin-right:12px}
+.menu-item .arw{color:var(--muted)}
+.dep-item{background:#f8fafc;border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--text)}
+.dep-item .st{font-size:10px;padding:4px 10px;border-radius:6px;font-weight:900;text-transform:uppercase}
+.st.wait{background:#fef3c7;color:#d97706}
+.st.done{background:#dcfce7;color:#16a34a}
+.st.cancel{background:#fee2e2;color:#dc2626}
+.notice-box{padding:14px 16px;background:#fef2f2;border:1px solid rgba(220,38,38,.2);color:#dc2626;border-radius:14px;margin-bottom:16px;font-size:13px;font-weight:700}
 .products-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.product{background:rgba(40,15,15,.75);border:1px solid rgba(255,255,255,.15);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;position:relative}
-.product .img-wrap{position:relative;aspect-ratio:1.3;overflow:hidden;background:#000}
+.product{background:#fff;border:1px solid var(--border);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;position:relative}
+.product .img-wrap{position:relative;aspect-ratio:1.3;overflow:hidden;background:#f8fafc}
 .product img{width:100%;height:100%;object-fit:cover;display:block}
-.product .badge{position:absolute;top:8px;left:8px;background:#dc2626;color:#fff;padding:3px 8px;border-radius:6px;font-size:9px;font-weight:900}
-.product .stock{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.75);color:#4ade80;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:900}
-.product .stock.out{color:#ef4444}
-.product-body{padding:12px;display:flex;flex-direction:column;flex:1}
-.product-title{font-size:13px;font-weight:800;color:#fff;margin-bottom:4px}
-.product-desc{color:#fca5a5;font-size:11px;margin-bottom:8px;flex:1}
-.product-price{color:#fbbf24;font-weight:900;font-size:16px;margin-bottom:8px}
-.buy{width:100%;border:0;padding:12px;border-radius:8px;background:#dc2626;color:#fff;font-weight:900;cursor:pointer;font-family:inherit;font-size:12px;text-transform:uppercase}
-.buy:disabled{background:#555;cursor:not-allowed;opacity:.5}
-.order-card{background:rgba(40,15,15,.75);border:1px solid rgba(255,255,255,.15);border-radius:14px;padding:16px;margin-bottom:12px}
-.order-card .o-name{color:#fff;font-weight:900;font-size:14px;margin-bottom:6px}
-.order-card .o-time{color:#fca5a5;font-size:11px;margin-bottom:8px}
-.order-card .o-price{color:#fbbf24;font-weight:900;font-size:18px;margin-bottom:12px}
-.order-card .o-actions{display:flex;gap:8px}
-.order-btn{flex:1;padding:10px;border-radius:8px;font-weight:900;font-size:12px;cursor:pointer;font-family:inherit;text-transform:uppercase}
-.order-btn.detail{background:#dc2626;color:#fff;border:0}
-.order-btn.del{background:transparent;border:1.5px solid #ef4444;color:#ef4444}
-.social-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.social-card{background:rgba(40,15,15,.75);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:22px 14px;display:flex;flex-direction:column;align-items:center;gap:10px;text-decoration:none}
-.social-icon{width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center}
-.social-card.discord .social-icon{background:#5865F2}
-.social-card.zalo .social-icon{background:#0068FF}
-.social-card.phone .social-icon{background:#16a34a}
-.social-icon svg{width:30px;height:30px;fill:#fff}
-.social-name{font-size:13px;font-weight:900;color:#fff;text-transform:uppercase}
-.social-sub{font-size:10px;color:#fca5a5}
-.admin-fab{position:fixed;top:70px;right:16px;z-index:99;background:#dc2626;border:0;padding:10px 14px;border-radius:10px;color:#fff;font-weight:900;font-size:12px;cursor:pointer;font-family:inherit;display:none;align-items:center;gap:6px;text-transform:uppercase}
+.product .badge{position:absolute;top:10px;left:10px;background:linear-gradient(135deg,#dc2626,#991b1b);color:#fff;padding:4px 10px;border-radius:8px;font-size:10px;font-weight:900;text-transform:uppercase}
+.product .stock{position:absolute;top:10px;right:10px;background:rgba(255,255,255,.95);color:#16a34a;padding:4px 10px;border-radius:8px;font-size:10px;font-weight:900}
+.product .stock.out{color:#dc2626}
+.product-body{padding:14px;display:flex;flex-direction:column;flex:1}
+.product-title{font-size:13px;font-weight:800;color:var(--text);margin-bottom:6px;line-height:1.35}
+.product-desc{color:var(--muted);font-size:11px;margin-bottom:10px;line-height:1.4;flex:1}
+.product-price{color:#dc2626;font-weight:900;font-size:16px;margin-bottom:10px}
+.buy{width:100%;border:0;padding:13px;border-radius:10px;background:linear-gradient(135deg,#dc2626,#991b1b);color:#fff;font-weight:900;cursor:pointer;font-family:inherit;font-size:12px;text-transform:uppercase;display:block}
+.buy:disabled{background:#94a3b8;cursor:not-allowed;opacity:.6}
+.order-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:12px;position:relative}
+.order-card:before{content:"";position:absolute;top:0;left:0;width:4px;height:100%;background:linear-gradient(180deg,#dc2626,#991b1b);border-radius:4px}
+.order-card .o-name{color:var(--text);font-weight:900;font-size:14px;margin-bottom:6px;padding-left:8px}
+.order-card .o-time{color:var(--muted);font-size:11px;margin-bottom:10px;padding-left:8px}
+.order-card .o-price{color:#dc2626;font-weight:900;font-size:18px;margin-bottom:12px;padding-left:8px}
+.order-card .o-actions{display:flex;gap:8px;padding-left:8px}
+.order-btn{flex:1;padding:10px;border-radius:10px;font-weight:900;font-size:12px;cursor:pointer;font-family:inherit;text-transform:uppercase}
+.order-btn.detail{background:linear-gradient(135deg,#dc2626,#991b1b);color:#fff;border:0}
+.order-btn.del{background:transparent;border:1.5px solid #dc2626;color:#dc2626}
+.admin-fab{position:fixed;top:70px;right:16px;z-index:99;background:linear-gradient(135deg,#dc2626,#991b1b);border:0;padding:10px 16px;border-radius:12px;color:#fff;font-weight:900;font-size:12px;cursor:pointer;font-family:inherit;display:none;align-items:center;gap:6px;text-transform:uppercase}
 .admin-fab.on{display:flex}
-.admin-item{display:flex;align-items:center;gap:12px;padding:12px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:10px;margin-bottom:8px}
-.admin-item img{width:50px;height:50px;object-fit:cover;border-radius:8px}
+.admin-item{display:flex;align-items:center;gap:12px;padding:12px;background:#f8fafc;border:1px solid var(--border);border-radius:12px;margin-bottom:8px}
+.admin-item img{width:50px;height:50px;object-fit:cover;border-radius:10px}
 .admin-item .info{flex:1;min-width:0}
-.admin-item .n{font-weight:700;font-size:13px;color:#fff}
-.admin-item .p{color:#fbbf24;font-size:12px;font-weight:800}
-.admin-item .del{background:#ef4444;color:#fff;border:0;width:30px;height:30px;border-radius:8px;cursor:pointer;font-weight:900}
-.dep-approve{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;font-size:13px;gap:10px}
-.dep-approve .amt{color:#fbbf24;font-weight:900;font-size:15px}
-.dep-approve .email{color:#fca5a5;font-size:11px}
-.dep-approve button{border:0;padding:6px 10px;border-radius:6px;font-weight:800;cursor:pointer;font-size:11px;margin-left:4px}
+.admin-item .n{font-weight:800;font-size:13px;color:var(--text)}
+.admin-item .p{color:#dc2626;font-size:12px;font-weight:800}
+.admin-item .del{background:#dc2626;color:#fff;border:0;width:32px;height:32px;border-radius:9px;cursor:pointer;font-weight:900}
+.dep-approve{background:#f8fafc;border:1px solid var(--border);border-radius:12px;padding:12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;font-size:13px;gap:10px}
+.dep-approve .amt{color:#dc2626;font-weight:900;font-size:15px}
+.dep-approve .email{color:var(--muted);font-size:11px}
+.dep-approve button{border:0;padding:7px 12px;border-radius:8px;font-weight:900;cursor:pointer;font-size:11px;margin-left:4px;text-transform:uppercase}
 .btn-ok{background:#16a34a;color:#fff}
-.btn-no{background:#ef4444;color:#fff}
-.lock-icon{font-size:48px;text-align:center;margin-bottom:12px}
-.toast{position:fixed;top:20px;left:50%;transform:translate(-50%,-200%);background:#dc2626;color:#fff;padding:14px 20px;border-radius:12px;font-weight:800;font-size:14px;z-index:99999;transition:transform .3s;max-width:90%}
+.btn-no{background:#dc2626;color:#fff}
+.lock-icon{font-size:52px;text-align:center;margin-bottom:14px}
+.toast{position:fixed;top:20px;left:50%;transform:translate(-50%,-200%);background:linear-gradient(135deg,#dc2626,#991b1b);color:#fff;padding:16px 24px;border-radius:16px;font-weight:900;font-size:14px;z-index:99999;transition:transform .4s;max-width:90%}
 .toast.show{transform:translate(-50%,0)}
-.toast.success{background:#16a34a}
-.toast.error{background:#dc2626}
-.loading-overlay{position:fixed;inset:0;background:rgba(20,5,5,.9);display:none;align-items:center;justify-content:center;z-index:99999}
+.toast.success{background:linear-gradient(135deg,#16a34a,#15803d)}
+.toast.error{background:linear-gradient(135deg,#dc2626,#7f1d1d)}
+.loading-overlay{position:fixed;inset:0;background:rgba(255,255,255,.9);display:none;align-items:center;justify-content:center;z-index:99999}
 .loading-overlay.on{display:flex}
-.spinner{width:50px;height:50px;border:4px solid rgba(255,255,255,.2);border-top-color:#ef4444;border-radius:50%;animation:spin 1s linear infinite}
+.spinner{width:52px;height:52px;border:4px solid #fee2e2;border-top-color:#dc2626;border-radius:50%;animation:spin 1s linear infinite}
 @keyframes spin{100%{transform:rotate(360deg)}}
-.status-box{padding:12px 16px;border-radius:10px;margin-bottom:14px;font-size:13px;font-weight:700}
-.status-box.ok{background:rgba(22,163,74,.3);color:#86efac;border:1px solid #16a34a}
-.status-box.err{background:rgba(220,38,38,.3);color:#fca5a5;border:1px solid #ef4444}
-.detail-row{display:flex;justify-content:space-between;padding:10px 0;font-size:13px;border-bottom:1px solid rgba(255,255,255,.1)}
+.status-box{padding:14px 18px;border-radius:14px;margin-bottom:14px;font-size:13px;font-weight:800}
+.status-box.ok{background:#dcfce7;color:#16a34a;border:1px solid #86efac}
+.status-box.err{background:#fee2e2;color:#dc2626;border:1px solid #fecaca}
+.detail-row{display:flex;justify-content:space-between;padding:10px 0;font-size:13px;border-bottom:1px solid var(--border)}
 .detail-row:last-child{border-bottom:0}
-.detail-row .lbl{color:#fca5a5}
-.detail-row .val{color:#fff;font-weight:800;text-align:right;max-width:60%}
-.detail-row .val.price{color:#fbbf24;font-size:16px}
-.link-box{padding:12px;background:rgba(22,163,74,.2);border:1px solid #16a34a;border-radius:10px;margin-top:12px;word-break:break-all;color:#86efac;font-size:12px;line-height:1.6}
-.link-box a{color:#4ade80;text-decoration:underline;font-weight:800}
-.blind-bag{background:linear-gradient(135deg,rgba(147,51,234,.3),rgba(107,33,168,.4));border:2px solid #9333ea;border-radius:20px;padding:24px 20px;text-align:center;margin-bottom:14px;position:relative;overflow:hidden}
-.blind-bag:before{content:"";position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:conic-gradient(from 0deg,transparent,rgba(255,255,255,.1),transparent 30%);animation:rotate 8s linear infinite}
-@keyframes rotate{100%{transform:rotate(360deg)}}
-.blind-bag-inner{position:relative;z-index:1}
-.blind-bag-img{width:160px;height:160px;margin:0 auto 16px;display:block;border-radius:16px;object-fit:cover;filter:drop-shadow(0 0 20px rgba(147,51,234,.8));animation:bounce 2s ease-in-out infinite}
-@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-.blind-bag h3{color:#fff;font-size:20px;font-weight:900;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;text-shadow:0 0 15px rgba(147,51,234,.8)}
-.blind-bag p{color:#e9d5ff;font-size:13px;margin-bottom:16px}
-.blind-bag .stock-badge{display:inline-block;background:rgba(0,0,0,.5);color:#4ade80;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:900;margin-bottom:16px}
-.blind-bag .stock-badge.out{color:#ef4444}
-.blind-bag .price-badge{color:#fbbf24;font-size:24px;font-weight:900;margin-bottom:16px}
-.open-bag-btn{width:100%;padding:18px;background:linear-gradient(135deg,#9333ea,#6b21a8);border:0;border-radius:14px;color:#fff;font-size:16px;font-weight:900;cursor:pointer;font-family:inherit;text-transform:uppercase;letter-spacing:1px;box-shadow:0 6px 20px rgba(147,51,234,.6)}
-.open-bag-btn:disabled{background:#555;cursor:not-allowed;box-shadow:none}
-.robox-result{background:rgba(22,163,74,.2);border:2px solid #16a34a;border-radius:14px;padding:20px;text-align:center;margin-top:16px}
-.robox-result .rp{color:#4ade80;font-size:14px;font-weight:800;margin-bottom:8px}
-.robox-acc{background:rgba(0,0,0,.5);border-radius:10px;padding:14px;margin:8px 0}
-.robox-acc .u{color:#fff;font-size:14px;word-break:break-all;margin-bottom:6px}
-.robox-acc .u b{color:#fbbf24}
-.robox-acc .p{color:#fff;font-size:14px;word-break:break-all}
-.robox-acc .p b{color:#fbbf24}
-.robox-pool-item{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:10px 12px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12px}
-.robox-pool-item .acc{flex:1;min-width:0;color:#fff;word-break:break-all}
-.robox-pool-item .acc .lbl{color:#fca5a5;font-size:10px}
-.robox-pool-item .del{background:#ef4444;color:#fff;border:0;width:26px;height:26px;border-radius:6px;cursor:pointer;font-weight:900;flex-shrink:0}
-.dice-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;flex-direction:column;z-index:99999;padding:20px}
-.dice-overlay.on{display:flex}
-.dice-box{display:flex;gap:20px;margin-bottom:24px}
-.dice{width:80px;height:80px;background:#fff;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:48px;box-shadow:0 0 30px rgba(147,51,234,.8);animation:diceRoll .4s linear infinite}
-.dice:nth-child(2){animation-delay:.1s}
-.dice:nth-child(3){animation-delay:.2s}
-@keyframes diceRoll{0%{transform:rotate(0deg) scale(1)}25%{transform:rotate(90deg) scale(1.1)}50%{transform:rotate(180deg) scale(1)}75%{transform:rotate(270deg) scale(1.1)}100%{transform:rotate(360deg) scale(1)}}
-.dice-text{color:#fff;font-size:22px;font-weight:900;text-align:center;margin-bottom:10px;text-transform:uppercase;letter-spacing:2px;text-shadow:0 0 20px rgba(147,51,234,.8)}
-.dice-count{color:#4ade80;font-size:56px;font-weight:900;text-shadow:0 0 30px rgba(74,222,128,.8)}
-.dice-note{color:#fca5a5;font-size:13px;margin-top:14px}
-@media(max-width:380px){.products-grid{grid-template-columns:1fr}.social-grid{grid-template-columns:1fr}}
+.detail-row .lbl{color:var(--muted)}
+.detail-row .val{color:var(--text);font-weight:800;text-align:right;max-width:60%}
+.detail-row .val.price{color:#dc2626;font-size:16px}
+.link-box{padding:12px;background:#dcfce7;border:1px solid #16a34a;border-radius:10px;margin-top:12px;word-break:break-all;color:#166534;font-size:12px;line-height:1.6}
+.link-box a{color:#16a34a;text-decoration:underline;font-weight:800}
+@media(max-width:380px){.products-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <audio id="bgMusic" src="https://files.catbox.moe/cxjo25.mp3" loop preload="auto"></audio>
 <div class="loading-overlay" id="loadingOverlay"><div class="spinner"></div></div>
-<button class="admin-fab" id="adminFab" onclick="openAdminPanel()">⚡ ADMIN</button>
+<button class="admin-fab" id="adminFab" onclick="openAdminPanel()">ADMIN</button>
 <div class="toast" id="toast"></div>
 <header>
-<div class="logo">🛒 SAMM SHOP</div>
+<div class="logo">
+<div class="logo-icon">🎮</div>
+<div class="logo-text">
+<div class="top">SHOP HACK</div>
+<div class="name">SAMM.NET VIP</div>
+</div>
+</div>
 <div class="chip" onclick="chipClick()">
-<div><div class="name" id="cName">Đăng nhập</div><div class="bal" id="cBal">0 VND</div></div>
+<div class="info"><div class="name" id="cName">Đăng nhập</div><div class="bal" id="cBal">0 VND</div></div>
 <div class="av" id="cAv">?</div>
 </div>
 </header>
@@ -192,17 +166,17 @@ nav button.on{color:#ef4444}
 <div id="serverStatus"></div>
 
 <div class="page on" id="p-shop">
-<div class="title">Shop</div>
+<div class="title"><div class="icon-box"></div><span>Shop</span></div>
 <div class="products-grid" id="products"></div>
 </div>
 
 <div class="page" id="p-nap">
 <div id="notice" class="notice-box" style="display:none"></div>
 <div id="form">
-<div class="title">Nạp tiền</div>
+<div class="title"><div class="icon-box"></div><span>Nạp tiền</span></div>
 <div class="card">
 <label>Số tiền cần nạp (VND)</label>
-<div class="amt"><input id="amt" inputmode="numeric" value="50.000"><span>₫</span></div>
+<div class="amt"><input id="amt" inputmode="numeric" value="50.000"><span>d</span></div>
 <div class="quick">
 <button data-a="50000" class="on">50k</button>
 <button data-a="100000">100k</button>
@@ -213,12 +187,12 @@ nav button.on{color:#ef4444}
 </div>
 </div>
 <div id="qr" style="display:none">
-<div class="title">Nạp tiền</div>
+<div class="title"><div class="icon-box"></div><span>Nạp tiền</span></div>
 <div class="qr">
 <img src="https://files.catbox.moe/7e2kkm.png" alt="QR">
 <div class="timer" id="timer">10:00</div>
 <div class="timer-lb">Phiên chờ xác nhận</div>
-<button class="cancel" type="button" onclick="cancelDeposit(true)">❌ HỦY YÊU CẦU NẠP</button>
+<button class="cancel" type="button" onclick="cancelDeposit(true)">HỦY YÊU CẦU NẠP</button>
 <div class="info"><b>Số tiền: <span id="qrAmt"></span></b><br>Quét QR để chuyển khoản.</div>
 </div>
 </div>
@@ -229,31 +203,47 @@ nav button.on{color:#ef4444}
 </div>
 
 <div class="page" id="p-don">
-<div class="title">Đơn hàng</div>
+<div class="title"><div class="icon-box"></div><span>Đơn hàng</span></div>
 <div id="orders"></div>
 </div>
 
 <div class="page" id="p-box">
-<div class="title">🎁 Túi Mù Roblox</div>
-<div class="blind-bag">
-<div class="blind-bag-inner">
-<img class="blind-bag-img" src="https://files.catbox.moe/h9wy4z.jpeg" alt="Túi mù" onerror="this.src='https://placehold.co/200x200/9333ea/fff?text=ROBLOX'">
-<h3>🎁 Túi Mù Roblox</h3>
-<p>Mở túi mù nhận ngẫu nhiên 1 tài khoản Roblox</p>
-<div class="stock-badge" id="blindStock">Đang tải...</div>
-<div class="price-badge" id="blindPrice">1.000 đ</div>
-<button class="open-bag-btn" id="openBagBtn" onclick="openBlindBag()">🎁 MỞ TÚI MÙ</button>
+<div class="title"><div class="icon-box"></div><span>Box cộng đồng</span></div>
+<div class="card" style="text-align:center;margin-bottom:14px">
+<h3 style="font-size:15px;margin-bottom:6px;font-weight:800">Tham gia cộng đồng</h3>
+<p style="color:#64748b;font-size:12px">Nhấn vào các nút bên dưới</p>
 </div>
+
+<a href="https://zalo.me/g/wqnmgz1abybxpub2p9w9" target="_blank" style="display:flex;align-items:center;gap:14px;padding:16px;background:linear-gradient(135deg,#0068FF,#0047B3);border-radius:16px;text-decoration:none;margin-bottom:12px">
+<div style="width:50px;height:50px;background:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:26px">💬</div>
+<div style="flex:1;color:#fff">
+<div style="font-weight:900;font-size:15px">ZALO 1</div>
+<div style="font-size:11px;opacity:.9">Nhóm chat chính</div>
 </div>
-<div id="blindResult"></div>
-<div class="card" style="margin-top:14px">
-<h3 style="color:#fca5a5;font-size:13px;text-transform:uppercase;margin-bottom:12px;font-weight:900">📋 Lịch sử mở túi mù</h3>
-<div id="blindHistory"></div>
+<div style="color:#fff;font-size:24px">›</div>
+</a>
+
+<a href="https://zalo.me/g/fgqrxbl5o8igxvfkdviq" target="_blank" style="display:flex;align-items:center;gap:14px;padding:16px;background:linear-gradient(135deg,#0068FF,#0047B3);border-radius:16px;text-decoration:none;margin-bottom:12px">
+<div style="width:50px;height:50px;background:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:26px">💬</div>
+<div style="flex:1;color:#fff">
+<div style="font-weight:900;font-size:15px">ZALO 2</div>
+<div style="font-size:11px;opacity:.9">Nhóm chat phụ</div>
 </div>
+<div style="color:#fff;font-size:24px">›</div>
+</a>
+
+<a href="https://t.me/+JQmhhk6l7is1ZTc1" target="_blank" style="display:flex;align-items:center;gap:14px;padding:16px;background:linear-gradient(135deg,#0088cc,#005f8c);border-radius:16px;text-decoration:none;margin-bottom:12px">
+<div style="width:50px;height:50px;background:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:26px">✈️</div>
+<div style="flex:1;color:#fff">
+<div style="font-weight:900;font-size:15px">TELEGRAM</div>
+<div style="font-size:11px;opacity:.9">Group chat Telegram</div>
+</div>
+<div style="color:#fff;font-size:24px">›</div>
+</a>
 </div>
 
 <div class="page" id="p-acc">
-<div class="title">Tài khoản</div>
+<div class="title"><div class="icon-box"></div><span>Tài khoản</span></div>
 <div id="guestView">
 <div class="empty">Vui lòng đăng nhập.</div>
 <button class="create" onclick="openAuth()">Đăng nhập / Đăng ký</button>
@@ -266,7 +256,7 @@ nav button.on{color:#ef4444}
 <div class="joined" id="pJoined"></div>
 </div>
 <div class="stat-row">
-<div class="stat"><div class="lb">Số dư</div><div class="vl" id="pBal">0 đ</div></div>
+<div class="stat"><div class="lb">Số dư</div><div class="vl" id="pBal">0 d</div></div>
 <div class="stat"><div class="lb">Đơn hàng</div><div class="vl" id="pOrderCount">0</div></div>
 </div>
 <div class="menu-item" onclick="toggleDepHistory()">
@@ -278,7 +268,7 @@ nav button.on{color:#ef4444}
 <span><span class="ico">🔒</span>Đổi mật khẩu</span>
 <span class="arw">›</span>
 </div>
-<div class="menu-item" onclick="doLogout()" style="color:#ef4444">
+<div class="menu-item" onclick="doLogout()" style="color:#dc2626">
 <span><span class="ico">🚪</span>Đăng xuất</span>
 <span class="arw">›</span>
 </div>
@@ -287,9 +277,9 @@ nav button.on{color:#ef4444}
 </div>
 
 <div class="page" id="p-admin">
-<div class="title">Admin Panel</div>
+<div class="title"><div class="icon-box"></div><span>Admin Panel</span></div>
 <div class="card">
-<h3 style="color:#fca5a5;font-size:14px;text-transform:uppercase;margin-bottom:14px;font-weight:900">➕ Thêm sản phẩm</h3>
+<h3 style="color:#dc2626;font-size:14px;text-transform:uppercase;margin-bottom:14px;font-weight:900">Thêm sản phẩm</h3>
 <label>Tên sản phẩm</label>
 <input id="pName" placeholder="VD: Acc Free Fire VIP">
 <label>Mô tả</label>
@@ -300,30 +290,16 @@ nav button.on{color:#ef4444}
 <input id="pStock" type="number" placeholder="100" value="100" min="1" max="1000000">
 <label>Ảnh (URL)</label>
 <input id="pImage" placeholder="https://...">
-<label>Link giao hàng / Link file (URL)</label>
+<label>Link giao hàng</label>
 <input id="pUrl" placeholder="https://...">
-<button class="create" onclick="addProduct()">🚀 Đẩy lên Shop</button>
+<button class="create" onclick="addProduct()">Đẩy lên Shop</button>
 </div>
 <div class="card">
-<h3 style="color:#fca5a5;font-size:14px;text-transform:uppercase;margin-bottom:14px;font-weight:900">📦 Danh sách sản phẩm</h3>
+<h3 style="color:#dc2626;font-size:14px;text-transform:uppercase;margin-bottom:14px;font-weight:900">Danh sách sản phẩm</h3>
 <div id="productList"></div>
 </div>
-
 <div class="card">
-<h3 style="color:#e9d5ff;font-size:14px;text-transform:uppercase;margin-bottom:14px;font-weight:900">🎁 Quản lý Túi Mù Roblox</h3>
-<label>Tên tài khoản Roblox</label>
-<input id="bbUser" placeholder="VD: roblox_user_123">
-<label>Mật khẩu Roblox</label>
-<input id="bbPass" placeholder="VD: pass123456">
-<button class="create purple" onclick="addRobloxAcc()">➕ THÊM ACC ROBLOX VÀO KHO</button>
-<div style="margin-top:14px">
-<h4 style="color:#e9d5ff;font-size:12px;text-transform:uppercase;margin-bottom:10px;font-weight:900">Kho Roblox (<span id="bbCount">0</span> acc)</h4>
-<div id="bbList"></div>
-</div>
-</div>
-
-<div class="card">
-<h3 style="color:#fca5a5;font-size:14px;text-transform:uppercase;margin-bottom:14px;font-weight:900">📢 Thông báo</h3>
+<h3 style="color:#dc2626;font-size:14px;text-transform:uppercase;margin-bottom:14px;font-weight:900">Thông báo</h3>
 <input id="nText" placeholder="Nội dung...">
 <div class="btns">
 <button class="bt" onclick="setNotice()">Gửi</button>
@@ -331,23 +307,28 @@ nav button.on{color:#ef4444}
 </div>
 </div>
 <div class="card">
-<h3 style="color:#fca5a5;font-size:14px;text-transform:uppercase;margin-bottom:14px;font-weight:900">💰 Duyệt nạp</h3>
+<h3 style="color:#dc2626;font-size:14px;text-transform:uppercase;margin-bottom:14px;font-weight:900">Duyệt nạp</h3>
 <div id="depositList"></div>
 </div>
 <div class="card">
-<h3 style="color:#fca5a5;font-size:14px;text-transform:uppercase;margin-bottom:14px;font-weight:900">🚫 Ban tài khoản</h3>
+<h3 style="color:#dc2626;font-size:14px;text-transform:uppercase;margin-bottom:14px;font-weight:900">Danh sách users (<span id="userCount">0</span>)</h3>
+<input id="userSearch" placeholder="Tìm theo tên..." oninput="renderUserList()" style="margin-bottom:12px">
+<div id="userList"></div>
+</div>
+<div class="card">
+<h3 style="color:#dc2626;font-size:14px;text-transform:uppercase;margin-bottom:14px;font-weight:900">Ban tài khoản</h3>
 <label>Tên tài khoản cần ban</label>
 <input id="banUserInput" placeholder="VD: user123">
-<button class="create red" onclick="banUser()">🚫 BAN TÀI KHOẢN</button>
+<button class="create red" onclick="banUser()">BAN TÀI KHOẢN</button>
 <div style="margin-top:14px">
-<h4 style="color:#fca5a5;font-size:12px;text-transform:uppercase;margin-bottom:10px;font-weight:900">Danh sách bị ban</h4>
+<h4 style="color:#dc2626;font-size:12px;text-transform:uppercase;margin-bottom:10px;font-weight:900">Danh sách bị ban</h4>
 <div id="bannedList"></div>
 </div>
 </div>
 <div class="card">
-<h3 style="color:#fca5a5;font-size:14px;text-transform:uppercase;margin-bottom:14px;font-weight:900">⚠️ Nguy hiểm</h3>
-<button class="create red" onclick="clearAllProducts()" style="margin-bottom:8px">🗑 Xóa tất cả sản phẩm</button>
-<button class="create red" onclick="clearAllUsers()">🗑 Xóa tất cả users</button>
+<h3 style="color:#dc2626;font-size:14px;text-transform:uppercase;margin-bottom:14px;font-weight:900">Nguy hiểm</h3>
+<button class="create red" onclick="clearAllProducts()" style="margin-bottom:8px">Xóa tất cả sản phẩm</button>
+<button class="create red" onclick="clearAllUsers()">Xóa tất cả users</button>
 </div>
 </div>
 </main>
@@ -364,7 +345,7 @@ nav button.on{color:#ef4444}
 <div class="mbox">
 <h2 id="aTitle">Đăng nhập</h2>
 <label>Tên tài khoản</label>
-<input id="aUser" type="text" placeholder="VD: sammvip" maxlength="20">
+<input id="aUser" type="text" placeholder="VD: Kaimomo2011" maxlength="20">
 <label>Mật khẩu</label>
 <input id="aPass" type="password" placeholder="Ít nhất 6 ký tự">
 <div class="btns">
@@ -400,24 +381,24 @@ nav button.on{color:#ef4444}
 <div class="modal" id="orderModal">
 <div class="mbox">
 <div style="text-align:center;padding:8px 0 16px">
-<div style="width:80px;height:80px;border-radius:50%;background:#16a34a;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:40px;color:#fff">✓</div>
-<h2 style="color:#4ade80;font-size:20px;margin-bottom:6px;text-align:center">Mua thành công!</h2>
+<div style="width:80px;height:80px;border-radius:50%;background:#16a34a;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:40px;color:#fff">V</div>
+<h2 style="color:#16a34a;font-size:20px;margin-bottom:6px;text-align:center">Mua thành công!</h2>
 </div>
-<div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:12px;padding:14px;margin:14px 0">
+<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:14px;margin:14px 0">
 <div class="detail-row"><span class="lbl">Sản phẩm</span><span id="odName" class="val">-</span></div>
 <div class="detail-row"><span class="lbl">Giá</span><span id="odPrice" class="val price">-</span></div>
 <div class="detail-row"><span class="lbl">Thời gian</span><span id="odTime" class="val">-</span></div>
 <div class="detail-row"><span class="lbl">Mã đơn</span><span id="odCode" class="val">-</span></div>
 </div>
-<div id="odLinkBox" class="link-box" style="display:none">🔗 Link giao hàng:<br><a id="odLinkHref" href="#" target="_blank">-</a></div>
-<button id="odLinkBtn" onclick="openOrderLink()" style="display:none;width:100%;padding:14px;border:0;border-radius:12px;font-weight:900;cursor:pointer;font-family:inherit;font-size:13px;text-transform:uppercase;margin-top:10px;background:#16a34a;color:#fff">🚀 MỞ LINK GIAO HÀNG</button>
-<button onclick="viewOrderInHistory()" style="width:100%;padding:14px;border:0;border-radius:12px;font-weight:900;cursor:pointer;font-family:inherit;font-size:13px;text-transform:uppercase;margin-top:8px;background:#dc2626;color:#fff">📦 XEM ĐƠN HÀNG</button>
-<button onclick="closeOrderModal()" style="width:100%;padding:14px;border:0;border-radius:12px;font-weight:900;cursor:pointer;font-family:inherit;font-size:13px;text-transform:uppercase;margin-top:8px;background:rgba(255,255,255,.15);color:#fff">ĐÓNG</button>
+<div id="odLinkBox" class="link-box" style="display:none">Link giao hàng:<br><a id="odLinkHref" href="#" target="_blank">-</a></div>
+<button id="odLinkBtn" onclick="openOrderLink()" style="display:none;width:100%;padding:14px;border:0;border-radius:12px;font-weight:900;cursor:pointer;font-family:inherit;font-size:13px;text-transform:uppercase;margin-top:10px;background:#16a34a;color:#fff">MỞ LINK GIAO HÀNG</button>
+<button onclick="viewOrderInHistory()" style="width:100%;padding:14px;border:0;border-radius:12px;font-weight:900;cursor:pointer;font-family:inherit;font-size:13px;text-transform:uppercase;margin-top:8px;background:#dc2626;color:#fff">XEM ĐƠN HÀNG</button>
+<button onclick="closeOrderModal()" style="width:100%;padding:14px;border:0;border-radius:12px;font-weight:900;cursor:pointer;font-family:inherit;font-size:13px;text-transform:uppercase;margin-top:8px;background:#f1f5f9;color:#64748b">ĐÓNG</button>
 </div>
 </div>
 <div class="modal" id="detailModal">
 <div class="mbox">
-<h2 style="color:#fca5a5;text-align:center;margin-bottom:16px">CHI TIẾT ĐƠN HÀNG</h2>
+<h2 style="color:#dc2626;text-align:center;margin-bottom:16px">CHI TIẾT ĐƠN HÀNG</h2>
 <div id="detailBody"></div>
 <div class="btns" style="margin-top:14px">
 <button class="bt" onclick="closeDetailModal()">ĐÓNG</button>
@@ -425,508 +406,1278 @@ nav button.on{color:#ef4444}
 </div>
 </div>
 
-<button onclick="toggleBot()" style="position:fixed;bottom:80px;right:16px;z-index:99;width:56px;height:56px;border-radius:50%;background:#dc2626;border:0;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 15px rgba(220,38,38,.6);font-size:28px">🤖</button>
-<div id="botWindow" style="position:fixed;bottom:150px;right:16px;width:min(340px,calc(100vw - 32px));height:min(480px,calc(100vh - 200px));background:#2a0f0f;border:2px solid #ef4444;border-radius:16px;z-index:999;display:none;flex-direction:column;overflow:hidden">
+<button onclick="toggleBot()" style="position:fixed;bottom:80px;right:16px;z-index:99;width:56px;height:56px;border-radius:50%;background:#dc2626;border:0;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(220,38,38,.5);font-size:28px">🤖</button>
+<div id="botWindow" style="position:fixed;bottom:150px;right:16px;width:min(340px,calc(100vw - 32px));height:min(480px,calc(100vh - 200px));background:#fff;border:2px solid #dc2626;border-radius:16px;z-index:999;display:none;flex-direction:column;overflow:hidden">
 <div style="background:#dc2626;color:#fff;padding:12px 16px;display:flex;justify-content:space-between;align-items:center">
 <div style="display:flex;align-items:center;gap:8px">
 <div style="width:36px;height:36px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:20px">🤖</div>
-<div><div style="font-weight:900;font-size:14px">SAMM BOT</div><div style="font-size:10px">● Online</div></div>
+<div><div style="font-weight:900;font-size:14px">SAMM BOT</div><div style="font-size:10px">Online</div></div>
 </div>
-<button onclick="toggleBot()" style="background:rgba(255,255,255,.3);border:0;width:30px;height:30px;border-radius:8px;color:#fff;font-size:18px;cursor:pointer">×</button>
+<button onclick="toggleBot()" style="background:rgba(255,255,255,.3);border:0;width:30px;height:30px;border-radius:8px;color:#fff;font-size:18px;cursor:pointer">x</button>
 </div>
-<div id="botBody" style="flex:1;overflow-y:auto;padding:14px;background:#1a0808"></div>
-<div style="padding:10px;background:#2a0f0f;border-top:1px solid rgba(255,255,255,.15);display:flex;gap:6px">
-<input id="botInput" placeholder="Nhập câu hỏi..." onkeypress="if(event.key==='Enter')sendBotMsg()" style="flex:1;padding:10px;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:20px;color:#fff;outline:none;font-size:13px;margin:0">
-<button onclick="sendBotMsg()" style="background:#dc2626;border:0;width:40px;height:40px;border-radius:50%;color:#fff;cursor:pointer;font-size:18px">➤</button>
+<div id="botBody" style="flex:1;overflow-y:auto;padding:14px;background:#f8fafc"></div>
+<div style="padding:10px;background:#fff;border-top:1px solid var(--border);display:flex;gap:6px">
+<input id="botInput" placeholder="Nhập câu hỏi..." onkeypress="if(event.key==='Enter')sendBotMsg()" style="flex:1;padding:10px;background:#f8fafc;border:1.5px solid var(--border);border-radius:20px;color:var(--text);outline:none;font-size:13px;margin:0">
+<button onclick="sendBotMsg()" style="background:#dc2626;border:0;width:40px;height:40px;border-radius:50%;color:#fff;cursor:pointer;font-size:18px">></button>
 </div>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 <script>
-var firebaseConfig={apiKey:"AIzaSyDEh-1Nr9AQO_GN3DMrjUl0z6VHKULJ7ng",authDomain:"samm-net-vip.firebaseapp.com",databaseURL:"https://samm-net-vip-default-rtdb.firebaseio.com",projectId:"samm-net-vip",storageBucket:"samm-net-vip.firebasestorage.app",messagingSenderId:"781318384131",appId:"1:781318384131:web:d6bad64e19c3a770667c36"};
-var ADMIN_USER="Kaimomo2011";
-var ADMIN_PASSWORD="samm2026";
-var ZALO_NUMBER="0355757211";
-var ZALO_LINK="https://zalo.me/0355757211";
-var db=null;
-try{firebase.initializeApp(firebaseConfig);db=firebase.database();}catch(e){console.log(e);}
-var users={},products=[],notices=[],banned={},robloxPool={},blindConfig={price:1000};
-var cur=localStorage.getItem("sammCurrentUser")||"";
-var deposit=null,timerId=null,authMode="login",adminUnlocked=false,currentOrderUrl="",musicPlaying=false,botOpen=false;
-function $(id){return document.getElementById(id);}
-function money(v){return Number(v||0).toLocaleString("vi-VN")+" d";}
-function esc(v){var s=String(v==null?"":v);s=s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");return s;}
-function user(){return(cur&&users[cur])?users[cur]:null;}
-function isAdmin(){return cur===ADMIN_USER;}
-var bgMusic=$("bgMusic");
-function playMusic(){bgMusic.volume=0.3;bgMusic.play().then(function(){musicPlaying=true;}).catch(function(){});}
-bgMusic.addEventListener("ended",function(){bgMusic.currentTime=0;bgMusic.play();});
-window.addEventListener("load",playMusic);
-document.addEventListener("click",function(){if(!musicPlaying){bgMusic.play().then(function(){musicPlaying=true;}).catch(function(){});}});
-function showToast(text,type){var t=$("toast");t.textContent=text;t.className="toast";if(type==="success")t.classList.add("success");if(type==="error")t.classList.add("error");setTimeout(function(){t.classList.add("show");},50);setTimeout(function(){t.classList.remove("show");},3500);}
-function showLoading(on){if(on)$("loadingOverlay").classList.add("on");else $("loadingOverlay").classList.remove("on");}
-function showServerStatus(ok,msg){var el=$("serverStatus");if(!el)return;if(ok){el.innerHTML='<div class="status-box ok">✓ '+msg+'</div>';setTimeout(function(){el.innerHTML='';},3000);}else{el.innerHTML='<div class="status-box err">✕ '+msg+'</div>';}}
+var firebaseConfig = {
+    apiKey: "AIzaSyDEh-1Nr9AQO_GN3DMrjUl0z6VHKULJ7ng",
+    authDomain: "samm-net-vip.firebaseapp.com",
+    databaseURL: "https://samm-net-vip-default-rtdb.firebaseio.com",
+    projectId: "samm-net-vip",
+    storageBucket: "samm-net-vip.firebasestorage.app",
+    messagingSenderId: "781318384131",
+    appId: "1:781318384131:web:d6bad64e19c3a770667c36"
+};
+
+var ADMIN_USER = "Kaimomo2011";
+var ADMIN_PASSWORD = "samm2026";
+var ZALO_LINK = "https://zalo.me/0355757211";
+
+var db = null;
+try {
+    firebase.initializeApp(firebaseConfig);
+    db = firebase.database();
+} catch (e) {
+    console.log("Firebase error:", e);
+}
+
+var users = {};
+var products = [];
+var notices = [];
+var banned = {};
+var cur = localStorage.getItem("sammCurrentUser") || "";
+var deposit = null;
+var timerId = null;
+var authMode = "login";
+var adminUnlocked = false;
+var currentOrderUrl = "";
+var musicPlaying = false;
+var botOpen = false;
+
+function $(id){ return document.getElementById(id); }
+function money(v){ return Number(v||0).toLocaleString("vi-VN") + " d"; }
+
+function esc(v){
+    var s = String(v == null ? "" : v);
+    s = s.replace(/&/g, "&amp;");
+    s = s.replace(/</g, "&lt;");
+    s = s.replace(/>/g, "&gt;");
+    s = s.replace(/"/g, "&quot;");
+    s = s.replace(/'/g, "&#39;");
+    return s;
+}
+
+function user(){
+    if(cur && users[cur]) return users[cur];
+    return null;
+}
+
+function isAdmin(){
+    if(cur === ADMIN_USER) return true;
+    return false;
+}
+
+var bgMusic = $("bgMusic");
+function playMusic(){
+    bgMusic.volume = 0.3;
+    bgMusic.play().then(function(){ musicPlaying = true; }).catch(function(){});
+}
+bgMusic.addEventListener("ended", function(){
+    bgMusic.currentTime = 0;
+    bgMusic.play();
+});
+window.addEventListener("load", playMusic);
+document.addEventListener("click", function(){
+    if(!musicPlaying){
+        bgMusic.play().then(function(){ musicPlaying = true; }).catch(function(){});
+    }
+});
+
+function showToast(text, type){
+    var t = $("toast");
+    t.textContent = text;
+    t.className = "toast";
+    if(type === "success"){ t.classList.add("success"); }
+    if(type === "error"){ t.classList.add("error"); }
+    setTimeout(function(){ t.classList.add("show"); }, 50);
+    setTimeout(function(){ t.classList.remove("show"); }, 3500);
+}
+
+function showLoading(on){
+    if(on){ $("loadingOverlay").classList.add("on"); }
+    else { $("loadingOverlay").classList.remove("on"); }
+}
+
+function showServerStatus(ok, msg){
+    var el = $("serverStatus");
+    if(!el) return;
+    if(ok){
+        el.innerHTML = '<div class="status-box ok">OK ' + msg + '</div>';
+        setTimeout(function(){ el.innerHTML = ""; }, 3000);
+    } else {
+        el.innerHTML = '<div class="status-box err">Loi ' + msg + '</div>';
+    }
+}
+
 function startFirebaseSync(){
-if(!db){showServerStatus(false,"Khong ket noi Firebase!");return;}
-showLoading(true);
-db.ref("users").on("value",function(snap){users=snap.val()||{};renderAll();showLoading(false);});
-db.ref("products").on("value",function(snap){var data=snap.val()||{};products=[];for(var k in data){if(data.hasOwnProperty(k))products.push(data[k]);}products.sort(function(a,b){return(b.createdAt||0)-(a.createdAt||0);});renderProducts();showServerStatus(true,"Da ket noi may chu!");});
-db.ref("notices").on("value",function(snap){var data=snap.val()||{};notices=[];for(var k in data){if(data.hasOwnProperty(k))notices.push(data[k]);}renderNotice();});
-db.ref("banned").on("value",function(snap){banned=snap.val()||{};if(cur&&banned[cur]===true){showToast("Tài khoản đã bị cấm!","error");setTimeout(function(){cur="";localStorage.removeItem("sammCurrentUser");renderAll();},1500);}});
-db.ref("robloxPool").on("value",function(snap){robloxPool=snap.val()||{};renderBlindBag();renderAdminRoblox();});
-}
-function saveUserFB(u,d){if(db)db.ref("users/"+u).set(d);}
-function saveProductFB(id,d){if(db)db.ref("products/"+id).set(d);}
-function updateProductStock(id,newStock){if(db)db.ref("products/"+id+"/stock").set(newStock);}
-function deleteProductFB(id){if(db)db.ref("products/"+id).remove();}
-function saveNoticeFB(t){if(db){db.ref("notices").remove();db.ref("notices/"+Date.now()).set({text:t,time:Date.now()});}}
-function clearNoticeFB(){if(db)db.ref("notices").remove();}
-function banUserFB(name){if(db)db.ref("banned/"+name).set(true);}
-function unbanUserFB(name){if(db)db.ref("banned/"+name).remove();}
-function addRobloxAcc(){
-if(!checkAdmin())return;
-var u=$("bbUser").value.trim();
-var p=$("bbPass").value.trim();
-if(!u||!p){showToast("Nhập đủ User và Pass Roblox","error");return;}
-var id="rb"+Date.now();
-if(db)db.ref("robloxPool/"+id).set({id:id,user:u,pass:p,createdAt:Date.now()});
-$("bbUser").value="";$("bbPass").value="";
-showToast("Đã thêm acc Roblox!","success");
-}
-function delRobloxAcc(id){if(!checkAdmin())return;if(!confirm("Xóa acc Roblox này?"))return;if(db)db.ref("robloxPool/"+id).remove();showToast("Đã xóa","success");}
-function openBlindBag(){
-if(!user()){openAuth();showToast("Vui lòng đăng nhập!","error");return;}
-var price=1000;
-var ids=Object.keys(robloxPool);
-if(ids.length===0){showToast("Túi mù đã hết! Chờ admin nhập thêm","error");return;}
-if(Number(user().balance||0)<price){showToast("Số dư không đủ! Cần "+money(price),"error");setTimeout(function(){go("nap");},700);return;}
-if(!confirm("Mở túi mù với giá "+money(price)+"?\nKho còn "+ids.length+" acc"))return;
-var randomId=ids[Math.floor(Math.random()*ids.length)];
-var acc=robloxPool[randomId];
-var t=Date.now();
-var u=users[cur];
-u.balance=Number(u.balance||0)-price;
-if(!u.blindHistory)u.blindHistory={};
-u.blindHistory["b"+t]={user:acc.user,pass:acc.pass,time:t,price:price};
-saveUserFB(cur,u);
-if(db)db.ref("robloxPool/"+randomId).remove();
-$("blindResult").innerHTML="";
-showDiceRoll(function(){
-    $("blindResult").innerHTML='<div class="robox-result"><div class="rp">🎉 Bạn nhận được:</div><div class="robox-acc"><div class="u">👤 User: <b>'+esc(acc.user)+'</b></div><div class="p">🔑 Pass: <b>'+esc(acc.pass)+'</b></div></div><p style="color:#4ade80;font-size:12px">Đã lưu vào lịch sử mở túi mù</p></div>';
-    showToast("Mở túi thành công!","success");
-    renderAll();
-});
-}
-function showDiceRoll(callback){
-    var overlay=document.createElement("div");
-    overlay.className="dice-overlay on";
-    overlay.innerHTML='<div class="dice-text">🎲 Đang mở túi mù...</div><div class="dice-box"><div class="dice">🎲</div><div class="dice">🎲</div><div class="dice">🎲</div></div><div class="dice-count" id="diceCount">10</div><div class="dice-note">Vui lòng chờ trong giây lát</div>';
-    document.body.appendChild(overlay);
-    var count=10;
-    var interval=setInterval(function(){
-        count--;
-        var el=document.getElementById("diceCount");
-        if(el)el.textContent=count;
-        if(count<=0){
-            clearInterval(interval);
-            overlay.remove();
-            callback();
+    if(!db){ showServerStatus(false, "Khong ket noi Firebase!"); return; }
+    showLoading(true);
+    
+    db.ref("users").on("value", function(snap){
+        users = snap.val() || {};
+        renderAll();
+        showLoading(false);
+    });
+    
+    db.ref("products").on("value", function(snap){
+        var data = snap.val() || {};
+        products = [];
+        for(var k in data){
+            if(data.hasOwnProperty(k)){ products.push(data[k]); }
         }
-    },1000);
+        products.sort(function(a,b){
+            var ac = a.createdAt || 0;
+            var bc = b.createdAt || 0;
+            return bc - ac;
+        });
+        renderProducts();
+        showServerStatus(true, "Da ket noi may chu!");
+    });
+    
+    db.ref("notices").on("value", function(snap){
+        var data = snap.val() || {};
+        notices = [];
+        for(var k in data){
+            if(data.hasOwnProperty(k)){ notices.push(data[k]); }
+        }
+        renderNotice();
+    });
+    
+    db.ref("banned").on("value", function(snap){
+        banned = snap.val() || {};
+        if(cur && banned[cur] === true){
+            showToast("Tài khoản đã bị cấm!", "error");
+            setTimeout(function(){
+                cur = "";
+                localStorage.removeItem("sammCurrentUser");
+                renderAll();
+            }, 1500);
+        }
+    });
 }
-function toggleBot(){botOpen=!botOpen;var w=$("botWindow");if(botOpen){w.style.display="flex";if($("botBody").children.length===0)botWelcome();}else{w.style.display="none";}}
-function botWelcome(){botAddMsg("bot","Xin chào! Tôi là SAMM BOT 🤖<br>Bạn cần hỏi gì?");botAddQuick([{text:"💰 Cách nạp tiền",value:"nạp"},{text:"🛒 Cách mua hàng",value:"mua"},{text:"🎁 Túi mù Roblox",value:"túi mù"},{text:"📞 Liên hệ Zalo",value:"zalo"}]);}
-function botAddMsg(who,html){var body=$("botBody");var div=document.createElement("div");div.style.marginBottom="10px";div.style.display="flex";if(who==="me")div.style.justifyContent="flex-end";var b=document.createElement("div");b.style.maxWidth="80%";b.style.padding="10px 14px";b.style.borderRadius="14px";b.style.fontSize="13px";b.style.lineHeight="1.5";b.style.wordWrap="break-word";if(who==="me"){b.style.background="#dc2626";b.style.color="#fff";}else{b.style.background="rgba(255,255,255,.1)";b.style.color="#fff";}b.innerHTML=html;div.appendChild(b);body.appendChild(div);body.scrollTop=body.scrollHeight;}
-function botAddQuick(items){var body=$("botBody");var wrap=document.createElement("div");wrap.style.display="flex";wrap.style.flexWrap="wrap";wrap.style.gap="6px";wrap.style.marginTop="6px";for(var i=0;i<items.length;i++){var btn=document.createElement("button");btn.textContent=items[i].text;btn.style.background="rgba(220,38,38,.3)";btn.style.border="1px solid #ef4444";btn.style.color="#fff";btn.style.padding="8px 12px";btn.style.borderRadius="20px";btn.style.fontSize="11px";btn.style.fontWeight="700";btn.style.cursor="pointer";btn.style.fontFamily="inherit";btn.onclick=(function(v){return function(){botAnswer(v);};})(items[i].value);wrap.appendChild(btn);}body.appendChild(wrap);body.scrollTop=body.scrollHeight;}
+
+function saveUserFB(u, d){
+    if(db){ db.ref("users/" + u).set(d); }
+}
+function saveProductFB(id, d){
+    if(db){ db.ref("products/" + id).set(d); }
+}
+function updateProductStock(id, newStock){
+    if(db){ db.ref("products/" + id + "/stock").set(newStock); }
+}
+function deleteProductFB(id){
+    if(db){ db.ref("products/" + id).remove(); }
+}
+function saveNoticeFB(t){
+    if(db){
+        db.ref("notices").remove();
+        db.ref("notices/" + Date.now()).set({ text: t, time: Date.now() });
+    }
+}
+function clearNoticeFB(){
+    if(db){ db.ref("notices").remove(); }
+}
+function banUserFB(name){
+    if(db){ db.ref("banned/" + name).set(true); }
+}
+function unbanUserFB(name){
+    if(db){ db.ref("banned/" + name).remove(); }
+}
+
+/* BOT */
+function toggleBot(){
+    botOpen = !botOpen;
+    var w = $("botWindow");
+    if(botOpen){
+        w.style.display = "flex";
+        if($("botBody").children.length === 0){ botWelcome(); }
+    } else {
+        w.style.display = "none";
+    }
+}
+
+function botWelcome(){
+    botAddMsg("bot", "Xin chào! Tôi là SAMM BOT<br>Bạn cần hỏi gì?");
+    botAddQuick([
+        { text: "Cách nạp tiền", value: "nạp" },
+        { text: "Cách mua hàng", value: "mua" },
+        { text: "Liên hệ Zalo", value: "zalo" }
+    ]);
+}
+
+function botAddMsg(who, html){
+    var body = $("botBody");
+    var div = document.createElement("div");
+    div.style.marginBottom = "10px";
+    div.style.display = "flex";
+    if(who === "me"){ div.style.justifyContent = "flex-end"; }
+    var b = document.createElement("div");
+    b.style.maxWidth = "80%";
+    b.style.padding = "10px 14px";
+    b.style.borderRadius = "14px";
+    b.style.fontSize = "13px";
+    b.style.lineHeight = "1.5";
+    b.style.wordWrap = "break-word";
+    if(who === "me"){
+        b.style.background = "#dc2626";
+        b.style.color = "#fff";
+    } else {
+        b.style.background = "#fff";
+        b.style.border = "1px solid #e2e8f0";
+        b.style.color = "#1a1a1a";
+    }
+    b.innerHTML = html;
+    div.appendChild(b);
+    body.appendChild(div);
+    body.scrollTop = body.scrollHeight;
+}
+
+function botAddQuick(items){
+    var body = $("botBody");
+    var wrap = document.createElement("div");
+    wrap.style.display = "flex";
+    wrap.style.flexWrap = "wrap";
+    wrap.style.gap = "6px";
+    wrap.style.marginTop = "6px";
+    for(var i = 0; i < items.length; i++){
+        var btn = document.createElement("button");
+        btn.textContent = items[i].text;
+        btn.style.background = "#fef2f2";
+        btn.style.border = "1px solid #dc2626";
+        btn.style.color = "#dc2626";
+        btn.style.padding = "8px 12px";
+        btn.style.borderRadius = "20px";
+        btn.style.fontSize = "11px";
+        btn.style.fontWeight = "700";
+        btn.style.cursor = "pointer";
+        btn.style.fontFamily = "inherit";
+        btn.onclick = (function(v){
+            return function(){ botAnswer(v); };
+        })(items[i].value);
+        wrap.appendChild(btn);
+    }
+    body.appendChild(wrap);
+    body.scrollTop = body.scrollHeight;
+}
+
 function botAnswer(value){
-botAddMsg("me",esc(value));
-setTimeout(function(){
-var v=value.toLowerCase();
-var reply="";
-if(v.indexOf("/zalo")===0||v.indexOf("/sdt")===0||v.indexOf("zalo")>=0||v.indexOf("số điện thoại")>=0){
-reply='📞 <b>Liên hệ Zalo Admin</b><br>Ẩn số: <b>0365***211</b><br>Nhấn để mở Zalo:<br><a href="'+ZALO_LINK+'" target="_blank" style="display:inline-block;margin-top:8px;padding:10px 20px;background:#0068FF;color:#fff;border-radius:8px;text-decoration:none;font-weight:900">💬 MỞ ZALO</a>';
+    botAddMsg("me", esc(value));
+    setTimeout(function(){
+        var v = value.toLowerCase();
+        var reply = "";
+        
+        if(v.indexOf("/zalo") === 0 || v.indexOf("/sdt") === 0 || v.indexOf("zalo") >= 0 || v.indexOf("số điện thoại") >= 0 || v.indexOf("sđt") >= 0){
+            reply = '📞 <b>Liên hệ Zalo Admin</b><br><br><a href="' + ZALO_LINK + '" target="_blank" style="display:inline-block;padding:12px 24px;background:#0068FF;color:#fff;border-radius:10px;text-decoration:none;font-weight:900">BẤM ĐỂ MỞ ZALO</a><br><br><span style="color:#dc2626;font-size:11px">Số điện thoại đã được ẩn</span>';
+        }
+        else if(v.indexOf("/cam") === 0){
+            if(!isAdmin()){
+                reply = "Lệnh này chỉ Admin mới dùng được!";
+            } else {
+                var parts = value.split(" ");
+                if(parts.length < 2){
+                    reply = "Cú pháp: /cam tên_user";
+                } else {
+                    var target = parts[1].trim();
+                    if(!users[target]){
+                        reply = "Tài khoản không tồn tại!";
+                    } else if(target === ADMIN_USER){
+                        reply = "Không thể ban chính mình!";
+                    } else {
+                        banUserFB(target);
+                        reply = "Đã ban " + esc(target) + "!";
+                    }
+                }
+            }
+        }
+        else if(v.indexOf("/unban") === 0){
+            if(!isAdmin()){
+                reply = "Lệnh này chỉ Admin!";
+            } else {
+                var parts2 = value.split(" ");
+                if(parts2.length < 2){
+                    reply = "Cú pháp: /unban tên_user";
+                } else {
+                    unbanUserFB(parts2[1].trim());
+                    reply = "Đã bỏ ban!";
+                }
+            }
+        }
+        else if(v.indexOf("/list") === 0){
+            if(!isAdmin()){
+                reply = "Lệnh này chỉ Admin!";
+            } else {
+                var count = 0;
+                for(var k in users){ if(users.hasOwnProperty(k)) count++; }
+                reply = "Tổng users: " + count + "<br>Vào Admin Panel → mục Danh sách users";
+            }
+        }
+        else if(v.indexOf("nạp") >= 0 || v.indexOf("nap") >= 0){
+            reply = "Cách nạp tiền:<br>1. Vào tab NẠP<br>2. Chọn số tiền<br>3. Bấm Tạo yêu cầu<br>4. Quét QR<br>5. Chờ Admin duyệt";
+        }
+        else if(v.indexOf("mua") >= 0){
+            reply = "Cách mua hàng:<br>1. Vào tab SHOP<br>2. Chọn sản phẩm<br>3. Bấm Mua ngay<br>4. Nhận link/acc";
+        }
+        else if(v.indexOf("chào") >= 0 || v.indexOf("hello") >= 0 || v.indexOf("hi") >= 0){
+            reply = "Chào bạn! Hỏi tôi: nạp tiền, mua hàng. Gõ /zalo để liên hệ Admin";
+        }
+        else {
+            reply = "Tôi chưa hiểu. Hỏi: nạp tiền, mua hàng, hoặc gõ /zalo để liên hệ Admin";
+            if(isAdmin()){
+                reply = reply + "<br><br>Lệnh Admin: /cam, /unban, /list";
+            }
+        }
+        botAddMsg("bot", reply);
+    }, 350);
 }
-else if(v.indexOf("/cam")===0){
-if(!isAdmin()){reply="❌ Lệnh này chỉ Admin mới dùng được!";}
-else{var parts=value.split(" ");if(parts.length<2){reply="⚠️ Cú pháp: /cam tên_user";}else{var target=parts[1].trim();if(!users[target]){reply="❌ Tài khoản không tồn tại!";}else if(target===ADMIN_USER){reply="❌ Không thể ban chính mình!";}else{banUserFB(target);reply="✅ Đã ban "+esc(target)+"!";}}}
+
+function sendBotMsg(){
+    var input = $("botInput");
+    var v = input.value.trim();
+    if(!v){ return; }
+    input.value = "";
+    botAnswer(v);
 }
-else if(v.indexOf("/unban")===0){
-if(!isAdmin()){reply="❌ Lệnh này chỉ Admin!";}
-else{var parts2=value.split(" ");if(parts2.length<2){reply="⚠️ Cú pháp: /unban tên_user";}else{unbanUserFB(parts2[1].trim());reply="✅ Đã bỏ ban!";}}
-}
-else if(v.indexOf("túi mù")>=0||v.indexOf("tui mu")>=0||v.indexOf("roblox")>=0){reply="🎁 Túi mù Roblox:<br>1. Vào tab BOX<br>2. Bấm MỞ TÚI MÙ<br>3. Chờ 10s<br>4. Nhận ngẫu nhiên 1 acc Roblox<br>Giá: 1.000đ";}
-else if(v.indexOf("nạp")>=0||v.indexOf("nap")>=0){reply="💰 Cách nạp tiền:<br>1. Vào tab NẠP<br>2. Chọn số tiền<br>3. Bấm Tạo yêu cầu<br>4. Quét QR<br>5. Chờ Admin duyệt";}
-else if(v.indexOf("mua")>=0){reply="🛒 Cách mua hàng:<br>1. Vào tab SHOP<br>2. Chọn sản phẩm<br>3. Bấm Mua ngay<br>4. Nhận link/acc";}
-else if(v.indexOf("liên hệ")>=0||v.indexOf("admin")>=0){reply="💬 Liên hệ Admin:<br>Discord: <a href='https://discord.gg/AMVw7aF35' target='_blank' style='color:#fbbf24'>Nhấn</a><br>Zalo: <a href='https://zalo.me/g/wqnmgz1abybxpub2p9w9' target='_blank' style='color:#fbbf24'>Nhấn</a><br>Hoặc gõ <b>/zalo</b> để mở Zalo Admin";}
-else if(v.indexOf("chào")>=0||v.indexOf("hello")>=0||v.indexOf("hi")>=0){reply="👋 Chào bạn! Hỏi tôi: nạp tiền, mua hàng, túi mù, /zalo để liên hệ Admin";}
-else{reply="🤔 Tôi chưa hiểu. Hỏi: nạp tiền, mua hàng, túi mù, /zalo để liên hệ Admin";if(isAdmin())reply+="<br><br>🔧 Lệnh Admin: /cam, /unban";}
-botAddMsg("bot",reply);
-},350);
-}
-function sendBotMsg(){var input=$("botInput");var v=input.value.trim();if(!v)return;input.value="";botAnswer(v);}
+
+/* NAV */
 function go(name){
-if(name==="admin"){if(!isAdmin()||!adminUnlocked)name="shop";}
-var pages=document.querySelectorAll(".page");
-for(var i=0;i<pages.length;i++)pages[i].classList.remove("on");
-var btns=document.querySelectorAll("nav button");
-for(var j=0;j<btns.length;j++)btns[j].classList.remove("on");
-var page=$("p-"+name);if(page)page.classList.add("on");
-var btn=document.querySelector("nav button[data-p='"+name+"']");if(btn)btn.classList.add("on");
-window.scrollTo(0,0);
-if(name==="admin")renderAdmin();
-if(name==="don")renderOrders();
-if(name==="box")renderBlindBag();
+    if(name === "admin"){
+        if(!isAdmin() || !adminUnlocked){ name = "shop"; }
+    }
+    var pages = document.querySelectorAll(".page");
+    for(var i = 0; i < pages.length; i++){ pages[i].classList.remove("on"); }
+    var btns = document.querySelectorAll("nav button");
+    for(var j = 0; j < btns.length; j++){ btns[j].classList.remove("on"); }
+    var page = $("p-" + name);
+    if(page){ page.classList.add("on"); }
+    var btn = document.querySelector("nav button[data-p='" + name + "']");
+    if(btn){ btn.classList.add("on"); }
+    window.scrollTo(0, 0);
+    if(name === "admin"){ renderAdmin(); }
+    if(name === "don"){ renderOrders(); }
 }
-function openAdminPanel(){if(!isAdmin()){showToast("Bạn không phải admin!","error");return;}if(!adminUnlocked){openAdminPass();return;}go("admin");}
-function openAdminPass(){$("adminPassModal").classList.add("on");$("adminPassInput").value="";}
-function closeAdminPass(){$("adminPassModal").classList.remove("on");}
-function verifyAdminPass(){if($("adminPassInput").value===ADMIN_PASSWORD){adminUnlocked=true;closeAdminPass();showToast("Xác thực thành công!","success");setTimeout(function(){go("admin");},400);}else{showToast("Mật khẩu admin sai!","error");$("adminPassInput").value="";}}
-function chipClick(){if(user())go("acc");else openAuth();}
-function openAuth(){$("authModal").classList.add("on");$("aUser").value="";$("aPass").value="";}
-function closeAuth(){$("authModal").classList.remove("on");}
-function switchAuth(){if(authMode==="login"){authMode="register";$("aTitle").textContent="Đăng ký";$("aSubmit").textContent="Đăng ký";}else{authMode="login";$("aTitle").textContent="Đăng nhập";$("aSubmit").textContent="Đăng nhập";}}
-function validUsername(name){return /^[a-zA-Z0-9_]{3,20}$/.test(name);}
+
+function openAdminPanel(){
+    if(!isAdmin()){ showToast("Bạn không phải admin!", "error"); return; }
+    if(!adminUnlocked){ openAdminPass(); return; }
+    go("admin");
+}
+function openAdminPass(){
+    $("adminPassModal").classList.add("on");
+    $("adminPassInput").value = "";
+}
+function closeAdminPass(){ $("adminPassModal").classList.remove("on"); }
+function verifyAdminPass(){
+    if($("adminPassInput").value === ADMIN_PASSWORD){
+        adminUnlocked = true;
+        closeAdminPass();
+        showToast("Xác thực thành công!", "success");
+        setTimeout(function(){ go("admin"); }, 400);
+    } else {
+        showToast("Mật khẩu admin sai!", "error");
+        $("adminPassInput").value = "";
+    }
+}
+
+function chipClick(){
+    if(user()){ go("acc"); }
+    else { openAuth(); }
+}
+function openAuth(){
+    $("authModal").classList.add("on");
+    $("aUser").value = "";
+    $("aPass").value = "";
+}
+function closeAuth(){ $("authModal").classList.remove("on"); }
+function switchAuth(){
+    if(authMode === "login"){
+        authMode = "register";
+        $("aTitle").textContent = "Đăng ký";
+        $("aSubmit").textContent = "Đăng ký";
+    } else {
+        authMode = "login";
+        $("aTitle").textContent = "Đăng nhập";
+        $("aSubmit").textContent = "Đăng nhập";
+    }
+}
+function validUsername(name){
+    return /^[a-zA-Z0-9_]{3,20}$/.test(name);
+}
+
 function submitAuth(){
-var username=$("aUser").value.trim();
-var pass=$("aPass").value;
-if(!validUsername(username)){showToast("Tên 3-20 ký tự, chữ/số/gạch dưới!","error");return;}
-if(pass.length<6){showToast("Mật khẩu >= 6 ký tự!","error");return;}
-if(banned[username]===true){showToast("TÊN TÀI KHOẢN NÀY ĐÃ BỊ CẤM!","error");return;}
-showLoading(true);
-$("aSubmit").disabled=true;
-$("aSubmit").textContent="...";
-if(!db){showLoading(false);return;}
-db.ref("banned/"+username).once("value").then(function(banSnap){
-if(banSnap.val()===true){showLoading(false);$("aSubmit").disabled=false;$("aSubmit").textContent=authMode==="login"?"Đăng nhập":"Đăng ký";showToast("TÊN TÀI KHOẢN NÀY ĐÃ BỊ CẤM!","error");return;}
-db.ref("users/"+username).once("value").then(function(snap){
-var existing=snap.val();
-if(authMode==="register"){
-if(existing){showLoading(false);$("aSubmit").disabled=false;$("aSubmit").textContent="Đăng ký";showToast("Tên tài khoản đã tồn tại!","error");return;}
-var newUser={username:username,password:pass,balance:0,orders:{},deposits:{},blindHistory:{},createdAt:Date.now()};
-db.ref("users/"+username).set(newUser).then(function(){finishLogin(username);});
-}else{
-if(!existing){showLoading(false);$("aSubmit").disabled=false;$("aSubmit").textContent="Đăng nhập";showToast("Tên tài khoản chưa tồn tại!","error");return;}
-if(existing.password!==pass){showLoading(false);$("aSubmit").disabled=false;$("aSubmit").textContent="Đăng nhập";showToast("Sai mật khẩu!","error");return;}
-finishLogin(username);
+    var username = $("aUser").value.trim();
+    var pass = $("aPass").value;
+    
+    if(!validUsername(username)){
+        showToast("Tên 3-20 ký tự, chữ/số/gạch dưới!", "error");
+        return;
+    }
+    if(pass.length < 6){
+        showToast("Mật khẩu >= 6 ký tự!", "error");
+        return;
+    }
+    if(banned[username] === true){
+        showToast("TÊN TÀI KHOẢN NÀY ĐÃ BỊ CẤM!", "error");
+        return;
+    }
+    
+    showLoading(true);
+    $("aSubmit").disabled = true;
+    $("aSubmit").textContent = "...";
+    
+    if(!db){ showLoading(false); return; }
+    
+    db.ref("banned/" + username).once("value").then(function(banSnap){
+        if(banSnap.val() === true){
+            showLoading(false);
+            $("aSubmit").disabled = false;
+            $("aSubmit").textContent = "Đăng nhập";
+            showToast("TÊN TÀI KHOẢN NÀY ĐÃ BỊ CẤM!", "error");
+            return;
+        }
+        
+        db.ref("users/" + username).once("value").then(function(snap){
+            var existing = snap.val();
+            
+            if(authMode === "register"){
+                if(existing){
+                    showLoading(false);
+                    $("aSubmit").disabled = false;
+                    $("aSubmit").textContent = "Đăng ký";
+                    showToast("Tên tài khoản đã tồn tại!", "error");
+                    return;
+                }
+                var newUser = {
+                    username: username,
+                    password: pass,
+                    balance: 0,
+                    orders: {},
+                    deposits: {},
+                    createdAt: Date.now()
+                };
+                db.ref("users/" + username).set(newUser).then(function(){
+                    finishLogin(username);
+                });
+            } else {
+                if(!existing){
+                    showLoading(false);
+                    $("aSubmit").disabled = false;
+                    $("aSubmit").textContent = "Đăng nhập";
+                    showToast("Tên tài khoản chưa tồn tại!", "error");
+                    return;
+                }
+                if(existing.password !== pass){
+                    showLoading(false);
+                    $("aSubmit").disabled = false;
+                    $("aSubmit").textContent = "Đăng nhập";
+                    showToast("Sai mật khẩu!", "error");
+                    return;
+                }
+                finishLogin(username);
+            }
+        });
+    });
 }
-});
-});
+
+function finishLogin(username){
+    showLoading(false);
+    $("aSubmit").disabled = false;
+    $("aSubmit").textContent = "Đăng nhập";
+    cur = username;
+    localStorage.setItem("sammCurrentUser", username);
+    closeAuth();
+    renderAll();
+    go("shop");
+    var msg = "Đăng nhập thành công!";
+    if(authMode === "register"){ msg = "Đăng ký thành công!"; }
+    showToast(msg, "success");
 }
-function finishLogin(username){showLoading(false);$("aSubmit").disabled=false;$("aSubmit").textContent=authMode==="login"?"Đăng nhập":"Đăng ký";cur=username;localStorage.setItem("sammCurrentUser",username);closeAuth();renderAll();go("shop");showToast(authMode==="register"?"Đăng ký thành công!":"Đăng nhập thành công!","success");}
-function doLogout(){if(!confirm("Đăng xuất?"))return;cur="";adminUnlocked=false;localStorage.removeItem("sammCurrentUser");renderAll();go("shop");}
-function openChangePass(){$("passModal").classList.add("on");$("oldPass").value="";$("newPass").value="";$("newPass2").value="";}
-function closeChangePass(){$("passModal").classList.remove("on");}
-function submitChangePass(){var u=user();if(!u)return;var o=$("oldPass").value;var n=$("newPass").value;var n2=$("newPass2").value;if(o!==u.password){showToast("Mật khẩu hiện tại sai!","error");return;}if(n.length<6){showToast("Mật khẩu mới >= 6 ký tự!","error");return;}if(n!==n2){showToast("Nhập lại không khớp!","error");return;}u.password=n;saveUserFB(cur,u);closeChangePass();showToast("Đổi mật khẩu thành công!","success");}
-var amtInput=$("amt");
-amtInput.oninput=function(e){var v=e.target.value.replace(/\D/g,"");e.target.value=v?Number(v).toLocaleString("vi-VN"):"";};
-var qbs=document.querySelectorAll(".quick button");
-for(var qi=0;qi<qbs.length;qi++){qbs[qi].onclick=function(){for(var j=0;j<qbs.length;j++)qbs[j].classList.remove("on");this.classList.add("on");amtInput.value=Number(this.dataset.a).toLocaleString("vi-VN");};}
+
+function doLogout(){
+    if(!confirm("Đăng xuất?")){ return; }
+    cur = "";
+    adminUnlocked = false;
+    localStorage.removeItem("sammCurrentUser");
+    renderAll();
+    go("shop");
+}
+
+function openChangePass(){
+    $("passModal").classList.add("on");
+    $("oldPass").value = "";
+    $("newPass").value = "";
+    $("newPass2").value = "";
+}
+function closeChangePass(){ $("passModal").classList.remove("on"); }
+function submitChangePass(){
+    var u = user();
+    if(!u){ return; }
+    var o = $("oldPass").value;
+    var n = $("newPass").value;
+    var n2 = $("newPass2").value;
+    if(o !== u.password){ showToast("Mật khẩu hiện tại sai!", "error"); return; }
+    if(n.length < 6){ showToast("Mật khẩu mới >= 6 ký tự!", "error"); return; }
+    if(n !== n2){ showToast("Nhập lại không khớp!", "error"); return; }
+    u.password = n;
+    saveUserFB(cur, u);
+    closeChangePass();
+    showToast("Đổi mật khẩu thành công!", "success");
+}
+
+/* NẠP */
+var amtInput = $("amt");
+amtInput.oninput = function(e){
+    var v = e.target.value.replace(/\D/g, "");
+    if(v){
+        e.target.value = Number(v).toLocaleString("vi-VN");
+    } else {
+        e.target.value = "";
+    }
+};
+
+var qbs = document.querySelectorAll(".quick button");
+for(var qi = 0; qi < qbs.length; qi++){
+    qbs[qi].onclick = function(){
+        for(var j = 0; j < qbs.length; j++){ qbs[j].classList.remove("on"); }
+        this.classList.add("on");
+        amtInput.value = Number(this.dataset.a).toLocaleString("vi-VN");
+    };
+}
+
 function createDeposit(){
-if(!user()){openAuth();return;}
-if(deposit){showToast("Đang có phiên nạp!","error");return;}
-var amt=Number(amtInput.value.replace(/\D/g,""));
-if(amt<10000){showToast("Tối thiểu 10.000 đ","error");return;}
-if(amt>50000000){showToast("Tối đa 50.000.000 đ","error");return;}
-deposit={amount:amt,expiresAt:Date.now()+600000};
-var u=users[cur];
-if(!u.deposits)u.deposits={};
-u.deposits["d"+Date.now()]={amount:amt,status:"Chờ xác nhận",time:Date.now()};
-saveUserFB(cur,u);
-$("qrAmt").textContent=money(amt);
-$("form").style.display="none";
-$("warn").style.display="none";
-$("qr").style.display="block";
-startTimer();
-showToast("Yêu cầu nạp đã gửi!","success");
+    if(!user()){ openAuth(); return; }
+    if(deposit){ showToast("Đang có phiên nạp!", "error"); return; }
+    var amt = Number(amtInput.value.replace(/\D/g, ""));
+    if(amt < 10000){ showToast("Tối thiểu 10.000 d", "error"); return; }
+    if(amt > 50000000){ showToast("Tối đa 50.000.000 d", "error"); return; }
+    
+    deposit = { amount: amt, expiresAt: Date.now() + 600000 };
+    var u = users[cur];
+    if(!u.deposits){ u.deposits = {}; }
+    u.deposits["d" + Date.now()] = {
+        amount: amt,
+        status: "Chờ xác nhận",
+        time: Date.now()
+    };
+    saveUserFB(cur, u);
+    
+    $("qrAmt").textContent = money(amt);
+    $("form").style.display = "none";
+    $("warn").style.display = "none";
+    $("qr").style.display = "block";
+    startTimer();
+    showToast("Yêu cầu nạp đã gửi!", "success");
 }
-function startTimer(){clearInterval(timerId);tick();timerId=setInterval(tick,1000);}
-function tick(){if(!deposit)return;var r=Math.max(0,deposit.expiresAt-Date.now());var m=Math.floor(r/60000);var s=Math.floor((r%60000)/1000);$("timer").textContent=String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");if(r<=0){clearInterval(timerId);cancelDeposit(false);}}
+
+function startTimer(){
+    clearInterval(timerId);
+    tick();
+    timerId = setInterval(tick, 1000);
+}
+function tick(){
+    if(!deposit){ return; }
+    var r = Math.max(0, deposit.expiresAt - Date.now());
+    var m = Math.floor(r / 60000);
+    var s = Math.floor((r % 60000) / 1000);
+    $("timer").textContent = String(m).padStart(2, "0") + ":" + String(s).padStart(2, "0");
+    if(r <= 0){
+        clearInterval(timerId);
+        cancelDeposit(false);
+    }
+}
 function cancelDeposit(ask){
-if(ask){if(!confirm("Bạn có chắc muốn hủy yêu cầu nạp?"))return;}
-clearInterval(timerId);
-timerId=null;
-deposit=null;
-$("qr").style.display="none";
-$("form").style.display="block";
-$("warn").style.display="block";
-$("timer").textContent="10:00";
-if(ask)showToast("Đã hủy yêu cầu nạp","success");
+    if(ask){
+        if(!confirm("Bạn có chắc muốn hủy yêu cầu nạp?")){ return; }
+    }
+    clearInterval(timerId);
+    timerId = null;
+    deposit = null;
+    $("qr").style.display = "none";
+    $("form").style.display = "block";
+    $("warn").style.display = "block";
+    $("timer").textContent = "10:00";
+    if(ask){ showToast("Đã hủy yêu cầu nạp", "success"); }
 }
+
+/* MUA */
 function buy(id){
-if(!user()){openAuth();showToast("Vui lòng đăng nhập!","error");return;}
-var p=null;
-for(var i=0;i<products.length;i++){if(products[i].id===id){p=products[i];break;}}
-if(!p){showToast("Sản phẩm không tồn tại!","error");return;}
-var price=Number(p.price||0);
-var stock=Number(p.stock||0);
-if(stock<=0){showToast("Sản phẩm đã hết hàng!","error");return;}
-if(Number(user().balance||0)<price){showToast("Số dư không đủ! Cần "+money(price),"error");setTimeout(function(){go("nap");},700);return;}
-if(!confirm("Mua \""+p.name+"\" giá "+money(price)+"?\nCòn "+stock+" sản phẩm"))return;
-var t=Date.now();
-var code="DH"+String(t).slice(-8);
-var u=users[cur];
-u.balance=Number(u.balance||0)-price;
-if(!u.orders)u.orders={};
-u.orders["o"+t]={name:p.name,price:price,time:t,code:code,url:p.url||"",image:p.image||"",desc:p.desc||"",status:"done"};
-saveUserFB(cur,u);
-updateProductStock(p.id,stock-1);
-currentOrderUrl=p.url||"";
-$("odName").textContent=p.name;
-$("odPrice").textContent=money(price);
-$("odTime").textContent=new Date(t).toLocaleString("vi-VN");
-$("odCode").textContent=code;
-if(p.url){
-$("odLinkBox").style.display="block";
-$("odLinkHref").textContent=p.url;
-$("odLinkHref").href=p.url;
-$("odLinkBtn").style.display="block";
-}else{
-$("odLinkBox").style.display="none";
-$("odLinkBtn").style.display="none";
+    if(!user()){ openAuth(); showToast("Vui lòng đăng nhập!", "error"); return; }
+    var p = null;
+    for(var i = 0; i < products.length; i++){
+        if(products[i].id === id){ p = products[i]; break; }
+    }
+    if(!p){ showToast("Sản phẩm không tồn tại!", "error"); return; }
+    
+    var price = Number(p.price || 0);
+    var stock = Number(p.stock || 0);
+    
+    if(stock <= 0){ showToast("Sản phẩm đã hết hàng!", "error"); return; }
+    if(Number(user().balance || 0) < price){
+        showToast("Số dư không đủ! Cần " + money(price), "error");
+        setTimeout(function(){ go("nap"); }, 700);
+        return;
+    }
+    if(!confirm("Mua \"" + p.name + "\" giá " + money(price) + "?\nCòn " + stock + " sản phẩm")){ return; }
+    
+    var t = Date.now();
+    var code = "DH" + String(t).slice(-8);
+    var u = users[cur];
+    u.balance = Number(u.balance || 0) - price;
+    if(!u.orders){ u.orders = {}; }
+    u.orders["o" + t] = {
+        name: p.name,
+        price: price,
+        time: t,
+        code: code,
+        url: p.url || "",
+        image: p.image || "",
+        desc: p.desc || "",
+        status: "done"
+    };
+    saveUserFB(cur, u);
+    updateProductStock(p.id, stock - 1);
+    
+    currentOrderUrl = p.url || "";
+    $("odName").textContent = p.name;
+    $("odPrice").textContent = money(price);
+    $("odTime").textContent = new Date(t).toLocaleString("vi-VN");
+    $("odCode").textContent = code;
+    
+    if(p.url){
+        $("odLinkBox").style.display = "block";
+        $("odLinkHref").textContent = p.url;
+        $("odLinkHref").href = p.url;
+        $("odLinkBtn").style.display = "block";
+    } else {
+        $("odLinkBox").style.display = "none";
+        $("odLinkBtn").style.display = "none";
+    }
+    $("orderModal").classList.add("on");
 }
-$("orderModal").classList.add("on");
+
+function closeOrderModal(){ $("orderModal").classList.remove("on"); }
+function openOrderLink(){ if(currentOrderUrl){ window.open(currentOrderUrl, "_blank"); } }
+function viewOrderInHistory(){
+    closeOrderModal();
+    go("don");
+    showToast("Đã chuyển đến Đơn hàng!", "success");
 }
-function closeOrderModal(){$("orderModal").classList.remove("on");}
-function openOrderLink(){if(currentOrderUrl)window.open(currentOrderUrl,"_blank");}
-function viewOrderInHistory(){closeOrderModal();go("don");showToast("Đã chuyển đến Đơn hàng!","success");}
+
 function showDetail(id){
-var u=user();
-if(!u||!u.orders||!u.orders[id])return;
-var o=u.orders[id];
-var d=new Date(o.time);
-var html='<div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:12px;padding:14px">';
-html+='<div class="detail-row"><span class="lbl">Sản phẩm</span><span class="val">'+esc(o.name)+'</span></div>';
-html+='<div class="detail-row"><span class="lbl">Giá</span><span class="val price">'+money(o.price)+'</span></div>';
-html+='<div class="detail-row"><span class="lbl">Mã đơn</span><span class="val">'+esc(o.code)+'</span></div>';
-html+='<div class="detail-row"><span class="lbl">Thời gian</span><span class="val">'+d.toLocaleString("vi-VN")+'</span></div>';
-html+='<div class="detail-row"><span class="lbl">Trạng thái</span><span class="val" style="color:#4ade80">Hoàn tất</span></div>';
-html+='</div>';
-if(o.url){
-html+='<div class="link-box">🔗 Link giao hàng:<br><a href="'+esc(o.url)+'" target="_blank">'+esc(o.url)+'</a></div>';
-html+='<button onclick="window.open(\''+o.url+'\',\'_blank\')" style="width:100%;padding:14px;border:0;border-radius:12px;font-weight:900;cursor:pointer;font-family:inherit;font-size:13px;text-transform:uppercase;margin-top:14px;background:#16a34a;color:#fff">🚀 MỞ LINK GIAO HÀNG</button>';
+    var u = user();
+    if(!u){ return; }
+    if(!u.orders){ return; }
+    if(!u.orders[id]){ return; }
+    var o = u.orders[id];
+    var d = new Date(o.time);
+    
+    var html = '<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:14px">';
+    html = html + '<div class="detail-row"><span class="lbl">Sản phẩm</span><span class="val">' + esc(o.name) + '</span></div>';
+    html = html + '<div class="detail-row"><span class="lbl">Giá</span><span class="val price">' + money(o.price) + '</span></div>';
+    html = html + '<div class="detail-row"><span class="lbl">Mã đơn</span><span class="val">' + esc(o.code) + '</span></div>';
+    html = html + '<div class="detail-row"><span class="lbl">Thời gian</span><span class="val">' + d.toLocaleString("vi-VN") + '</span></div>';
+    html = html + '<div class="detail-row"><span class="lbl">Trạng thái</span><span class="val" style="color:#16a34a">Hoàn tất</span></div>';
+    html = html + '</div>';
+    
+    if(o.url){
+        html = html + '<div class="link-box">Link giao hàng:<br><a href="' + esc(o.url) + '" target="_blank">' + esc(o.url) + '</a></div>';
+        html = html + '<button onclick="window.open(\'' + o.url + '\',\'_blank\')" style="width:100%;padding:14px;border:0;border-radius:12px;font-weight:900;cursor:pointer;font-family:inherit;font-size:13px;text-transform:uppercase;margin-top:14px;background:#16a34a;color:#fff">MỞ LINK GIAO HÀNG</button>';
+    }
+    $("detailBody").innerHTML = html;
+    $("detailModal").classList.add("on");
 }
-$("detailBody").innerHTML=html;
-$("detailModal").classList.add("on");
+function closeDetailModal(){ $("detailModal").classList.remove("on"); }
+function deleteOrder(id){
+    if(!confirm("Xóa đơn hàng này?")){ return; }
+    var u = user();
+    if(!u){ return; }
+    if(u.orders && u.orders[id]){
+        delete u.orders[id];
+        saveUserFB(cur, u);
+        renderOrders();
+        renderProfile();
+        showToast("Đã xóa đơn hàng", "success");
+    }
 }
-function closeDetailModal(){$("detailModal").classList.remove("on");}
-function deleteOrder(id){if(!confirm("Xóa đơn hàng này?"))return;var u=user();if(!u)return;if(u.orders&&u.orders[id]){delete u.orders[id];saveUserFB(cur,u);renderOrders();renderProfile();showToast("Đã xóa","success");}}
-function checkAdmin(){if(!isAdmin()){showToast("Bạn không phải admin!","error");return false;}if(!adminUnlocked){showToast("Chưa xác thực!","error");return false;}return true;}
+
+/* ADMIN ACTIONS */
+function checkAdmin(){
+    if(!isAdmin()){ showToast("Bạn không phải admin!", "error"); return false; }
+    if(!adminUnlocked){ showToast("Chưa xác thực!", "error"); return false; }
+    return true;
+}
+
 function addProduct(){
-if(!checkAdmin())return;
-var name=$("pName").value.trim();
-var desc=$("pDesc").value.trim();
-var price=Number($("pPrice").value);
-var stock=Number($("pStock").value)||100;
-var image=$("pImage").value.trim();
-var url=$("pUrl").value.trim();
-if(!name){showToast("Nhập tên sản phẩm","error");return;}
-if(!price||price<=0){showToast("Nhập giá hợp lệ","error");return;}
-if(stock<1||stock>1000000){showToast("Số lượng 1-1.000.000","error");return;}
-var id=Date.now();
-saveProductFB(id,{id:id,name:name,desc:desc,price:price,stock:stock,image:image,url:url,createdAt:Date.now()});
-$("pName").value="";$("pDesc").value="";$("pPrice").value="";$("pImage").value="";$("pUrl").value="";$("pStock").value="100";
-showToast("Đã đẩy sản phẩm!","success");
+    if(!checkAdmin()){ return; }
+    var name = $("pName").value.trim();
+    var desc = $("pDesc").value.trim();
+    var price = Number($("pPrice").value);
+    var stock = Number($("pStock").value) || 100;
+    var image = $("pImage").value.trim();
+    var url = $("pUrl").value.trim();
+    
+    if(!name){ showToast("Nhập tên sản phẩm", "error"); return; }
+    if(!price || price <= 0){ showToast("Nhập giá hợp lệ", "error"); return; }
+    if(stock < 1 || stock > 1000000){ showToast("Số lượng 1-1.000.000", "error"); return; }
+    
+    var id = Date.now();
+    saveProductFB(id, {
+        id: id,
+        name: name,
+        desc: desc,
+        price: price,
+        stock: stock,
+        image: image,
+        url: url,
+        createdAt: Date.now()
+    });
+    
+    $("pName").value = "";
+    $("pDesc").value = "";
+    $("pPrice").value = "";
+    $("pImage").value = "";
+    $("pUrl").value = "";
+    $("pStock").value = "100";
+    showToast("Đã đẩy sản phẩm!", "success");
 }
-function delProduct(id){if(!checkAdmin())return;if(!confirm("Xóa sản phẩm?"))return;deleteProductFB(id);showToast("Đã xóa","success");}
-function setNotice(){if(!checkAdmin())return;var text=$("nText").value.trim();if(!text){showToast("Nhập nội dung","error");return;}saveNoticeFB(text);$("nText").value="";showToast("Đã gửi!","success");}
-function clearNotice(){if(!checkAdmin())return;clearNoticeFB();showToast("Đã xóa!","success");}
-function banUser(){if(!checkAdmin())return;var name=$("banUserInput").value.trim();if(!name){showToast("Nhập tên","error");return;}if(name===ADMIN_USER){showToast("Không thể ban mình!","error");return;}if(!users[name]){showToast("Tài khoản không tồn tại!","error");return;}if(!confirm("Ban \""+name+"\"?"))return;banUserFB(name);$("banUserInput").value="";showToast("Đã ban "+name,"success");}
-function unbanUser(name){if(!checkAdmin())return;if(!confirm("Bỏ ban \""+name+"\"?"))return;unbanUserFB(name);showToast("Đã bỏ ban","success");}
-function approveDeposit(username,key){if(!checkAdmin())return;if(!db)return;db.ref("users/"+username).once("value").then(function(snap){var u=snap.val();if(!u||!u.deposits||!u.deposits[key])return;var d=u.deposits[key];if(d.status==="Đã duyệt")return;u.balance=Number(u.balance||0)+Number(d.amount);u.deposits[key].status="Đã duyệt";u.deposits[key].approvedAt=Date.now();db.ref("users/"+username).set(u).then(function(){showToast("Đã duyệt "+money(d.amount),"success");});});}
-function rejectDeposit(username,key){if(!checkAdmin())return;if(!db)return;db.ref("users/"+username+"/deposits/"+key+"/status").set("Đã hủy");showToast("Đã hủy","success");}
-function clearAllProducts(){if(!checkAdmin())return;if(!confirm("Xóa TẤT CẢ sản phẩm?"))return;if(db)db.ref("products").remove();showToast("Đã xóa","success");}
-function clearAllUsers(){if(!checkAdmin())return;if(!confirm("Xóa TẤT CẢ users?"))return;if(db){db.ref("users").remove().then(function(){cur="";adminUnlocked=false;localStorage.removeItem("sammCurrentUser");renderAll();go("shop");showToast("Đã xóa","success");});}}
+
+function delProduct(id){
+    if(!checkAdmin()){ return; }
+    if(!confirm("Xóa sản phẩm?")){ return; }
+    deleteProductFB(id);
+    showToast("Đã xóa", "success");
+}
+
+function setNotice(){
+    if(!checkAdmin()){ return; }
+    var text = $("nText").value.trim();
+    if(!text){ showToast("Nhập nội dung", "error"); return; }
+    saveNoticeFB(text);
+    $("nText").value = "";
+    showToast("Đã gửi thông báo!", "success");
+}
+function clearNotice(){
+    if(!checkAdmin()){ return; }
+    clearNoticeFB();
+    showToast("Đã xóa thông báo!", "success");
+}
+
+function banUser(){
+    if(!checkAdmin()){ return; }
+    var name = $("banUserInput").value.trim();
+    if(!name){ showToast("Nhập tên tài khoản", "error"); return; }
+    if(name === ADMIN_USER){ showToast("Không thể ban chính mình!", "error"); return; }
+    if(!users[name]){ showToast("Tài khoản không tồn tại!", "error"); return; }
+    if(!confirm("Ban tài khoản \"" + name + "\"?")){ return; }
+    banUserFB(name);
+    $("banUserInput").value = "";
+    showToast("Đã ban " + name, "success");
+}
+
+function unbanUser(name){
+    if(!checkAdmin()){ return; }
+    if(!confirm("Bỏ ban cho \"" + name + "\"?")){ return; }
+    unbanUserFB(name);
+    showToast("Đã bỏ ban " + name, "success");
+}
+
+function quickBan(name){
+    if(!checkAdmin()){ return; }
+    if(!confirm("Ban tài khoản \"" + name + "\"?")){ return; }
+    banUserFB(name);
+    showToast("Đã ban " + name, "success");
+}
+
+function approveDeposit(username, key){
+    if(!checkAdmin()){ return; }
+    if(!db){ return; }
+    db.ref("users/" + username).once("value").then(function(snap){
+        var u = snap.val();
+        if(!u || !u.deposits || !u.deposits[key]){ return; }
+        var d = u.deposits[key];
+        if(d.status === "Đã duyệt"){ return; }
+        u.balance = Number(u.balance || 0) + Number(d.amount);
+        u.deposits[key].status = "Đã duyệt";
+        u.deposits[key].approvedAt = Date.now();
+        db.ref("users/" + username).set(u).then(function(){
+            showToast("Đã duyệt " + money(d.amount), "success");
+        });
+    });
+}
+
+function rejectDeposit(username, key){
+    if(!checkAdmin()){ return; }
+    if(!db){ return; }
+    db.ref("users/" + username + "/deposits/" + key + "/status").set("Đã hủy");
+    showToast("Đã hủy", "success");
+}
+
+function clearAllProducts(){
+    if(!checkAdmin()){ return; }
+    if(!confirm("Xóa TẤT CẢ sản phẩm?")){ return; }
+    if(db){ db.ref("products").remove(); }
+    showToast("Đã xóa tất cả sản phẩm", "success");
+}
+
+function clearAllUsers(){
+    if(!checkAdmin()){ return; }
+    if(!confirm("Xóa TẤT CẢ users?")){ return; }
+    if(db){
+        db.ref("users").remove().then(function(){
+            cur = "";
+            adminUnlocked = false;
+            localStorage.removeItem("sammCurrentUser");
+            renderAll();
+            go("shop");
+            showToast("Đã xóa tất cả users", "success");
+        });
+    }
+}
+
+/* RENDER */
 function renderProducts(){
-var box=$("products");
-if(!box)return;
-if(!products.length){box.innerHTML='<div class="empty" style="grid-column:1/-1">Chưa có sản phẩm</div>';return;}
-var html="";
-for(var i=0;i<products.length;i++){
-var p=products[i];
-var img=p.image?esc(p.image):"https://placehold.co/400x300/1a0505/ef4444?text=SAMM";
-var stock=Number(p.stock||0);
-var stockClass=stock<=0?"out":"";
-var stockText=stock<=0?"HẾT HÀNG":"Còn "+stock;
-var disabled=stock<=0?" disabled":"";
-html+='<div class="product"><div class="img-wrap"><img src="'+img+'" onerror="this.src=\'https://placehold.co/400x300?text=SAMM\'"><div class="badge">HOT</div><div class="stock '+stockClass+'">'+stockText+'</div></div><div class="product-body"><div class="product-title">'+esc(p.name)+'</div><div class="product-desc">'+esc(p.desc||"")+'</div><div class="product-price">'+money(p.price)+'</div><button class="buy" onclick="buy('+p.id+')"'+disabled+'>'+(stock<=0?"HẾT HÀNG":"Mua ngay")+'</button></div></div>';
+    var box = $("products");
+    if(!box){ return; }
+    if(!products.length){
+        box.innerHTML = '<div class="empty" style="grid-column:1/-1">Chưa có sản phẩm</div>';
+        return;
+    }
+    
+    var html = "";
+    for(var i = 0; i < products.length; i++){
+        var p = products[i];
+        var img = p.image;
+        if(!img){ img = "https://placehold.co/400x300/fef2f2/dc2626?text=SAMM"; }
+        
+        var stock = Number(p.stock || 0);
+        var stockClass = "";
+        var stockText = "Còn " + stock;
+        var disabled = "";
+        
+        if(stock <= 0){
+            stockClass = "out";
+            stockText = "HẾT HÀNG";
+            disabled = " disabled";
+        }
+        
+        html = html + '<div class="product">';
+        html = html + '<div class="img-wrap">';
+        html = html + '<img src="' + esc(img) + '" onerror="this.src=\'https://placehold.co/400x300?text=SAMM\'">';
+        html = html + '<div class="badge">HOT</div>';
+        html = html + '<div class="stock ' + stockClass + '">' + stockText + '</div>';
+        html = html + '</div>';
+        html = html + '<div class="product-body">';
+        html = html + '<div class="product-title">' + esc(p.name) + '</div>';
+        html = html + '<div class="product-desc">' + esc(p.desc || "") + '</div>';
+        html = html + '<div class="product-price">' + money(p.price) + '</div>';
+        html = html + '<button class="buy" onclick="buy(' + p.id + ')"' + disabled + '>';
+        html = html + 'Mua ngay';
+        html = html + '</button>';
+        html = html + '</div></div>';
+    }
+    box.innerHTML = html;
 }
-box.innerHTML=html;
-}
+
 function renderNotice(){
-var n=$("notice");
-if(!n)return;
-if(notices.length>0){n.innerHTML="TB: "+esc(notices[0].text);n.style.display="block";}else{n.style.display="none";}
+    var n = $("notice");
+    if(!n){ return; }
+    if(notices.length > 0){
+        n.innerHTML = "TB: " + esc(notices[0].text);
+        n.style.display = "block";
+    } else {
+        n.style.display = "none";
+    }
 }
+
 function renderOrders(){
-var u=user();
-var ob=$("orders");
-if(!ob)return;
-if(!u||!u.orders||Object.keys(u.orders).length===0){ob.innerHTML='<div class="empty">Chưa có đơn hàng</div>';return;}
-var arr=[];
-for(var k in u.orders){if(u.orders.hasOwnProperty(k)){var o=u.orders[k];o._id=k;arr.push(o);}}
-arr.sort(function(a,b){return b.time-a.time;});
-var html="";
-for(var j=0;j<arr.length;j++){
-var o=arr[j];
-var d=new Date(o.time);
-html+='<div class="order-card"><div class="o-name">'+esc(o.name)+'</div><div class="o-time">Mã: '+esc(o.code)+' • '+d.toLocaleString("vi-VN")+'</div><div class="o-price">'+money(o.price)+'</div><div class="o-actions"><button class="order-btn detail" onclick="showDetail(\''+o._id+'\')">Chi tiết</button><button class="order-btn del" onclick="deleteOrder(\''+o._id+'\')">Xóa</button></div></div>';
+    var u = user();
+    var ob = $("orders");
+    if(!ob){ return; }
+    
+    if(!u || !u.orders){
+        ob.innerHTML = '<div class="empty">Chưa có đơn hàng</div>';
+        return;
+    }
+    
+    var arr = [];
+    for(var k in u.orders){
+        if(u.orders.hasOwnProperty(k)){
+            var o = u.orders[k];
+            o._id = k;
+            arr.push(o);
+        }
+    }
+    
+    if(arr.length === 0){
+        ob.innerHTML = '<div class="empty">Chưa có đơn hàng</div>';
+        return;
+    }
+    
+    arr.sort(function(a, b){ return b.time - a.time; });
+    
+    var html = "";
+    for(var j = 0; j < arr.length; j++){
+        var o = arr[j];
+        var d = new Date(o.time);
+        html = html + '<div class="order-card">';
+        html = html + '<div class="o-name">' + esc(o.name) + '</div>';
+        html = html + '<div class="o-time">Mã: ' + esc(o.code) + ' • ' + d.toLocaleString("vi-VN") + '</div>';
+        html = html + '<div class="o-price">' + money(o.price) + '</div>';
+        html = html + '<div class="o-actions">';
+        html = html + '<button class="order-btn detail" onclick="showDetail(\'' + o._id + '\')">Chi tiết</button>';
+        html = html + '<button class="order-btn del" onclick="deleteOrder(\'' + o._id + '\')">Xóa</button>';
+        html = html + '</div></div>';
+    }
+    ob.innerHTML = html;
 }
-ob.innerHTML=html;
-}
+
 function renderProfile(){
-var u=user();
-if(!u){$("cName").textContent="Đăng nhập";$("cBal").textContent="0 VND";$("cAv").textContent="?";$("guestView").style.display="block";$("profileView").style.display="none";return;}
-$("cName").textContent=u.username||cur;
-$("cBal").textContent=Number(u.balance||0).toLocaleString("vi-VN")+" VND";
-$("cAv").textContent=(u.username||cur)[0].toUpperCase();
-$("guestView").style.display="none";
-$("profileView").style.display="block";
-$("pAv").textContent=(u.username||cur)[0].toUpperCase();
-$("pEmail").textContent="@"+(u.username||cur);
-$("pBal").textContent=money(u.balance);
-var oCount=u.orders?Object.keys(u.orders).length:0;
-$("pOrderCount").textContent=oCount;
-if(u.createdAt){$("pJoined").textContent="Thành viên từ "+new Date(u.createdAt).toLocaleDateString("vi-VN");}else{$("pJoined").textContent="";}
+    var u = user();
+    if(!u){
+        $("cName").textContent = "Đăng nhập";
+        $("cBal").textContent = "0 VND";
+        $("cAv").textContent = "?";
+        $("guestView").style.display = "block";
+        $("profileView").style.display = "none";
+        return;
+    }
+    
+    $("cName").textContent = u.username;
+    $("cBal").textContent = Number(u.balance || 0).toLocaleString("vi-VN") + " VND";
+    $("cAv").textContent = u.username[0].toUpperCase();
+    $("guestView").style.display = "none";
+    $("profileView").style.display = "block";
+    $("pAv").textContent = u.username[0].toUpperCase();
+    $("pEmail").textContent = "@" + u.username;
+    $("pBal").textContent = money(u.balance);
+    
+    var oCount = 0;
+    if(u.orders){
+        for(var k in u.orders){
+            if(u.orders.hasOwnProperty(k)){ oCount++; }
+        }
+    }
+    $("pOrderCount").textContent = oCount;
+    
+    if(u.createdAt){
+        $("pJoined").textContent = "Thành viên từ " + new Date(u.createdAt).toLocaleDateString("vi-VN");
+    } else {
+        $("pJoined").textContent = "";
+    }
 }
-function renderAdminFab(){var c=$("adminFab");if(!c)return;if(isAdmin())c.classList.add("on");else c.classList.remove("on");}
-function renderBlindBag(){
-var stockEl=$("blindStock");
-var priceEl=$("blindPrice");
-var btn=$("openBagBtn");
-if(!stockEl)return;
-var count=Object.keys(robloxPool).length;
-stockEl.textContent="Còn "+count+" acc Roblox";
-if(count===0)stockEl.classList.add("out");else stockEl.classList.remove("out");
-priceEl.textContent=money(1000);
-if(count===0){btn.disabled=true;btn.textContent="HẾT TÚI MÙ";}else{btn.disabled=false;btn.textContent="🎁 MỞ TÚI MÙ";}
-renderBlindHistory();
+
+function renderAdminFab(){
+    var c = $("adminFab");
+    if(!c){ return; }
+    if(isAdmin()){ c.classList.add("on"); }
+    else { c.classList.remove("on"); }
 }
-function renderBlindHistory(){
-var u=user();
-var el=$("blindHistory");
-if(!el)return;
-if(!u||!u.blindHistory||Object.keys(u.blindHistory).length===0){el.innerHTML='<div class="empty" style="padding:20px">Chưa có lịch sử</div>';return;}
-var arr=[];
-for(var k in u.blindHistory){if(u.blindHistory.hasOwnProperty(k))arr.push(u.blindHistory[k]);}
-arr.sort(function(a,b){return b.time-a.time;});
-var html="";
-for(var i=0;i<arr.length;i++){
-var h=arr[i];
-html+='<div class="robox-acc" style="margin-bottom:8px"><div class="u">👤 <b>'+esc(h.user)+'</b></div><div class="p">🔑 <b>'+esc(h.pass)+'</b></div><div style="color:#9ca3af;font-size:10px;margin-top:4px">'+new Date(h.time).toLocaleString("vi-VN")+'</div></div>';
-}
-el.innerHTML=html;
-}
-function renderAdminRoblox(){
-var list=$("bbList");
-var countEl=$("bbCount");
-if(!list)return;
-var ids=Object.keys(robloxPool);
-if(countEl)countEl.textContent=ids.length;
-if(ids.length===0){list.innerHTML='<div class="empty" style="padding:16px">Chưa có acc Roblox nào</div>';return;}
-var html="";
-for(var i=0;i<ids.length;i++){
-var id=ids[i];
-var a=robloxPool[id];
-html+='<div class="robox-pool-item"><div class="acc"><div class="lbl">User</div>'+esc(a.user)+'<div class="lbl" style="margin-top:4px">Pass</div>'+esc(a.pass)+'</div><button class="del" onclick="delRobloxAcc(\''+id+'\')">x</button></div>';
-}
-list.innerHTML=html;
-}
+
 function renderBanned(){
-var bl=$("bannedList");
-if(!bl)return;
-var html="";
-var count=0;
-for(var k in banned){if(banned.hasOwnProperty(k)&&banned[k]===true){count++;html+='<div class="dep-item"><div><b style="color:#ef4444">'+esc(k)+'</b></div><button class="btn-no" onclick="unbanUser(\''+k+'\')" style="padding:5px 10px;border:0;border-radius:6px;font-weight:800;cursor:pointer;font-size:11px">Bỏ ban</button></div>';}}
-if(count===0)html='<div class="empty" style="padding:16px">Chưa có ai bị ban</div>';
-bl.innerHTML=html;
+    var bl = $("bannedList");
+    if(!bl){ return; }
+    var html = "";
+    var count = 0;
+    
+    for(var k in banned){
+        if(banned.hasOwnProperty(k)){
+            if(banned[k] === true){
+                count++;
+                html = html + '<div class="dep-item"><div><b style="color:#dc2626">' + esc(k) + '</b></div><button class="btn-no" onclick="unbanUser(\'' + k + '\')" style="padding:5px 10px;border:0;border-radius:6px;font-weight:800;cursor:pointer;font-size:11px">Bỏ ban</button></div>';
+            }
+        }
+    }
+    
+    if(count === 0){
+        html = '<div class="empty" style="padding:16px">Chưa có ai bị ban</div>';
+    }
+    bl.innerHTML = html;
 }
+
+function renderUserList(){
+    var box = $("userList");
+    if(!box){ return; }
+    
+    var keyword = "";
+    var searchEl = $("userSearch");
+    if(searchEl){ keyword = searchEl.value.trim().toLowerCase(); }
+    
+    var arr = [];
+    for(var k in users){
+        if(users.hasOwnProperty(k)){
+            if(keyword){
+                if(k.toLowerCase().indexOf(keyword) !== -1){
+                    arr.push(k);
+                }
+            } else {
+                arr.push(k);
+            }
+        }
+    }
+    arr.sort();
+    
+    var countEl = $("userCount");
+    if(countEl){ countEl.textContent = arr.length; }
+    
+    if(arr.length === 0){
+        box.innerHTML = '<div class="empty" style="padding:16px">Không có user nào</div>';
+        return;
+    }
+    
+    var html = "";
+    for(var i = 0; i < arr.length; i++){
+        var name = arr[i];
+        var u = users[name];
+        if(!u){ continue; }
+        
+        var balance = 0;
+        if(u.balance){ balance = Number(u.balance); }
+        
+        var orderCount = 0;
+        if(u.orders){
+            for(var ok in u.orders){
+                if(u.orders.hasOwnProperty(ok)){ orderCount++; }
+            }
+        }
+        
+        var depCount = 0;
+        if(u.deposits){
+            for(var dk in u.deposits){
+                if(u.deposits.hasOwnProperty(dk)){ depCount++; }
+            }
+        }
+        
+        var isBannedUser = false;
+        if(banned[name] === true){ isBannedUser = true; }
+        
+        var isAdm = false;
+        if(name === ADMIN_USER){ isAdm = true; }
+        
+        var created = "?";
+        if(u.createdAt){
+            created = new Date(u.createdAt).toLocaleDateString("vi-VN");
+        }
+        
+        var borderColor = "#e2e8f0";
+        if(isBannedUser){ borderColor = "#dc2626"; }
+        else if(isAdm){ borderColor = "#fbbf24"; }
+        
+        var nameColor = "#1a1a1a";
+        if(isBannedUser){ nameColor = "#dc2626"; }
+        
+        var displayName = esc(name);
+        if(isAdm){ displayName = "ADMIN - " + displayName; }
+        if(isBannedUser){ displayName = "BANNED - " + displayName; }
+        
+        html = html + '<div style="background:#f8fafc;border:1px solid ' + borderColor + ';border-radius:12px;padding:12px;margin-bottom:8px">';
+        html = html + '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:8px">';
+        html = html + '<div style="flex:1;min-width:0">';
+        html = html + '<div style="font-weight:900;font-size:14px;color:' + nameColor + '">' + displayName + '</div>';
+        html = html + '<div style="color:#64748b;font-size:11px;margin-top:2px">Ngày tạo: ' + created + '</div>';
+        html = html + '</div>';
+        
+        if(isBannedUser){
+            html = html + '<span style="background:#dc2626;color:#fff;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:900">BỊ BAN</span>';
+        } else if(isAdm){
+            html = html + '<span style="background:#fbbf24;color:#000;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:900">ADMIN</span>';
+        } else {
+            html = html + '<span style="background:#dcfce7;color:#16a34a;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:900">ACTIVE</span>';
+        }
+        html = html + '</div>';
+        
+        var pass = "?";
+        if(u.password){ pass = u.password; }
+        
+        html = html + '<div style="background:#fff;border-radius:8px;padding:8px;font-size:11px;margin-bottom:8px;word-break:break-all">';
+        html = html + '<div style="color:#64748b">User: <b style="color:#1a1a1a">' + esc(name) + '</b></div>';
+        html = html + '<div style="color:#64748b;margin-top:3px">Pass: <b style="color:#dc2626">' + esc(pass) + '</b></div>';
+        html = html + '</div>';
+        
+        html = html + '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;font-size:11px">';
+        html = html + '<div style="background:#fff;padding:6px;border-radius:6px;text-align:center"><div style="color:#64748b">Dư</div><div style="color:#dc2626;font-weight:900;margin-top:2px">' + money(balance) + '</div></div>';
+        html = html + '<div style="background:#fff;padding:6px;border-radius:6px;text-align:center"><div style="color:#64748b">Đơn</div><div style="color:#1a1a1a;font-weight:900;margin-top:2px">' + orderCount + '</div></div>';
+        html = html + '<div style="background:#fff;padding:6px;border-radius:6px;text-align:center"><div style="color:#64748b">Nạp</div><div style="color:#1a1a1a;font-weight:900;margin-top:2px">' + depCount + '</div></div>';
+        html = html + '</div>';
+        
+        if(!isAdm){
+            html = html + '<div style="display:flex;gap:6px;margin-top:8px">';
+            if(isBannedUser){
+                html = html + '<button onclick="unbanUser(\'' + name + '\')" style="flex:1;padding:8px;border:0;border-radius:8px;background:#16a34a;color:#fff;font-weight:900;font-size:11px;cursor:pointer;font-family:inherit">BỎ BAN</button>';
+            } else {
+                html = html + '<button onclick="quickBan(\'' + name + '\')" style="flex:1;padding:8px;border:0;border-radius:8px;background:#dc2626;color:#fff;font-weight:900;font-size:11px;cursor:pointer;font-family:inherit">BAN</button>';
+            }
+            html = html + '</div>';
+        }
+        html = html + '</div>';
+    }
+    box.innerHTML = html;
+}
+
 function renderAdmin(){
-if(!isAdmin()||!adminUnlocked)return;
-var pl=$("productList");
-if(pl){
-if(!products.length){pl.innerHTML='<div class="empty">Chưa có sản phẩm</div>';}
-else{
-var html="";
-for(var i=0;i<products.length;i++){
-var p=products[i];
-var img=p.image?esc(p.image):"https://placehold.co/100x100/1a0505/ef4444?text=S";
-html+='<div class="admin-item"><img src="'+img+'" onerror="this.src=\'https://placehold.co/100x100?text=S\'"><div class="info"><div class="n">'+esc(p.name)+'</div><div class="p">'+money(p.price)+' • Kho: '+(p.stock||0)+'</div></div><button class="del" onclick="delProduct('+p.id+')">x</button></div>';
+    if(!isAdmin() || !adminUnlocked){ return; }
+    
+    var pl = $("productList");
+    if(pl){
+        if(products.length === 0){
+            pl.innerHTML = '<div class="empty">Chưa có sản phẩm</div>';
+        } else {
+            var html = "";
+            for(var i = 0; i < products.length; i++){
+                var p = products[i];
+                var img = p.image;
+                if(!img){ img = "https://placehold.co/100x100/fef2f2/dc2626?text=S"; }
+                html = html + '<div class="admin-item">';
+                html = html + '<img src="' + esc(img) + '" onerror="this.src=\'https://placehold.co/100x100?text=S\'">';
+                html = html + '<div class="info">';
+                html = html + '<div class="n">' + esc(p.name) + '</div>';
+                html = html + '<div class="p">' + money(p.price) + ' • Kho: ' + (p.stock || 0) + '</div>';
+                html = html + '</div>';
+                html = html + '<button class="del" onclick="delProduct(' + p.id + ')">x</button>';
+                html = html + '</div>';
+            }
+            pl.innerHTML = html;
+        }
+    }
+    
+    var dl = $("depositList");
+    if(dl){
+        var pending = [];
+        for(var username in users){
+            if(!users.hasOwnProperty(username)){ continue; }
+            var u = users[username];
+            if(!u.deposits){ continue; }
+            for(var k in u.deposits){
+                if(u.deposits.hasOwnProperty(k)){
+                    if(u.deposits[k].status === "Chờ xác nhận"){
+                        pending.push({
+                            username: username,
+                            key: k,
+                            amount: u.deposits[k].amount
+                        });
+                    }
+                }
+            }
+        }
+        
+        if(pending.length === 0){
+            dl.innerHTML = '<div class="empty">Không có yêu cầu nạp</div>';
+        } else {
+            var h = "";
+            for(var j = 0; j < pending.length; j++){
+                var d = pending[j];
+                h = h + '<div class="dep-approve">';
+                h = h + '<div>';
+                h = h + '<div class="amt">' + money(d.amount) + '</div>';
+                h = h + '<div class="email">@' + esc(d.username) + '</div>';
+                h = h + '</div>';
+                h = h + '<div>';
+                h = h + '<button class="btn-ok" onclick="approveDeposit(\'' + d.username + '\',\'' + d.key + '\')">Duyệt</button>';
+                h = h + '<button class="btn-no" onclick="rejectDeposit(\'' + d.username + '\',\'' + d.key + '\')">Hủy</button>';
+                h = h + '</div></div>';
+            }
+            dl.innerHTML = h;
+        }
+    }
+    
+    renderBanned();
+    renderUserList();
 }
-pl.innerHTML=html;
+
+function renderAll(){
+    renderProducts();
+    renderNotice();
+    renderOrders();
+    renderProfile();
+    renderAdminFab();
+    checkApprovedNotification();
 }
-}
-var dl=$("depositList");
-if(dl){
-var pending=[];
-for(var username in users){
-if(!users.hasOwnProperty(username))continue;
-var u=users[username];
-if(!u.deposits)continue;
-for(var k in u.deposits){
-if(u.deposits.hasOwnProperty(k)&&u.deposits[k].status==="Chờ xác nhận"){
-pending.push({username:username,key:k,amount:u.deposits[k].amount});
-}
-}
-}
-if(!pending.length){dl.innerHTML='<div class="empty">Không có yêu cầu nạp</div>';}
-else{
-var h="";
-for(var j=0;j<pending.length;j++){
-var d=pending[j];
-h+='<div class="dep-approve"><div><div class="amt">'+money(d.amount)+'</div><div class="email">@'+esc(d.username)+'</div></div><div><button class="btn-ok" onclick="approveDeposit(\''+d.username+'\',\''+d.key+'\')">Duyệt</button><button class="btn-no" onclick="rejectDeposit(\''+d.username+'\',\''+d.key+'\')">Hủy</button></div></div>';
-}
-dl.innerHTML=h;
-}
-}
-renderAdminRoblox();
-renderBanned();
-}
-function renderAll(){renderProducts();renderNotice();renderOrders();renderProfile();renderAdminFab();renderBlindBag();checkApprovedNotification();}
+
 function checkApprovedNotification(){
-var u=user();
-if(!u||!u.deposits)return;
-for(var k in u.deposits){
-if(!u.deposits.hasOwnProperty(k))continue;
-var d=u.deposits[k];
-if(d.status==="Đã duyệt"&&d.approvedAt&&!d.notified){
-u.deposits[k].notified=true;
-saveUserFB(cur,u);
-showToast("Đã thanh toán thành công! Số dư "+money(d.amount)+" đã được cộng.","success");
-return;
+    var u = user();
+    if(!u){ return; }
+    if(!u.deposits){ return; }
+    
+    for(var k in u.deposits){
+        if(!u.deposits.hasOwnProperty(k)){ continue; }
+        var d = u.deposits[k];
+        if(d.status === "Đã duyệt"){
+            if(d.approvedAt){
+                if(!d.notified){
+                    u.deposits[k].notified = true;
+                    saveUserFB(cur, u);
+                    showToast("Đã thanh toán thành công! Số dư " + money(d.amount) + " đã được cộng.", "success");
+                    return;
+                }
+            }
+        }
+    }
 }
-}
-}
+
 function toggleDepHistory(){
-var el=$("depHistory");
-var arw=$("depArrow");
-if(el.style.display==="none"){
-var u=user();
-var arr=[];
-if(u&&u.deposits){for(var k in u.deposits){if(u.deposits.hasOwnProperty(k))arr.push(u.deposits[k]);}}
-arr.sort(function(a,b){return b.time-a.time;});
-if(!arr.length){el.innerHTML='<div class="empty" style="padding:16px">Chưa có lịch sử</div>';}
-else{
-var html="";
-for(var i=0;i<arr.length;i++){
-var d=arr[i];
-var cls="wait";
-if(d.status==="Đã duyệt")cls="done";
-if(d.status==="Đã hủy")cls="cancel";
-html+='<div class="dep-item"><div><b style="color:#fff">'+money(d.amount)+'</b><br><span style="color:#fca5a5;font-size:11px">'+new Date(d.time).toLocaleString("vi-VN")+'</span></div><span class="st '+cls+'">'+esc(d.status)+'</span></div>';
+    var el = $("depHistory");
+    var arw = $("depArrow");
+    
+    if(el.style.display === "none"){
+        var u = user();
+        var arr = [];
+        if(u && u.deposits){
+            for(var k in u.deposits){
+                if(u.deposits.hasOwnProperty(k)){
+                    arr.push(u.deposits[k]);
+                }
+            }
+        }
+        arr.sort(function(a, b){ return b.time - a.time; });
+        
+        if(arr.length === 0){
+            el.innerHTML = '<div class="empty" style="padding:16px">Chưa có lịch sử</div>';
+        } else {
+            var html = "";
+            for(var i = 0; i < arr.length; i++){
+                var d = arr[i];
+                var cls = "wait";
+                if(d.status === "Đã duyệt"){ cls = "done"; }
+                if(d.status === "Đã hủy"){ cls = "cancel"; }
+                html = html + '<div class="dep-item">';
+                html = html + '<div>';
+                html = html + '<b style="color:#1a1a1a">' + money(d.amount) + '</b><br>';
+                html = html + '<span style="color:#64748b;font-size:11px">' + new Date(d.time).toLocaleString("vi-VN") + '</span>';
+                html = html + '</div>';
+                html = html + '<span class="st ' + cls + '">' + esc(d.status) + '</span>';
+                html = html + '</div>';
+            }
+            el.innerHTML = html;
+        }
+        el.style.display = "block";
+        arw.textContent = "▲";
+    } else {
+        el.style.display = "none";
+        arw.textContent = "▼";
+    }
 }
-el.innerHTML=html;
-}
-el.style.display="block";
-arw.textContent="▲";
-}else{
-el.style.display="none";
-arw.textContent="▼";
-}
-}
+
+/* START */
 go("shop");
 startFirebaseSync();
-setInterval(function(){if($("p-admin").classList.contains("on")&&adminUnlocked)renderAdmin();checkApprovedNotification();},5000);
+setInterval(function(){
+    if($("p-admin").classList.contains("on") && adminUnlocked){ renderAdmin(); }
+    checkApprovedNotification();
+}, 5000);
 </script>
 </body>
 </html>
