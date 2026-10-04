@@ -137,7 +137,6 @@ nav button.on{color:#dc2626}
 .link-box{padding:12px;background:#dcfce7;border:1px solid #16a34a;border-radius:10px;margin-top:12px;word-break:break-all;color:#166534;font-size:12px;line-height:1.6}
 .link-box a{color:#16a34a;text-decoration:underline;font-weight:800}
 
-/* SCRIPT */
 .script-box{background:linear-gradient(135deg,#fef2f2,#fff);border:2px solid #dc2626;border-radius:18px;padding:20px;text-align:center;margin-bottom:14px}
 .script-icon{font-size:60px;margin-bottom:12px;display:block}
 .script-title{font-size:18px;font-weight:900;color:#dc2626;text-transform:uppercase;margin-bottom:8px}
@@ -163,13 +162,19 @@ nav button.on{color:#dc2626}
 .script-pool-item .name{flex:1;font-weight:700;font-size:13px;color:#1a1a1a}
 .script-pool-item .del{background:#dc2626;color:#fff;border:0;width:28px;height:28px;border-radius:8px;cursor:pointer;font-weight:900;flex-shrink:0}
 
-/* RANDOM LOADING OVERLAY */
 .random-overlay{position:fixed;inset:0;background:rgba(10,5,5,.92);display:none;align-items:center;justify-content:center;flex-direction:column;z-index:99999;padding:20px}
 .random-overlay.on{display:flex}
 .random-spinner{width:100px;height:100px;border:6px solid rgba(220,38,38,.3);border-top-color:#dc2626;border-radius:50%;animation:spin 1s linear infinite;margin-bottom:24px}
 .random-text{color:#fff;font-size:18px;font-weight:900;text-align:center;margin-bottom:8px}
 .random-count{color:#dc2626;font-size:64px;font-weight:900;margin-top:10px;text-shadow:0 0 30px rgba(220,38,38,.8)}
 .random-note{color:#94a3b8;font-size:12px;margin-top:10px}
+
+/* REVIEW STYLES */
+.star{cursor:pointer;color:#cbd5e1;transition:color .15s;user-select:none}
+.star.on{color:#fbbf24}
+.log-btn{padding:16px;border:0;border-radius:14px;color:#fff;font-weight:900;font-size:13px;cursor:pointer;font-family:inherit;text-transform:uppercase}
+.log-btn.nap{background:linear-gradient(135deg,#16a34a,#15803d);box-shadow:0 4px 15px rgba(22,163,74,.35)}
+.log-btn.mua{background:linear-gradient(135deg,#dc2626,#991b1b);box-shadow:0 4px 15px rgba(220,38,38,.35)}
 
 @media(max-width:380px){.products-grid{grid-template-columns:1fr}}
 </style>
@@ -180,7 +185,6 @@ nav button.on{color:#dc2626}
 <button class="admin-fab" id="adminFab" onclick="openAdminPanel()">ADMIN</button>
 <div class="toast" id="toast"></div>
 
-<!-- RANDOM LOADING OVERLAY -->
 <div class="random-overlay" id="randomOverlay">
 <div class="random-spinner"></div>
 <div class="random-text">🎲 ĐANG RANDOM SCRIPT...</div>
@@ -206,6 +210,28 @@ nav button.on{color:#dc2626}
 
 <div class="page on" id="p-shop">
 <div class="title"><span>Shop</span></div>
+
+<!-- ⭐ ĐÁNH GIÁ SHOP -->
+<div class="card" id="reviewCard">
+<h3 style="color:#dc2626;font-size:14px;text-transform:uppercase;margin-bottom:14px;font-weight:900">⭐ Đánh giá shop</h3>
+<div id="reviewForm">
+<label>Số sao</label>
+<div id="starRow" style="display:flex;gap:8px;margin-bottom:14px;font-size:32px;justify-content:center">
+<span onclick="pickStar(1)" class="star" data-s="1">☆</span>
+<span onclick="pickStar(2)" class="star" data-s="2">☆</span>
+<span onclick="pickStar(3)" class="star" data-s="3">☆</span>
+<span onclick="pickStar(4)" class="star" data-s="4">☆</span>
+<span onclick="pickStar(5)" class="star" data-s="5">☆</span>
+</div>
+<label>Nhận xét (không bắt buộc)</label>
+<textarea id="reviewText" placeholder="Shop uy tín, giao hàng nhanh..." maxlength="300"></textarea>
+<button class="create green" onclick="submitReview()">GỬI ĐÁNH GIÁ</button>
+</div>
+<div id="reviewDone" style="display:none;text-align:center;padding:20px"></div>
+<div id="reviewStats" style="margin-top:14px;text-align:center;padding:12px;background:#f8fafc;border-radius:12px;font-size:13px">Đang tải...</div>
+<div id="reviewList" style="margin-top:14px"></div>
+</div>
+
 <div id="helloBanner" class="notice-box" style="background:linear-gradient(135deg,#fef2f2,#fff);border:2px solid #dc2626;padding:16px;position:relative">
 <button onclick="hideHello()" style="position:absolute;top:8px;right:8px;width:28px;height:28px;border-radius:50%;background:#dc2626;color:#fff;border:0;font-weight:900;cursor:pointer">X</button>
 <div style="font-size:15px;font-weight:900;color:#dc2626;margin-bottom:8px">👋 HELLO BẠN!</div>
@@ -217,7 +243,14 @@ nav button.on{color:#dc2626}
 ✓ DELTA IOS / ADR
 </div>
 </div>
+
 <div class="products-grid" id="products"></div>
+
+<!-- 💰 LỊCH SỬ NẠP/MUA CÔNG KHAI -->
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px">
+<button onclick="openLogModal('nap')" class="log-btn nap">💰 Lịch sử nạp</button>
+<button onclick="openLogModal('mua')" class="log-btn mua">🛒 Lịch sử mua</button>
+</div>
 </div>
 
 <div class="page" id="p-nap">
@@ -296,11 +329,11 @@ nav button.on{color:#dc2626}
 </div>
 <div style="color:#fff;font-size:24px">›</div>
 </a>
-<a href="https://t.me/+JQmhhk6l7is1ZTc1" target="_blank" style="display:flex;align-items:center;gap:14px;padding:16px;background:linear-gradient(135deg,#0088cc,#005f8c);border-radius:16px;text-decoration:none;margin-bottom:12px">
-<div style="width:50px;height:50px;background:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:26px">✈️</div>
+<a href="https://discord.gg/V7ctyXTzn" target="_blank" style="display:flex;align-items:center;gap:14px;padding:16px;background:linear-gradient(135deg,#5865F2,#404EED);border-radius:16px;text-decoration:none;margin-bottom:12px">
+<div style="width:50px;height:50px;background:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:26px">🎮</div>
 <div style="flex:1;color:#fff">
-<div style="font-weight:900;font-size:15px">TELEGRAM</div>
-<div style="font-size:11px;opacity:.9">Group Telegram</div>
+<div style="font-weight:900;font-size:15px">DISCORD</div>
+<div style="font-size:11px;opacity:.9">Cộng đồng Discord</div>
 </div>
 <div style="color:#fff;font-size:24px">›</div>
 </a>
@@ -493,6 +526,17 @@ nav button.on{color:#dc2626}
 </div>
 </div>
 
+<!-- 💰 MODAL LỊCH SỬ NẠP/MUA -->
+<div class="modal" id="logModal">
+<div class="mbox">
+<h2 id="logTitle" style="text-align:center">Lịch sử</h2>
+<div id="logBody" style="max-height:60vh;overflow-y:auto"></div>
+<div class="btns" style="margin-top:14px">
+<button class="bt" onclick="closeLogModal()">ĐÓNG</button>
+</div>
+</div>
+</div>
+
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 <script>
@@ -531,6 +575,7 @@ var currentOrderUrl = "";
 var currentScriptText = "";
 var musicPlaying = false;
 var randomLock = false;
+var pickedStar = 0;
 
 function $(id){ return document.getElementById(id); }
 function money(v){ return Number(v||0).toLocaleString("vi-VN") + " d"; }
@@ -641,6 +686,10 @@ function startFirebaseSync(){
         renderScriptBox();
         renderScriptPoolList();
     });
+
+    db.ref("reviews").on("value", function(){
+        loadReviews();
+    });
 }
 
 function saveUserFB(u, d){ if(db){ db.ref("users/" + u).set(d); } }
@@ -666,10 +715,7 @@ function addScript(){
     var id = "sc" + Date.now();
     if(db){
         db.ref("scripts/" + id).set({
-            id: id,
-            name: name,
-            content: content,
-            createdAt: Date.now()
+            id: id, name: name, content: content, createdAt: Date.now()
         });
     }
     $("scName").value = "";
@@ -732,7 +778,6 @@ function copyFromHistory(time){
     copyToClipboard(u.scriptHistory["s" + time].content, u.scriptHistory["s" + time].name);
 }
 
-/* RANDOM SCRIPT VỚI DELAY 5 GIÂY */
 function randomScript(){
     if(randomLock){ return; }
     if(!user()){ openAuth(); showToast("Vui lòng đăng nhập!", "error"); return; }
@@ -778,10 +823,7 @@ function finishRandom(ids){
     u.balance = Number(u.balance || 0) - SCRIPT_PRICE;
     if(!u.scriptHistory){ u.scriptHistory = {}; }
     u.scriptHistory["s" + t] = {
-        name: sc.name,
-        content: sc.content,
-        time: t,
-        price: SCRIPT_PRICE
+        name: sc.name, content: sc.content, time: t, price: SCRIPT_PRICE
     };
     saveUserFB(cur, u);
     if(db){ db.ref("scripts/" + randomId).remove(); }
@@ -804,9 +846,7 @@ function copyToClipboard(text, name){
     if(navigator.clipboard && window.isSecureContext){
         navigator.clipboard.writeText(text).then(function(){
             showToast("Đã copy " + name + "!", "success");
-        }).catch(function(){
-            fallbackCopy(text, name);
-        });
+        }).catch(function(){ fallbackCopy(text, name); });
     } else {
         fallbackCopy(text, name);
     }
@@ -866,7 +906,7 @@ function go(name){
     if(name === "admin"){ renderAdmin(); }
     if(name === "don"){ renderOrders(); }
     if(name === "box"){ renderScriptBox(); }
-    if(name === "shop"){ checkHelloBanner(); }
+    if(name === "shop"){ checkHelloBanner(); renderReviewForm(); loadReviews(); }
 }
 
 function openAdminPanel(){
@@ -1060,10 +1100,7 @@ function tick(){
     var m = Math.floor(r / 60000);
     var s = Math.floor((r % 60000) / 1000);
     $("timer").textContent = String(m).padStart(2,"0") + ":" + String(s).padStart(2,"0");
-    if(r <= 0){
-        clearInterval(timerId);
-        cancelDeposit(false);
-    }
+    if(r <= 0){ clearInterval(timerId); cancelDeposit(false); }
 }
 function cancelDeposit(ask){
     if(ask){ if(!confirm("Bạn có chắc muốn hủy yêu cầu nạp?")){ return; } }
@@ -1158,6 +1195,162 @@ function deleteOrder(id){
     }
 }
 
+/* LOG NẠP/MUA CÔNG KHAI */
+function openLogModal(type){
+    if(!db){ showToast("Chưa kết nối máy chủ!", "error"); return; }
+    $("logTitle").textContent = type === "nap" ? "💰 LỊCH SỬ NẠP GẦN ĐÂY" : "🛒 LỊCH SỬ MUA GẦN ĐÂY";
+    $("logBody").innerHTML = '<div class="empty" style="padding:30px">Đang tải...</div>';
+    $("logModal").classList.add("on");
+
+    db.ref("users").once("value").then(function(snap){
+        var data = snap.val() || {};
+        var arr = [];
+        for(var u in data){
+            if(type === "nap"){
+                if(!data[u].deposits) continue;
+                for(var k in data[u].deposits){
+                    var d = data[u].deposits[k];
+                    if(d.status === "Đã duyệt"){
+                        arr.push({ user: u, amount: d.amount, time: d.approvedAt || d.time });
+                    }
+                }
+            } else {
+                if(!data[u].orders) continue;
+                for(var k2 in data[u].orders){
+                    var o = data[u].orders[k2];
+                    arr.push({ user: u, name: o.name, price: o.price, time: o.time });
+                }
+            }
+        }
+        arr.sort(function(a,b){ return b.time - a.time; });
+        renderLog(arr, type);
+    });
+}
+
+function renderLog(arr, type){
+    var body = $("logBody");
+    if(!arr.length){
+        body.innerHTML = '<div class="empty" style="padding:30px">Chưa có ai ' + (type === "nap" ? "nạp" : "mua") + '</div>';
+        return;
+    }
+    var html = "";
+    for(var i = 0; i < Math.min(arr.length, 100); i++){
+        var a = arr[i];
+        var masked = a.user.length > 3 ? a.user.substring(0,3) + "***" : a.user + "***";
+        var timeStr = new Date(a.time).toLocaleString("vi-VN");
+        if(type === "nap"){
+            html += '<div style="background:#f0fdf4;border:1px solid #86efac;border-left:4px solid #16a34a;border-radius:10px;padding:12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:10px">';
+            html += '<div><div style="font-weight:900;color:#16a34a;font-size:14px">+' + money(a.amount) + '</div>';
+            html += '<div style="color:#64748b;font-size:11px;margin-top:3px">' + masked + ' • ' + timeStr + '</div></div>';
+            html += '<span style="background:#16a34a;color:#fff;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:900">ĐÃ DUYỆT</span>';
+            html += '</div>';
+        } else {
+            html += '<div style="background:#fef2f2;border:1px solid #fecaca;border-left:4px solid #dc2626;border-radius:10px;padding:12px;margin-bottom:8px">';
+            html += '<div style="display:flex;justify-content:space-between;align-items:center;gap:10px">';
+            html += '<div style="font-weight:900;color:#1a1a1a;font-size:13px">' + esc(a.name) + '</div>';
+            html += '<div style="font-weight:900;color:#dc2626;font-size:14px">' + money(a.price) + '</div>';
+            html += '</div>';
+            html += '<div style="color:#64748b;font-size:11px;margin-top:4px">' + masked + ' • ' + timeStr + '</div>';
+            html += '</div>';
+        }
+    }
+    body.innerHTML = html;
+}
+
+function closeLogModal(){ $("logModal").classList.remove("on"); }
+
+/* REVIEW */
+function pickStar(n){
+    pickedStar = n;
+    var stars = document.querySelectorAll("#starRow .star");
+    for(var i = 0; i < stars.length; i++){
+        if(i < n) stars[i].classList.add("on");
+        else stars[i].classList.remove("on");
+    }
+}
+
+function renderReviewForm(){
+    var u = user();
+    if(!u){
+        $("reviewForm").style.display = "none";
+        $("reviewDone").style.display = "none";
+        $("reviewStats").innerHTML = '<div style="color:#64748b">Đăng nhập để đánh giá shop</div>';
+        return;
+    }
+    if(u.review){
+        $("reviewForm").style.display = "none";
+        $("reviewDone").style.display = "block";
+        $("reviewDone").innerHTML = '<div style="font-size:48px;margin-bottom:8px">✅</div>'
+            + '<div style="font-weight:900;color:#16a34a;font-size:14px">Bạn đã đánh giá ' + u.review.stars + ' sao</div>'
+            + (u.review.text ? '<div style="color:#64748b;font-size:12px;margin-top:6px;font-style:italic">"' + esc(u.review.text) + '"</div>' : '')
+            + '<div style="color:#64748b;font-size:11px;margin-top:6px">Mỗi tài khoản chỉ được đánh giá 1 lần</div>';
+    } else {
+        $("reviewForm").style.display = "block";
+        $("reviewDone").style.display = "none";
+        pickedStar = 0;
+        var stars = document.querySelectorAll("#starRow .star");
+        for(var i = 0; i < stars.length; i++) stars[i].classList.remove("on");
+        $("reviewText").value = "";
+    }
+}
+
+function loadReviews(){
+    if(!db) return;
+    db.ref("reviews").once("value").then(function(snap){
+        var data = snap.val() || {};
+        var arr = [];
+        for(var k in data) arr.push(data[k]);
+        arr.sort(function(a,b){ return b.time - a.time; });
+
+        var total = arr.length;
+        var sum = 0;
+        for(var i = 0; i < arr.length; i++) sum += Number(arr[i].stars || 0);
+        var avg = total ? (sum / total).toFixed(1) : "0.0";
+
+        var full = Math.round(avg);
+        var starStr = "";
+        for(var s = 1; s <= 5; s++) starStr += (s <= full ? "★" : "☆");
+
+        $("reviewStats").innerHTML = '<div style="font-size:24px;color:#fbbf24;font-weight:900">' + starStr + ' <span style="color:#1a1a1a">' + avg + '/5</span></div>'
+            + '<div style="color:#64748b;font-size:12px;margin-top:4px">' + total + ' đánh giá</div>';
+
+        if(!arr.length){
+            $("reviewList").innerHTML = "";
+            return;
+        }
+        var html = "";
+        for(var j = 0; j < Math.min(arr.length, 20); j++){
+            var r = arr[j];
+            var starsHtml = "";
+            for(var x = 1; x <= 5; x++) starsHtml += (x <= r.stars ? "★" : "☆");
+            html += '<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:12px;margin-bottom:8px">';
+            html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">';
+            html += '<div style="font-weight:900;font-size:13px;color:#1a1a1a">' + esc(r.user) + '</div>';
+            html += '<div style="color:#fbbf24;font-size:14px;font-weight:900">' + starsHtml + '</div>';
+            html += '</div>';
+            if(r.text) html += '<div style="color:#475569;font-size:13px;line-height:1.5">' + esc(r.text) + '</div>';
+            html += '<div style="color:#94a3b8;font-size:10px;margin-top:6px">' + new Date(r.time).toLocaleString("vi-VN") + '</div>';
+            html += '</div>';
+        }
+        $("reviewList").innerHTML = html;
+    });
+}
+
+function submitReview(){
+    if(!user()){ openAuth(); return; }
+    if(user().review){ showToast("Bạn đã đánh giá rồi!", "error"); return; }
+    if(!pickedStar){ showToast("Chọn số sao!", "error"); return; }
+    var text = $("reviewText").value.trim();
+    var u = users[cur];
+    var review = { user: u.username, stars: pickedStar, text: text, time: Date.now() };
+    u.review = review;
+    saveUserFB(cur, u);
+    if(db) db.ref("reviews/" + cur).set(review);
+    showToast("Cảm ơn bạn đã đánh giá!", "success");
+    renderReviewForm();
+    loadReviews();
+}
+
 /* ADMIN */
 function checkAdmin(){
     if(!isAdmin()){ showToast("Bạn không phải admin!", "error"); return false; }
@@ -1233,6 +1426,7 @@ function approveDeposit(username, key){
         u.balance = Number(u.balance || 0) + Number(d.amount);
         u.deposits[key].status = "Đã duyệt";
         u.deposits[key].approvedAt = Date.now();
+        u.deposits[key].botNotified = false;
         db.ref("users/" + username).set(u).then(function(){
             showToast("Đã duyệt " + money(d.amount), "success");
         });
@@ -1496,6 +1690,7 @@ function renderAll(){
     renderProfile();
     renderAdminFab();
     renderScriptBox();
+    renderReviewForm();
     checkApprovedNotification();
 }
 
