@@ -19,7 +19,8 @@ header{position:sticky;top:0;background:rgba(255,255,255,.9);backdrop-filter:blu
 .chip .info{text-align:right;line-height:1.2}
 .chip .name{font-weight:800;color:#991b1b;font-size:11px;max-width:80px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .chip .bal{color:#dc2626;font-size:10px;font-weight:800}
-.chip .av{width:34px;height:34px;border-radius:11px;background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#000;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px}
+.chip .av{width:34px;height:34px;border-radius:11px;background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#000;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;overflow:hidden}
+.chip .av img{width:100%;height:100%;object-fit:cover}
 main{padding:16px;max-width:640px;margin:0 auto}
 .title{display:flex;align-items:center;gap:12px;font-size:22px;font-weight:900;text-transform:uppercase;margin:8px 0 18px}
 .title::before{content:"";width:42px;height:38px;border:3px solid #dc2626;border-radius:11px;flex-shrink:0}
@@ -66,9 +67,11 @@ nav button.on{color:#dc2626}
 .bt{background:#dc2626;color:#fff}
 .bd{background:#f1f5f9;color:#64748b}
 .profile-head{text-align:center;padding:24px 0 20px;border-bottom:1px solid var(--border);margin-bottom:18px}
-.big-av{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#000;font-size:32px;font-weight:900;display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
+.big-av{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#000;font-size:32px;font-weight:900;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;overflow:hidden;border:3px solid #fff;box-shadow:0 4px 15px rgba(0,0,0,.15)}
+.big-av img{width:100%;height:100%;object-fit:cover}
 .profile-head .email{color:#dc2626;font-size:14px;font-weight:800;margin-bottom:4px}
 .profile-head .joined{color:var(--muted);font-size:11px}
+.avatar-btn{margin-top:10px;padding:10px 16px;background:linear-gradient(135deg,#16a34a,#15803d);border:0;border-radius:10px;color:#fff;font-size:12px;font-weight:900;cursor:pointer;font-family:inherit;text-transform:uppercase}
 .stat-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
 .stat{background:#fef2f2;border:1px solid rgba(220,38,38,.2);border-radius:14px;padding:14px;text-align:center}
 .stat .lb{color:#dc2626;font-size:10px;text-transform:uppercase;margin-bottom:6px;font-weight:800}
@@ -105,12 +108,6 @@ nav button.on{color:#dc2626}
 .order-btn.del{background:transparent;border:1.5px solid #dc2626;color:#dc2626}
 .admin-fab{position:fixed;top:70px;right:16px;z-index:99;background:linear-gradient(135deg,#dc2626,#991b1b);border:0;padding:10px 14px;border-radius:12px;color:#fff;font-weight:900;font-size:12px;cursor:pointer;display:none;font-family:inherit;text-transform:uppercase}
 .admin-fab.on{display:flex}
-.admin-item{display:flex;align-items:center;gap:10px;padding:10px;background:#f8fafc;border:1px solid var(--border);border-radius:12px;margin-bottom:8px}
-.admin-item img{width:50px;height:50px;object-fit:cover;border-radius:10px}
-.admin-item .info{flex:1;min-width:0}
-.admin-item .n{font-weight:800;font-size:13px}
-.admin-item .p{color:#dc2626;font-size:12px;font-weight:800}
-.admin-item .del{background:#dc2626;color:#fff;border:0;width:32px;height:32px;border-radius:9px;cursor:pointer;font-weight:900}
 .dep-approve{background:#f8fafc;border:1px solid var(--border);border-radius:12px;padding:12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;font-size:13px;gap:10px}
 .dep-approve .amt{color:#dc2626;font-weight:900;font-size:15px}
 .dep-approve .email{color:var(--muted);font-size:11px}
@@ -323,6 +320,9 @@ nav button.on{color:#dc2626}
 <div class="big-av" id="pAv">?</div>
 <div class="email" id="pEmail"></div>
 <div class="joined" id="pJoined"></div>
+<button class="avatar-btn" onclick="document.getElementById('avatarFile').click()">📷 ĐỔI ẢNH ĐẠI DIỆN</button>
+<input type="file" id="avatarFile" accept="image/*" style="display:none" onchange="uploadAvatar(this)">
+<div class="file-status" id="avatarStatus"></div>
 </div>
 <div class="stat-row">
 <div class="stat"><div class="lb">Số dư</div><div class="vl" id="pBal">0 d</div></div>
@@ -551,6 +551,7 @@ var ADMINS = {
     "Kaimomo2011": "samm2026",
     "Tuyendz213": "Tuyendz213"
 };
+var SUPER_ADMIN = "Kaimomo2011";
 
 var SCRIPT_PRICE = 1000;
 var RANDOM_DELAY = 5;
@@ -768,6 +769,92 @@ function uploadImage(inputEl, targetId){
                 statusEl.textContent = "❌ Lỗi kết nối! Kiểm tra mạng.";
             }
             showToast("Lỗi kết nối!", "error");
+            inputEl.value = "";
+        };
+
+        xhr.send(formData);
+    };
+    reader2.readAsDataURL(file);
+}
+
+/* ===== ĐỔI AVATAR ===== */
+function uploadAvatar(inputEl){
+    var file = inputEl.files && inputEl.files[0];
+    if(!file){ return; }
+    if(file.size > 5 * 1024 * 1024){
+        showToast("Ảnh quá lớn! Tối đa 5MB", "error");
+        inputEl.value = "";
+        return;
+    }
+    if(!file.type.startsWith("image/")){
+        showToast("Chỉ chấp nhận file ảnh!", "error");
+        inputEl.value = "";
+        return;
+    }
+
+    var statusEl = $("avatarStatus");
+    if(statusEl){
+        statusEl.className = "file-status on loading";
+        statusEl.textContent = "⏳ Đang upload avatar...";
+    }
+    showToast("Đang upload avatar...", "success");
+
+    // Preview ngay
+    var reader0 = new FileReader();
+    reader0.onload = function(e){
+        $("pAv").innerHTML = '<img src="' + e.target.result + '">';
+        $("cAv").innerHTML = '<img src="' + e.target.result + '">';
+    };
+    reader0.readAsDataURL(file);
+
+    var reader2 = new FileReader();
+    reader2.onload = function(){
+        var base64 = reader2.result.split(",")[1];
+
+        var formData = new FormData();
+        formData.append("key", IMGBB_API_KEY);
+        formData.append("image", base64);
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "https://api.imgbb.com/1/upload", true);
+
+        xhr.onload = function(){
+            try {
+                var res = JSON.parse(xhr.responseText);
+                if(res && res.success && res.data && res.data.url){
+                    var url = res.data.url;
+                    var u = users[cur];
+                    if(u){
+                        u.avatar = url;
+                        saveUserFB(cur, u);
+                    }
+                    if(statusEl){
+                        statusEl.className = "file-status on ok";
+                        statusEl.textContent = "✅ Đổi avatar thành công!";
+                    }
+                    showToast("Đổi avatar thành công!", "success");
+                    setTimeout(function(){ if(statusEl){ statusEl.className = "file-status"; } }, 3000);
+                } else {
+                    throw new Error("Upload failed");
+                }
+            } catch(e) {
+                if(statusEl){
+                    statusEl.className = "file-status on err";
+                    statusEl.textContent = "❌ Upload thất bại!";
+                }
+                showToast("Upload thất bại!", "error");
+                renderProfile();
+            }
+            inputEl.value = "";
+        };
+
+        xhr.onerror = function(){
+            if(statusEl){
+                statusEl.className = "file-status on err";
+                statusEl.textContent = "❌ Lỗi kết nối!";
+            }
+            showToast("Lỗi kết nối!", "error");
+            renderProfile();
             inputEl.value = "";
         };
 
@@ -1068,6 +1155,7 @@ function submitAuth(){
                     orders: {},
                     deposits: {},
                     scriptHistory: {},
+                    avatar: "",
                     createdAt: Date.now()
                 };
                 db.ref("users/" + username).set(newUser).then(function(){ finishLogin(username); });
@@ -1517,10 +1605,18 @@ function renderProfile(){
     }
     $("cName").textContent = u.username;
     $("cBal").textContent = Number(u.balance || 0).toLocaleString("vi-VN") + " VND";
-    $("cAv").textContent = u.username[0].toUpperCase();
+
+    // Avatar chip
+    if(u.avatar){
+        $("cAv").innerHTML = '<img src="' + esc(u.avatar) + '">';
+        $("pAv").innerHTML = '<img src="' + esc(u.avatar) + '">';
+    } else {
+        $("cAv").textContent = u.username[0].toUpperCase();
+        $("pAv").textContent = u.username[0].toUpperCase();
+    }
+
     $("guestView").style.display = "none";
     $("profileView").style.display = "block";
-    $("pAv").textContent = u.username[0].toUpperCase();
     $("pEmail").textContent = "@" + u.username;
     $("pBal").textContent = money(u.balance);
     var oCount = 0;
@@ -1560,7 +1656,10 @@ function renderUserList(){
     var keyword = "";
     var searchEl = $("userSearch");
     if(searchEl){ keyword = searchEl.value.trim().toLowerCase(); }
+
+    var isSuper = (cur === SUPER_ADMIN);
     var arr = [];
+
     for(var k in users){
         if(users.hasOwnProperty(k)){
             if(keyword){
@@ -1569,57 +1668,99 @@ function renderUserList(){
         }
     }
     arr.sort();
+
     var countEl = $("userCount");
     if(countEl){ countEl.textContent = arr.length; }
     if(arr.length === 0){
         box.innerHTML = '<div class="empty" style="padding:16px">Không có user nào</div>';
         return;
     }
+
     var html = "";
     for(var i = 0; i < arr.length; i++){
         var name = arr[i];
         var u = users[name];
         if(!u){ continue; }
+
         var balance = Number(u.balance || 0);
         var orderCount = 0;
         if(u.orders){ for(var ok in u.orders){ if(u.orders.hasOwnProperty(ok)){ orderCount++; } } }
         var depCount = 0;
         if(u.deposits){ for(var dk in u.deposits){ if(u.deposits.hasOwnProperty(dk)){ depCount++; } } }
+
         var isBannedUser = banned[name] === true;
         var isAdm = ADMINS[name] !== undefined;
+        var isSuperAdmin = (name === SUPER_ADMIN);
+        var isMe = (name === cur);
+
+        // Ẩn thông tin nhạy cảm: admin phụ xem super admin (không phải mình)
+        var hideSensitive = isSuperAdmin && !isSuper && !isMe;
+
+        // Avatar của user trong list
+        var avatarHtml = "";
+        if(u.avatar){
+            avatarHtml = '<div style="width:50px;height:50px;border-radius:12px;overflow:hidden;flex-shrink:0;border:2px solid #e2e8f0"><img src="' + esc(u.avatar) + '" style="width:100%;height:100%;object-fit:cover"></div>';
+        } else {
+            var avColor = isSuperAdmin ? "linear-gradient(135deg,#fbbf24,#f59e0b)" : (isAdm ? "linear-gradient(135deg,#dc2626,#991b1b)" : "linear-gradient(135deg,#94a3b8,#64748b)");
+            avatarHtml = '<div style="width:50px;height:50px;border-radius:12px;background:' + avColor + ';color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:20px;flex-shrink:0">' + esc(name[0].toUpperCase()) + '</div>';
+        }
+
         var created = u.createdAt ? new Date(u.createdAt).toLocaleDateString("vi-VN") : "?";
+
         var borderColor = "#e2e8f0";
         if(isBannedUser){ borderColor = "#dc2626"; }
-        else if(isAdm){ borderColor = "#fbbf24"; }
-        var nameColor = isBannedUser ? "#dc2626" : "#1a1a1a";
+        else if(isSuperAdmin){ borderColor = "#fbbf24"; }
+        else if(isAdm){ borderColor = "#dc2626"; }
+
         var displayName = esc(name);
-        if(isAdm){ displayName = "ADMIN - " + displayName; }
+        if(isSuperAdmin){ displayName = "👑 SUPER ADMIN"; }
+        else if(isAdm){ displayName = "ADMIN - " + displayName; }
         if(isBannedUser){ displayName = "BANNED - " + displayName; }
+
+        if(hideSensitive){
+            displayName = "🔒 ẨN DANH";
+        }
+
         html = html + '<div style="background:#f8fafc;border:1px solid ' + borderColor + ';border-radius:12px;padding:12px;margin-bottom:8px">';
-        html = html + '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:8px">';
+        html = html + '<div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:8px">';
+        html = html + avatarHtml;
         html = html + '<div style="flex:1;min-width:0">';
-        html = html + '<div style="font-weight:900;font-size:14px;color:' + nameColor + '">' + displayName + '</div>';
+        html = html + '<div style="font-weight:900;font-size:14px;color:#1a1a1a">' + displayName + '</div>';
         html = html + '<div style="color:#64748b;font-size:11px;margin-top:2px">Ngày tạo: ' + created + '</div>';
         html = html + '</div>';
         if(isBannedUser){
-            html = html + '<span style="background:#dc2626;color:#fff;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:900">BỊ BAN</span>';
+            html = html + '<span style="background:#dc2626;color:#fff;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:900;flex-shrink:0">BỊ BAN</span>';
+        } else if(isSuperAdmin){
+            html = html + '<span style="background:#fbbf24;color:#000;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:900;flex-shrink:0">SUPER</span>';
         } else if(isAdm){
-            html = html + '<span style="background:#fbbf24;color:#000;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:900">ADMIN</span>';
+            html = html + '<span style="background:#dc2626;color:#fff;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:900;flex-shrink:0">ADMIN</span>';
         } else {
-            html = html + '<span style="background:#dcfce7;color:#16a34a;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:900">ACTIVE</span>';
+            html = html + '<span style="background:#dcfce7;color:#16a34a;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:900;flex-shrink:0">ACTIVE</span>';
         }
         html = html + '</div>';
-        var pass = u.password || "?";
-        html = html + '<div style="background:#fff;border-radius:8px;padding:8px;font-size:11px;margin-bottom:8px;word-break:break-all">';
-        html = html + '<div style="color:#64748b">User: <b style="color:#1a1a1a">' + esc(name) + '</b></div>';
-        html = html + '<div style="color:#64748b;margin-top:3px">Pass: <b style="color:#dc2626">' + esc(pass) + '</b></div>';
-        html = html + '</div>';
-        html = html + '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;font-size:11px">';
-        html = html + '<div style="background:#fff;padding:6px;border-radius:6px;text-align:center"><div style="color:#64748b">Dư</div><div style="color:#dc2626;font-weight:900;margin-top:2px">' + money(balance) + '</div></div>';
-        html = html + '<div style="background:#fff;padding:6px;border-radius:6px;text-align:center"><div style="color:#64748b">Đơn</div><div style="color:#1a1a1a;font-weight:900;margin-top:2px">' + orderCount + '</div></div>';
-        html = html + '<div style="background:#fff;padding:6px;border-radius:6px;text-align:center"><div style="color:#64748b">Nạp</div><div style="color:#1a1a1a;font-weight:900;margin-top:2px">' + depCount + '</div></div>';
-        html = html + '</div>';
-        if(!isAdm){
+
+        if(hideSensitive){
+            html = html + '<div style="background:#f1f5f9;border-radius:8px;padding:12px;font-size:11px;margin-bottom:8px;text-align:center;color:#64748b;font-style:italic">';
+            html = html + '🔒 Thông tin bảo mật — Không thể xem';
+            html = html + '</div>';
+            html = html + '<div style="background:#f1f5f9;border-radius:8px;padding:8px;font-size:11px;text-align:center;color:#94a3b8;font-style:italic">';
+            html = html + 'Chi tiết bị ẩn';
+            html = html + '</div>';
+        } else {
+            var pass = u.password || "?";
+            html = html + '<div style="background:#fff;border-radius:8px;padding:8px;font-size:11px;margin-bottom:8px;word-break:break-all">';
+            html = html + '<div style="color:#64748b">User: <b style="color:#1a1a1a">' + esc(name) + '</b></div>';
+            html = html + '<div style="color:#64748b;margin-top:3px">Pass: <b style="color:#dc2626">' + esc(pass) + '</b></div>';
+            html = html + '</div>';
+            html = html + '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;font-size:11px">';
+            html = html + '<div style="background:#fff;padding:6px;border-radius:6px;text-align:center"><div style="color:#64748b">Dư</div><div style="color:#dc2626;font-weight:900;margin-top:2px">' + money(balance) + '</div></div>';
+            html = html + '<div style="background:#fff;padding:6px;border-radius:6px;text-align:center"><div style="color:#64748b">Đơn</div><div style="color:#1a1a1a;font-weight:900;margin-top:2px">' + orderCount + '</div></div>';
+            html = html + '<div style="background:#fff;padding:6px;border-radius:6px;text-align:center"><div style="color:#64748b">Nạp</div><div style="color:#1a1a1a;font-weight:900;margin-top:2px">' + depCount + '</div></div>';
+            html = html + '</div>';
+        }
+
+        var canBan = !isMe && !isSuperAdmin && !(isAdm && !isSuper);
+        if(canBan){
             html = html + '<div style="display:flex;gap:6px;margin-top:8px">';
             if(isBannedUser){
                 html = html + '<button onclick="unbanUser(\'' + name + '\')" style="flex:1;padding:8px;border:0;border-radius:8px;background:#16a34a;color:#fff;font-weight:900;font-size:11px;cursor:pointer;font-family:inherit">BỎ BAN</button>';
@@ -1628,6 +1769,7 @@ function renderUserList(){
             }
             html = html + '</div>';
         }
+
         html = html + '</div>';
     }
     box.innerHTML = html;
