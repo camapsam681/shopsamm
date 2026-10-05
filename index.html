@@ -166,7 +166,6 @@ nav button.on{color:#dc2626}
 .random-count{color:#dc2626;font-size:64px;font-weight:900;margin-top:10px;text-shadow:0 0 30px rgba(220,38,38,.8)}
 .random-note{color:#94a3b8;font-size:12px;margin-top:10px}
 
-/* UPLOAD ẢNH */
 .file-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px;background:linear-gradient(135deg,#16a34a,#15803d);border:0;border-radius:12px;color:#fff;font-size:13px;font-weight:900;cursor:pointer;font-family:inherit;text-transform:uppercase;margin-bottom:10px;box-shadow:0 4px 15px rgba(22,163,74,.3)}
 .file-btn:active{transform:scale(.98)}
 .file-status{margin-bottom:10px;padding:10px;border-radius:10px;font-size:12px;font-weight:700;display:none}
@@ -175,31 +174,76 @@ nav button.on{color:#dc2626}
 .file-status.ok{background:#dcfce7;color:#16a34a;border:1px solid #86efac}
 .file-status.err{background:#fee2e2;color:#dc2626;border:1px solid #fecaca}
 
+.chat-fab{position:fixed;bottom:110px;right:20px;width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#dc2626,#991b1b);border:0;color:#fff;font-size:28px;cursor:pointer;box-shadow:0 6px 25px rgba(220,38,38,.5);z-index:200;display:flex;align-items:center;justify-content:center;transition:transform .2s}
+.chat-fab:active{transform:scale(.9)}
+.chat-fab .badge-chat{position:absolute;top:-3px;right:-3px;background:#fbbf24;color:#000;font-size:10px;font-weight:900;min-width:20px;height:20px;border-radius:10px;display:none;align-items:center;justify-content:center;padding:0 5px;border:2px solid #fff}
+.chat-fab .badge-chat.on{display:flex}
+.chat-panel{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top-left-radius:20px;border-top-right-radius:20px;box-shadow:0 -6px 30px rgba(0,0,0,.3);z-index:998;display:none;flex-direction:column;height:75vh;max-height:600px}
+.chat-panel.on{display:flex}
+.chat-header{padding:14px 16px;background:linear-gradient(135deg,#dc2626,#991b1b);color:#fff;display:flex;justify-content:space-between;align-items:center;border-top-left-radius:20px;border-top-right-radius:20px}
+.chat-header .title-chat{font-weight:900;font-size:15px;display:flex;align-items:center;gap:8px}
+.chat-header .close-chat{background:rgba(255,255,255,.2);border:0;color:#fff;width:32px;height:32px;border-radius:50%;font-size:16px;cursor:pointer;font-weight:900;font-family:inherit}
+.chat-messages{flex:1;overflow-y:auto;padding:12px;background:#f8fafc}
+.chat-msg{margin-bottom:10px;display:flex;gap:8px;align-items:flex-start}
+.chat-msg.mine{flex-direction:row-reverse}
+.chat-msg .msg-av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#000;font-weight:900;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;overflow:hidden}
+.chat-msg .msg-av img{width:100%;height:100%;object-fit:cover}
+.chat-msg .msg-body{max-width:75%;background:#fff;padding:8px 12px;border-radius:14px;border:1px solid var(--border);word-wrap:break-word}
+.chat-msg.mine .msg-body{background:linear-gradient(135deg,#dc2626,#991b1b);color:#fff;border:0}
+.chat-msg .msg-name{font-size:10px;font-weight:900;color:#dc2626;margin-bottom:3px}
+.chat-msg.mine .msg-name{color:rgba(255,255,255,.9)}
+.chat-msg .msg-text{font-size:13px;line-height:1.4;word-break:break-word}
+.chat-msg .msg-time{font-size:9px;color:#94a3b8;margin-top:4px}
+.chat-msg.mine .msg-time{color:rgba(255,255,255,.7)}
+.chat-input-area{padding:10px;background:#fff;border-top:1px solid var(--border);display:flex;gap:8px;padding-bottom:max(10px,env(safe-area-inset-bottom))}
+.chat-input-area input{margin:0;flex:1;padding:12px;border-radius:22px;font-size:14px}
+.chat-input-area button{background:linear-gradient(135deg,#dc2626,#991b1b);border:0;color:#fff;width:44px;height:44px;border-radius:50%;font-size:18px;cursor:pointer;font-family:inherit;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.chat-input-area button:disabled{background:#94a3b8;cursor:not-allowed}
+.chat-login-note{padding:20px;text-align:center;color:var(--muted);font-size:13px}
+
 @media(max-width:380px){.products-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
+<audio id="bgMusic" src="https://files.catbox.moe/xzwsdp.mp3" loop preload="auto"></audio>
 <div class="loading-overlay" id="loadingOverlay"><div class="spinner"></div></div>
 <button class="admin-fab" id="adminFab" onclick="openAdminPanel()">ADMIN</button>
 <div class="toast" id="toast"></div>
 
+<button class="chat-fab" id="chatFab" onclick="toggleChat()">
+&#128172;
+<span class="badge-chat" id="chatBadge">0</span>
+</button>
+
+<div class="chat-panel" id="chatPanel">
+<div class="chat-header">
+<div class="title-chat">&#128172; CHAT CONG DONG</div>
+<button class="close-chat" onclick="toggleChat()">X</button>
+</div>
+<div class="chat-messages" id="chatMessages"></div>
+<div class="chat-input-area" id="chatInputArea">
+<input id="chatInput" placeholder="Nhap tin nhan..." maxlength="500" onkeydown="if(event.key==='Enter')sendChat()">
+<button onclick="sendChat()" id="chatSendBtn">&gt;</button>
+</div>
+</div>
+
 <div class="random-overlay" id="randomOverlay">
 <div class="random-spinner"></div>
-<div class="random-text">🎲 ĐANG RANDOM SCRIPT...</div>
+<div class="random-text">DANG RANDOM SCRIPT...</div>
 <div class="random-count" id="randomCount">5</div>
-<div class="random-note">Vui lòng chờ</div>
+<div class="random-note">Vui long cho</div>
 </div>
 
 <header>
 <div class="logo">
-<div class="logo-icon">🎮</div>
+<div class="logo-icon">&#127918;</div>
 <div class="logo-text">
 <div class="top">SHOP HACK</div>
 <div class="name">SAMM.NET VIP</div>
 </div>
 </div>
 <div class="chip" onclick="chipClick()">
-<div class="info"><div class="name" id="cName">Đăng nhập</div><div class="bal" id="cBal">0 VND</div></div>
+<div class="info"><div class="name" id="cName">Dang nhap</div><div class="bal" id="cBal">0 VND</div></div>
 <div class="av" id="cAv">?</div>
 </div>
 </header>
@@ -210,13 +254,13 @@ nav button.on{color:#dc2626}
 <div class="title"><span>Shop</span></div>
 <div id="helloBanner" class="notice-box" style="background:linear-gradient(135deg,#fef2f2,#fff);border:2px solid #dc2626;padding:16px;position:relative">
 <button onclick="hideHello()" style="position:absolute;top:8px;right:8px;width:28px;height:28px;border-radius:50%;background:#dc2626;color:#fff;border:0;font-weight:900;cursor:pointer">X</button>
-<div style="font-size:15px;font-weight:900;color:#dc2626;margin-bottom:8px">👋 HELLO BẠN!</div>
-<div style="font-size:13px;color:#1a1a1a;line-height:1.6;margin-bottom:8px">Bạn cần mua gì hay để mình tư vấn cho bạn?</div>
+<div style="font-size:15px;font-weight:900;color:#dc2626;margin-bottom:8px">HELLO BAN!</div>
+<div style="font-size:13px;color:#1a1a1a;line-height:1.6;margin-bottom:8px">Ban can mua gi hay de minh tu van cho ban?</div>
 <div style="font-size:12px;color:#dc2626;font-weight:800;line-height:1.8">
-✓ HACK ROBLOX<br>
-✓ HACK FREE FIRE<br>
-✓ AIM FREE FIRE<br>
-✓ DELTA IOS / ADR
+&#10003; HACK ROBLOX<br>
+&#10003; HACK FREE FIRE<br>
+&#10003; AIM FREE FIRE<br>
+&#10003; DELTA IOS / ADR
 </div>
 </div>
 <div class="products-grid" id="products"></div>
@@ -225,9 +269,9 @@ nav button.on{color:#dc2626}
 <div class="page" id="p-nap">
 <div id="notice" class="notice-box" style="display:none"></div>
 <div id="form">
-<div class="title"><span>Nạp tiền</span></div>
+<div class="title"><span>Nap tien</span></div>
 <div class="card">
-<label>Số tiền cần nạp (VND)</label>
+<label>So tien can nap (VND)</label>
 <div class="amt"><input id="amt" inputmode="numeric" value="50.000"><span>d</span></div>
 <div class="quick">
 <button data-a="50000" class="on">50k</button>
@@ -235,27 +279,27 @@ nav button.on{color:#dc2626}
 <button data-a="200000">200k</button>
 <button data-a="500000">500k</button>
 </div>
-<button class="create" onclick="createDeposit()">Tạo yêu cầu nạp</button>
+<button class="create" onclick="createDeposit()">NAP</button>
 </div>
 </div>
 <div id="qr" style="display:none">
-<div class="title"><span>Nạp tiền</span></div>
+<div class="title"><span>Nap tien</span></div>
 <div class="qr">
-<img src="https://files.catbox.moe/7e2kkm.png" alt="QR">
+<img src="https://files.catbox.moe/bxfakt.jpeg" alt="QR">
 <div class="timer" id="timer">10:00</div>
-<div class="timer-lb">Phiên chờ xác nhận</div>
-<button class="cancel" type="button" onclick="cancelDeposit(true)">HỦY YÊU CẦU NẠP</button>
-<div class="info"><b>Số tiền: <span id="qrAmt"></span></b><br>Quét QR để chuyển khoản.</div>
+<div class="timer-lb">Phien cho xac nhan</div>
+<button class="cancel" type="button" onclick="cancelDeposit(true)">HUY YEU CAU NAP</button>
+<div class="info"><b>So tien: <span id="qrAmt"></span></b><br>Quet QR de chuyen khoan.</div>
 </div>
 </div>
 <div class="warn" id="warn">
-<h3>Lưu ý quan trọng</h3>
-<ul><li>Số dư chỉ được cộng sau khi xác nhận.</li><li>Không tạo nhiều yêu cầu cùng lúc.</li><li>Liên hệ hỗ trợ nếu chưa được cộng.</li></ul>
+<h3>Luu y quan trong</h3>
+<ul><li>So du chi duoc cong sau khi xac nhan.</li><li>Khong tao nhieu yeu cau cung luc.</li><li>Lien he ho tro neu chua duoc cong.</li></ul>
 </div>
 </div>
 
 <div class="page" id="p-don">
-<div class="title"><span>Đơn hàng</span></div>
+<div class="title"><span>Don hang</span></div>
 <div id="orders"></div>
 </div>
 
@@ -263,56 +307,56 @@ nav button.on{color:#dc2626}
 <div class="title"><span>Box</span></div>
 
 <div class="script-box">
-<span class="script-icon">📜</span>
-<div class="script-title">🎲 RANDOM SCRIPT</div>
-<div class="script-desc">Bấm random để nhận 1 script ngẫu nhiên (5 giây)</div>
-<div class="script-stock" id="scriptStock">Đang tải...</div>
-<div style="color:#fbbf24;font-size:20px;font-weight:900;margin-bottom:14px">1.000 đ / lần</div>
-<button class="random-btn" id="randomScriptBtn" onclick="randomScript()">🎲 RANDOM SCRIPT</button>
+<span class="script-icon">&#128220;</span>
+<div class="script-title">RANDOM SCRIPT</div>
+<div class="script-desc">Bam random de nhan 1 script ngau nhien (5 giay)</div>
+<div class="script-stock" id="scriptStock">Dang tai...</div>
+<div style="color:#fbbf24;font-size:20px;font-weight:900;margin-bottom:14px">1.000 d / lan</div>
+<button class="random-btn" id="randomScriptBtn" onclick="randomScript()">RANDOM SCRIPT</button>
 <div class="script-result" id="scriptResult">
-<div class="sr-title">🎉 Bạn nhận được script:</div>
+<div class="sr-title">Ban nhan duoc script:</div>
 <div class="script-code" id="scriptCode"></div>
-<button class="copy-btn" onclick="copyScript()">📋 BẤM ĐỂ COPY SCRIPT</button>
+<button class="copy-btn" onclick="copyScript()">BAM DE COPY SCRIPT</button>
 </div>
 </div>
 
 <div class="script-history">
-<h3>📋 Lịch sử script đã nhận</h3>
+<h3>Lich su script da nhan</h3>
 <div id="scriptHistory"></div>
 </div>
 
-<div class="title" style="margin-top:20px"><span>Cộng đồng</span></div>
+<div class="title" style="margin-top:20px"><span>Cong dong</span></div>
 <a href="https://zalo.me/g/wqnmgz1abybxpub2p9w9" target="_blank" style="display:flex;align-items:center;gap:14px;padding:16px;background:linear-gradient(135deg,#0068FF,#0047B3);border-radius:16px;text-decoration:none;margin-bottom:12px">
-<div style="width:50px;height:50px;background:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:26px">💬</div>
+<div style="width:50px;height:50px;background:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:26px">&#128172;</div>
 <div style="flex:1;color:#fff">
 <div style="font-weight:900;font-size:15px">ZALO 1</div>
-<div style="font-size:11px;opacity:.9">Nhóm chat chính</div>
+<div style="font-size:11px;opacity:.9">Nhom chat chinh</div>
 </div>
-<div style="color:#fff;font-size:24px">›</div>
+<div style="color:#fff;font-size:24px">&rsaquo;</div>
 </a>
 <a href="https://zalo.me/g/fgqrxbl5o8igxvfkdviq" target="_blank" style="display:flex;align-items:center;gap:14px;padding:16px;background:linear-gradient(135deg,#0068FF,#0047B3);border-radius:16px;text-decoration:none;margin-bottom:12px">
-<div style="width:50px;height:50px;background:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:26px">💬</div>
+<div style="width:50px;height:50px;background:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:26px">&#128172;</div>
 <div style="flex:1;color:#fff">
 <div style="font-weight:900;font-size:15px">ZALO 2</div>
-<div style="font-size:11px;opacity:.9">Nhóm chat phụ</div>
+<div style="font-size:11px;opacity:.9">Nhom chat phu</div>
 </div>
-<div style="color:#fff;font-size:24px">›</div>
+<div style="color:#fff;font-size:24px">&rsaquo;</div>
 </a>
 <a href="https://t.me/+JQmhhk6l7is1ZTc1" target="_blank" style="display:flex;align-items:center;gap:14px;padding:16px;background:linear-gradient(135deg,#0088cc,#005f8c);border-radius:16px;text-decoration:none;margin-bottom:12px">
-<div style="width:50px;height:50px;background:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:26px">✈️</div>
+<div style="width:50px;height:50px;background:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:26px">&#9992;</div>
 <div style="flex:1;color:#fff">
 <div style="font-weight:900;font-size:15px">TELEGRAM</div>
 <div style="font-size:11px;opacity:.9">Group Telegram</div>
 </div>
-<div style="color:#fff;font-size:24px">›</div>
+<div style="color:#fff;font-size:24px">&rsaquo;</div>
 </a>
 </div>
 
 <div class="page" id="p-acc">
-<div class="title"><span>Tài khoản</span></div>
+<div class="title"><span>Tai khoan</span></div>
 <div id="guestView">
-<div class="empty">Vui lòng đăng nhập.</div>
-<button class="create" onclick="openAuth()">Đăng nhập / Đăng ký</button>
+<div class="empty">Vui long dang nhap.</div>
+<button class="create" onclick="openAuth()">Dang nhap / Dang ky</button>
 </div>
 <div id="profileView" style="display:none">
 <div class="card">
@@ -320,26 +364,26 @@ nav button.on{color:#dc2626}
 <div class="big-av" id="pAv">?</div>
 <div class="email" id="pEmail"></div>
 <div class="joined" id="pJoined"></div>
-<button class="avatar-btn" onclick="document.getElementById('avatarFile').click()">📷 ĐỔI ẢNH ĐẠI DIỆN</button>
+<button class="avatar-btn" onclick="document.getElementById('avatarFile').click()">DOI ANH DAI DIEN</button>
 <input type="file" id="avatarFile" accept="image/*" style="display:none" onchange="uploadAvatar(this)">
 <div class="file-status" id="avatarStatus"></div>
 </div>
 <div class="stat-row">
-<div class="stat"><div class="lb">Số dư</div><div class="vl" id="pBal">0 d</div></div>
-<div class="stat"><div class="lb">Đơn hàng</div><div class="vl" id="pOrderCount">0</div></div>
+<div class="stat"><div class="lb">So du</div><div class="vl" id="pBal">0 d</div></div>
+<div class="stat"><div class="lb">Don hang</div><div class="vl" id="pOrderCount">0</div></div>
 </div>
 <div class="menu-item" onclick="toggleDepHistory()">
-<span>💰 Lịch sử nạp</span>
-<span class="arw" id="depArrow">▼</span>
+<span>Lich su nap</span>
+<span class="arw" id="depArrow">&#9660;</span>
 </div>
 <div id="depHistory" style="display:none;margin-bottom:8px"></div>
 <div class="menu-item" onclick="openChangePass()">
-<span>🔒 Đổi mật khẩu</span>
-<span class="arw">›</span>
+<span>Doi mat khau</span>
+<span class="arw">&rsaquo;</span>
 </div>
 <div class="menu-item" onclick="doLogout()" style="color:#dc2626">
-<span>🚪 Đăng xuất</span>
-<span class="arw">›</span>
+<span>Dang xuat</span>
+<span class="arw">&rsaquo;</span>
 </div>
 </div>
 </div>
@@ -348,40 +392,40 @@ nav button.on{color:#dc2626}
 <div class="page" id="p-admin">
 <div class="title"><span>Admin Panel</span></div>
 <div class="card">
-<h3 style="color:#dc2626;font-size:14px;text-transform:uppercase;margin-bottom:14px;font-weight:900">Thêm sản phẩm</h3>
-<label>Tên sản phẩm</label>
+<h3 style="color:#dc2626;font-size:14px;text-transform:uppercase;margin-bottom:14px;font-weight:900">Them san pham</h3>
+<label>Ten san pham</label>
 <input id="pName" placeholder="VD: Acc Free Fire VIP">
-<label>Mô tả</label>
-<textarea id="pDesc" placeholder="Mô tả..."></textarea>
-<label>Giá (VND)</label>
+<label>Mo ta</label>
+<textarea id="pDesc" placeholder="Mo ta..."></textarea>
+<label>Gia (VND)</label>
 <input id="pPrice" type="number" placeholder="50000">
-<label>Số lượng kho</label>
+<label>So luong kho</label>
 <input id="pStock" type="number" placeholder="100" value="100">
-<label>Ảnh sản phẩm</label>
-<button type="button" class="file-btn" onclick="document.getElementById('pImageFile').click()">📁 CHỌN ẢNH TỪ THƯ VIỆN</button>
+<label>Anh san pham</label>
+<button type="button" class="file-btn" onclick="document.getElementById('pImageFile').click()">CHON ANH TU THU VIEN</button>
 <input type="file" id="pImageFile" accept="image/*" style="display:none" onchange="uploadImage(this, 'pImage')">
 <div class="file-status" id="pImageStatus"></div>
 <input type="hidden" id="pImage">
 <div style="margin-bottom:10px">
 <img id="pImagePreview" src="" style="max-width:100%;max-height:150px;border-radius:10px;border:1px solid #e2e8f0;display:none">
 </div>
-<label>Link giao hàng</label>
+<label>Link giao hang</label>
 <input id="pUrl" placeholder="https://...">
-<button class="create" onclick="addProduct()">Đẩy lên Shop</button>
+<button class="create" onclick="addProduct()">Day len Shop</button>
 </div>
 
 <div class="card">
-<h3 style="color:#dc2626;font-size:14px;text-transform:uppercase;margin-bottom:14px;font-weight:900">Danh sách sản phẩm</h3>
+<h3 style="color:#dc2626;font-size:14px;text-transform:uppercase;margin-bottom:14px;font-weight:900">Danh sach san pham</h3>
 <div id="productList"></div>
 </div>
 
 <div class="card">
-<h3 style="color:#dc2626;font-size:14px;text-transform:uppercase;margin-bottom:14px;font-weight:900">📜 Quản lý Script (<span id="scriptPoolCount">0</span>)</h3>
-<label>Tên script</label>
+<h3 style="color:#dc2626;font-size:14px;text-transform:uppercase;margin-bottom:14px;font-weight:900">Quan ly Script (<span id="scriptPoolCount">0</span>)</h3>
+<label>Ten script</label>
 <input id="scName" placeholder="VD: Script FF Auto Aim">
-<label>Nội dung script</label>
-<textarea id="scContent" placeholder="Nhập nội dung script..." style="min-height:100px;font-family:monospace;font-size:12px"></textarea>
-<button class="create green" onclick="addScript()">➕ THÊM SCRIPT</button>
+<label>Noi dung script</label>
+<textarea id="scContent" placeholder="Nhap noi dung script..." style="min-height:100px;font-family:monospace;font-size:12px"></textarea>
+<button class="create green" onclick="addScript()">THEM SCRIPT</button>
 <div style="margin-top:14px">
 <h4 style="color:#dc2626;font-size:12px;text-transform:uppercase;margin-bottom:10px;font-weight:900">Kho script</h4>
 <div id="scriptPoolList"></div>
@@ -389,117 +433,118 @@ nav button.on{color:#dc2626}
 </div>
 
 <div class="card">
-<h3 style="color:#dc2626;font-size:14px;text-transform:uppercase;margin-bottom:14px;font-weight:900">Thông báo</h3>
-<input id="nText" placeholder="Nội dung...">
+<h3 style="color:#dc2626;font-size:14px;text-transform:uppercase;margin-bottom:14px;font-weight:900">Thong bao</h3>
+<input id="nText" placeholder="Noi dung...">
 <div class="btns">
-<button class="bt" onclick="setNotice()">Gửi</button>
-<button class="bd" onclick="clearNotice()">Xóa</button>
+<button class="bt" onclick="setNotice()">Gui</button>
+<button class="bd" onclick="clearNotice()">Xoa</button>
 </div>
 </div>
 
 <div class="card">
-<h3 style="color:#dc2626;font-size:14px;text-transform:uppercase;margin-bottom:14px;font-weight:900">Duyệt nạp</h3>
+<h3 style="color:#dc2626;font-size:14px;text-transform:uppercase;margin-bottom:14px;font-weight:900">Duyet nap</h3>
 <div id="depositList"></div>
 </div>
 
 <div class="card">
-<h3 style="color:#dc2626;font-size:14px;text-transform:uppercase;margin-bottom:14px;font-weight:900">Danh sách users (<span id="userCount">0</span>)</h3>
-<input id="userSearch" placeholder="Tìm theo tên..." oninput="renderUserList()">
+<h3 style="color:#dc2626;font-size:14px;text-transform:uppercase;margin-bottom:14px;font-weight:900">Danh sach users (<span id="userCount">0</span>)</h3>
+<input id="userSearch" placeholder="Tim theo ten..." oninput="renderUserList()">
 <div id="userList"></div>
 </div>
 
-<div class="card">
-<h3 style="color:#dc2626;font-size:14px;text-transform:uppercase;margin-bottom:14px;font-weight:900">Ban tài khoản</h3>
-<label>Tên tài khoản cần ban</label>
+<div class="card" id="banCard">
+<h3 style="color:#dc2626;font-size:14px;text-transform:uppercase;margin-bottom:14px;font-weight:900">Ban tai khoan</h3>
+<label>Ten tai khoan can ban</label>
 <input id="banUserInput" placeholder="VD: user123">
-<button class="create red" onclick="banUser()">BAN TÀI KHOẢN</button>
+<button class="create red" onclick="banUser()">BAN TAI KHOAN</button>
 <div style="margin-top:14px">
-<h4 style="color:#dc2626;font-size:12px;text-transform:uppercase;margin-bottom:10px;font-weight:900">Danh sách bị ban</h4>
+<h4 style="color:#dc2626;font-size:12px;text-transform:uppercase;margin-bottom:10px;font-weight:900">Danh sach bi ban</h4>
 <div id="bannedList"></div>
 </div>
 </div>
 
-<div class="card">
-<h3 style="color:#dc2626;font-size:14px;text-transform:uppercase;margin-bottom:14px;font-weight:900">Nguy hiểm</h3>
-<button class="create red" onclick="clearAllProducts()" style="margin-bottom:8px">Xóa tất cả sản phẩm</button>
-<button class="create red" onclick="clearAllUsers()">Xóa tất cả users</button>
+<div class="card" id="dangerCard">
+<h3 style="color:#dc2626;font-size:14px;text-transform:uppercase;margin-bottom:14px;font-weight:900">Nguy hiem</h3>
+<button class="create red" onclick="clearAllProducts()" style="margin-bottom:8px">Xoa tat ca san pham</button>
+<button class="create red" onclick="clearAllUsers()">Xoa tat ca users</button>
+<button class="create red" onclick="clearAllChat()" style="margin-top:8px;background:linear-gradient(135deg,#7f1d1d,#450a0a)">Xoa tat ca chat</button>
 </div>
 </div>
 </main>
 
 <nav>
 <button data-p="shop" class="on" onclick="go('shop')"><svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>SHOP</button>
-<button data-p="nap" onclick="go('nap')"><svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>NẠP</button>
-<button data-p="don" onclick="go('don')"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg>ĐƠN</button>
+<button data-p="nap" onclick="go('nap')"><svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>NAP</button>
+<button data-p="don" onclick="go('don')"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg>DON</button>
 <button data-p="box" onclick="go('box')"><svg viewBox="0 0 24 24"><path d="M20 12v10H4V12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>BOX</button>
-<button data-p="acc" onclick="go('acc')"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>TÀI KHOẢN</button>
+<button data-p="acc" onclick="go('acc')"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>TAI KHOAN</button>
 </nav>
 
 <div class="modal" id="authModal">
 <div class="mbox">
-<h2 id="aTitle">Đăng nhập</h2>
-<label>Tên tài khoản</label>
+<h2 id="aTitle">Dang nhap</h2>
+<label>Ten tai khoan</label>
 <input id="aUser" type="text" placeholder="VD: Kaimomo2011" maxlength="20">
-<label>Mật khẩu</label>
-<input id="aPass" type="password" placeholder="Ít nhất 6 ký tự">
+<label>Mat khau</label>
+<input id="aPass" type="password" placeholder="It nhat 6 ky tu">
 <div class="btns">
-<button class="bt" id="aSubmit" onclick="submitAuth()">Đăng nhập</button>
-<button class="bd" onclick="switchAuth()">Đổi</button>
-<button class="bd" onclick="closeAuth()">Đóng</button>
+<button class="bt" id="aSubmit" onclick="submitAuth()">Dang nhap</button>
+<button class="bd" onclick="switchAuth()">Doi</button>
+<button class="bd" onclick="closeAuth()">Dong</button>
 </div>
 </div>
 </div>
 
 <div class="modal" id="passModal">
 <div class="mbox">
-<h2>Đổi mật khẩu</h2>
-<input id="oldPass" type="password" placeholder="Mật khẩu hiện tại">
-<input id="newPass" type="password" placeholder="Mật khẩu mới">
-<input id="newPass2" type="password" placeholder="Nhập lại">
+<h2>Doi mat khau</h2>
+<input id="oldPass" type="password" placeholder="Mat khau hien tai">
+<input id="newPass" type="password" placeholder="Mat khau moi">
+<input id="newPass2" type="password" placeholder="Nhap lai">
 <div class="btns">
-<button class="bt" onclick="submitChangePass()">Xác nhận</button>
-<button class="bd" onclick="closeChangePass()">Đóng</button>
+<button class="bt" onclick="submitChangePass()">Xac nhan</button>
+<button class="bd" onclick="closeChangePass()">Dong</button>
 </div>
 </div>
 </div>
 
 <div class="modal" id="adminPassModal">
 <div class="mbox">
-<div class="lock-icon">🔐</div>
-<h2 style="text-align:center">Nhập mật khẩu Admin</h2>
-<input id="adminPassInput" type="password" placeholder="Mật khẩu admin">
+<div class="lock-icon">&#128274;</div>
+<h2 style="text-align:center">Nhap mat khau Admin</h2>
+<input id="adminPassInput" type="password" placeholder="Mat khau admin">
 <div class="btns">
-<button class="bt" onclick="verifyAdminPass()">Xác nhận</button>
-<button class="bd" onclick="closeAdminPass()">Đóng</button>
+<button class="bt" onclick="verifyAdminPass()">Xac nhan</button>
+<button class="bd" onclick="closeAdminPass()">Dong</button>
 </div>
 </div>
 </div>
 
 <div class="modal" id="editProductModal">
 <div class="mbox">
-<h2 style="color:#dc2626">✏️ Chỉnh sửa sản phẩm</h2>
+<h2 style="color:#dc2626">Chinh sua san pham</h2>
 <input type="hidden" id="epId">
-<label>Tên sản phẩm</label>
+<label>Ten san pham</label>
 <input id="epName" placeholder="VD: Acc Free Fire VIP">
-<label>Mô tả</label>
-<textarea id="epDesc" placeholder="Mô tả..."></textarea>
-<label>Giá (VND)</label>
+<label>Mo ta</label>
+<textarea id="epDesc" placeholder="Mo ta..."></textarea>
+<label>Gia (VND)</label>
 <input id="epPrice" type="number" placeholder="50000">
-<label>Số lượng kho</label>
+<label>So luong kho</label>
 <input id="epStock" type="number" placeholder="100">
-<label>Ảnh sản phẩm</label>
-<button type="button" class="file-btn" onclick="document.getElementById('epImageFile').click()">📁 CHỌN ẢNH TỪ THƯ VIỆN</button>
+<label>Anh san pham</label>
+<button type="button" class="file-btn" onclick="document.getElementById('epImageFile').click()">CHON ANH TU THU VIEN</button>
 <input type="file" id="epImageFile" accept="image/*" style="display:none" onchange="uploadImage(this, 'epImage')">
 <div class="file-status" id="epImageStatus"></div>
 <input type="hidden" id="epImage">
 <div style="margin-bottom:10px">
 <img id="epPreview" src="" style="max-width:100%;max-height:150px;border-radius:10px;border:1px solid #e2e8f0;display:none">
 </div>
-<label>Link giao hàng</label>
+<label>Link giao hang</label>
 <input id="epUrl" placeholder="https://...">
 <div class="btns" style="margin-top:14px">
-<button class="bt" onclick="saveEditProduct()">💾 LƯU</button>
-<button class="bd" onclick="closeEditProduct()">ĐÓNG</button>
+<button class="bt" onclick="saveEditProduct()">LUU</button>
+<button class="bd" onclick="closeEditProduct()">DONG</button>
 </div>
 </div>
 </div>
@@ -508,27 +553,27 @@ nav button.on{color:#dc2626}
 <div class="mbox">
 <div style="text-align:center;padding:8px 0 16px">
 <div style="width:80px;height:80px;border-radius:50%;background:#16a34a;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:40px;color:#fff">V</div>
-<h2 style="color:#16a34a;font-size:20px;margin-bottom:6px;text-align:center">Mua thành công!</h2>
+<h2 style="color:#16a34a;font-size:20px;margin-bottom:6px;text-align:center">Mua thanh cong!</h2>
 </div>
 <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:14px;margin:14px 0">
-<div class="detail-row"><span class="lbl">Sản phẩm</span><span id="odName" class="val">-</span></div>
-<div class="detail-row"><span class="lbl">Giá</span><span id="odPrice" class="val price">-</span></div>
-<div class="detail-row"><span class="lbl">Thời gian</span><span id="odTime" class="val">-</span></div>
-<div class="detail-row"><span class="lbl">Mã đơn</span><span id="odCode" class="val">-</span></div>
+<div class="detail-row"><span class="lbl">San pham</span><span id="odName" class="val">-</span></div>
+<div class="detail-row"><span class="lbl">Gia</span><span id="odPrice" class="val price">-</span></div>
+<div class="detail-row"><span class="lbl">Thoi gian</span><span id="odTime" class="val">-</span></div>
+<div class="detail-row"><span class="lbl">Ma don</span><span id="odCode" class="val">-</span></div>
 </div>
-<div id="odLinkBox" class="link-box" style="display:none">Link giao hàng:<br><a id="odLinkHref" href="#" target="_blank">-</a></div>
-<button id="odLinkBtn" onclick="openOrderLink()" style="display:none;width:100%;padding:14px;border:0;border-radius:12px;font-weight:900;cursor:pointer;font-family:inherit;font-size:13px;text-transform:uppercase;margin-top:10px;background:#16a34a;color:#fff">MỞ LINK GIAO HÀNG</button>
-<button onclick="viewOrderInHistory()" style="width:100%;padding:14px;border:0;border-radius:12px;font-weight:900;cursor:pointer;font-family:inherit;font-size:13px;text-transform:uppercase;margin-top:8px;background:#dc2626;color:#fff">XEM ĐƠN HÀNG</button>
-<button onclick="closeOrderModal()" style="width:100%;padding:14px;border:0;border-radius:12px;font-weight:900;cursor:pointer;font-family:inherit;font-size:13px;text-transform:uppercase;margin-top:8px;background:#f1f5f9;color:#64748b">ĐÓNG</button>
+<div id="odLinkBox" class="link-box" style="display:none">Link giao hang:<br><a id="odLinkHref" href="#" target="_blank">-</a></div>
+<button id="odLinkBtn" onclick="openOrderLink()" style="display:none;width:100%;padding:14px;border:0;border-radius:12px;font-weight:900;cursor:pointer;font-family:inherit;font-size:13px;text-transform:uppercase;margin-top:10px;background:#16a34a;color:#fff">MO LINK GIAO HANG</button>
+<button onclick="viewOrderInHistory()" style="width:100%;padding:14px;border:0;border-radius:12px;font-weight:900;cursor:pointer;font-family:inherit;font-size:13px;text-transform:uppercase;margin-top:8px;background:#dc2626;color:#fff">XEM DON HANG</button>
+<button onclick="closeOrderModal()" style="width:100%;padding:14px;border:0;border-radius:12px;font-weight:900;cursor:pointer;font-family:inherit;font-size:13px;text-transform:uppercase;margin-top:8px;background:#f1f5f9;color:#64748b">DONG</button>
 </div>
 </div>
 
 <div class="modal" id="detailModal">
 <div class="mbox">
-<h2 style="color:#dc2626;text-align:center;margin-bottom:16px">CHI TIẾT ĐƠN HÀNG</h2>
+<h2 style="color:#dc2626;text-align:center;margin-bottom:16px">CHI TIET DON HANG</h2>
 <div id="detailBody"></div>
 <div class="btns" style="margin-top:14px">
-<button class="bt" onclick="closeDetailModal()">ĐÓNG</button>
+<button class="bt" onclick="closeDetailModal()">DONG</button>
 </div>
 </div>
 </div>
@@ -546,7 +591,6 @@ var firebaseConfig = {
     appId: "1:781318384131:web:d6bad64e19c3a770667c36"
 };
 
-/* ====== DANH SÁCH ADMIN ====== */
 var ADMINS = {
     "Kaimomo2011": "samm2026",
     "Tuyendz213": "Tuyendz213"
@@ -568,6 +612,7 @@ var products = [];
 var notices = [];
 var banned = {};
 var scripts = {};
+var chats = [];
 var cur = localStorage.getItem("sammCurrentUser") || "";
 var deposit = null;
 var timerId = null;
@@ -576,6 +621,9 @@ var adminUnlocked = false;
 var currentOrderUrl = "";
 var currentScriptText = "";
 var randomLock = false;
+var musicPlaying = false;
+var chatOpen = false;
+var lastChatCount = 0;
 
 function $(id){ return document.getElementById(id); }
 function money(v){ return Number(v||0).toLocaleString("vi-VN") + " d"; }
@@ -590,6 +638,28 @@ function esc(v){
 }
 function user(){ return (cur && users[cur]) ? users[cur] : null; }
 function isAdmin(){ return cur && ADMINS[cur] !== undefined; }
+function isSuperAdmin(){ return cur === SUPER_ADMIN; }
+function checkAdmin(){
+    if(!isAdmin()){ showToast("Ban khong phai admin!", "error"); return false; }
+    if(!adminUnlocked){ showToast("Chua xac thuc!", "error"); return false; }
+    return true;
+}
+function checkSuperAdmin(){
+    if(!checkAdmin()){ return false; }
+    if(!isSuperAdmin()){ showToast("Chi Super Admin moi dung duoc chuc nang nay!", "error"); return false; }
+    return true;
+}
+
+var bgMusic = $("bgMusic");
+function playMusic(){
+    bgMusic.volume = 0.3;
+    bgMusic.play().then(function(){ musicPlaying = true; }).catch(function(){});
+}
+bgMusic.addEventListener("ended", function(){ bgMusic.currentTime = 0; bgMusic.play(); });
+window.addEventListener("load", playMusic);
+document.addEventListener("click", function(){
+    if(!musicPlaying){ bgMusic.play().then(function(){ musicPlaying = true; }).catch(function(){}); }
+});
 
 function checkHelloBanner(){
     var banner = $("helloBanner");
@@ -604,7 +674,7 @@ function checkHelloBanner(){
 function hideHello(){
     $("helloBanner").style.display = "none";
     localStorage.setItem("helloHideUntil", String(Date.now() + (2 * 60 * 60 * 1000)));
-    showToast("Đã ẩn thông báo 2 tiếng", "success");
+    showToast("Da an thong bao 2 tieng", "success");
 }
 
 function showToast(text, type){
@@ -660,7 +730,7 @@ function startFirebaseSync(){
     db.ref("banned").on("value", function(snap){
         banned = snap.val() || {};
         if(cur && banned[cur] === true){
-            showToast("Tài khoản đã bị cấm!", "error");
+            showToast("Tai khoan da bi cam!", "error");
             setTimeout(function(){
                 cur = "";
                 localStorage.removeItem("sammCurrentUser");
@@ -673,6 +743,25 @@ function startFirebaseSync(){
         scripts = snap.val() || {};
         renderScriptBox();
         renderScriptPoolList();
+    });
+
+    db.ref("chat").limitToLast(200).on("value", function(snap){
+        var data = snap.val() || {};
+        chats = [];
+        for(var k in data){ if(data.hasOwnProperty(k)){ chats.push(data[k]); } }
+        chats.sort(function(a,b){ return (a.time||0) - (b.time||0); });
+
+        if(chats.length > lastChatCount && lastChatCount > 0 && !chatOpen){
+            var lastMsg = chats[chats.length - 1];
+            if(lastMsg.user !== cur){
+                var badge = $("chatBadge");
+                var unread = chats.length - lastChatCount;
+                badge.textContent = unread > 99 ? "99+" : unread;
+                badge.classList.add("on");
+            }
+        }
+        lastChatCount = chats.length;
+        renderChat();
     });
 }
 
@@ -689,17 +778,16 @@ function clearNoticeFB(){ if(db){ db.ref("notices").remove(); } }
 function banUserFB(name){ if(db){ db.ref("banned/" + name).set(true); } }
 function unbanUserFB(name){ if(db){ db.ref("banned/" + name).remove(); } }
 
-/* ===== UPLOAD ẢNH QUA IMGBB ===== */
 function uploadImage(inputEl, targetId){
     var file = inputEl.files && inputEl.files[0];
     if(!file){ return; }
     if(file.size > 5 * 1024 * 1024){
-        showToast("Ảnh quá lớn! Tối đa 5MB", "error");
+        showToast("Anh qua lon! Toi da 5MB", "error");
         inputEl.value = "";
         return;
     }
     if(!file.type.startsWith("image/")){
-        showToast("Chỉ chấp nhận file ảnh!", "error");
+        showToast("Chi chap nhan file anh!", "error");
         inputEl.value = "";
         return;
     }
@@ -719,14 +807,13 @@ function uploadImage(inputEl, targetId){
 
     if(statusEl){
         statusEl.className = "file-status on loading";
-        statusEl.textContent = "⏳ Đang upload... (" + (file.size / 1024).toFixed(0) + " KB)";
+        statusEl.textContent = "Dang upload... (" + (file.size / 1024).toFixed(0) + " KB)";
     }
-    showToast("Đang upload ảnh...", "success");
+    showToast("Dang upload anh...", "success");
 
     var reader2 = new FileReader();
     reader2.onload = function(){
         var base64 = reader2.result.split(",")[1];
-
         var formData = new FormData();
         formData.append("key", IMGBB_API_KEY);
         formData.append("image", base64);
@@ -740,25 +827,20 @@ function uploadImage(inputEl, targetId){
                 if(res && res.success && res.data && res.data.url){
                     var url = res.data.url;
                     if(hiddenEl){ hiddenEl.value = url; }
-                    if(previewEl){
-                        previewEl.src = url;
-                        previewEl.style.display = "block";
-                    }
+                    if(previewEl){ previewEl.src = url; previewEl.style.display = "block"; }
                     if(statusEl){
                         statusEl.className = "file-status on ok";
-                        statusEl.textContent = "✅ Upload thành công!";
+                        statusEl.textContent = "Upload thanh cong!";
                     }
-                    showToast("Upload ảnh thành công!", "success");
+                    showToast("Upload anh thanh cong!", "success");
                     setTimeout(function(){ if(statusEl){ statusEl.className = "file-status"; } }, 3000);
-                } else {
-                    throw new Error("Upload failed");
-                }
+                } else { throw new Error("Upload failed"); }
             } catch(e) {
                 if(statusEl){
                     statusEl.className = "file-status on err";
-                    statusEl.textContent = "❌ Upload thất bại! Thử lại.";
+                    statusEl.textContent = "Upload that bai!";
                 }
-                showToast("Upload thất bại!", "error");
+                showToast("Upload that bai!", "error");
             }
             inputEl.value = "";
         };
@@ -766,9 +848,9 @@ function uploadImage(inputEl, targetId){
         xhr.onerror = function(){
             if(statusEl){
                 statusEl.className = "file-status on err";
-                statusEl.textContent = "❌ Lỗi kết nối! Kiểm tra mạng.";
+                statusEl.textContent = "Loi ket noi!";
             }
-            showToast("Lỗi kết nối!", "error");
+            showToast("Loi ket noi!", "error");
             inputEl.value = "";
         };
 
@@ -777,17 +859,16 @@ function uploadImage(inputEl, targetId){
     reader2.readAsDataURL(file);
 }
 
-/* ===== ĐỔI AVATAR ===== */
 function uploadAvatar(inputEl){
     var file = inputEl.files && inputEl.files[0];
     if(!file){ return; }
     if(file.size > 5 * 1024 * 1024){
-        showToast("Ảnh quá lớn! Tối đa 5MB", "error");
+        showToast("Anh qua lon! Toi da 5MB", "error");
         inputEl.value = "";
         return;
     }
     if(!file.type.startsWith("image/")){
-        showToast("Chỉ chấp nhận file ảnh!", "error");
+        showToast("Chi chap nhan file anh!", "error");
         inputEl.value = "";
         return;
     }
@@ -795,11 +876,10 @@ function uploadAvatar(inputEl){
     var statusEl = $("avatarStatus");
     if(statusEl){
         statusEl.className = "file-status on loading";
-        statusEl.textContent = "⏳ Đang upload avatar...";
+        statusEl.textContent = "Dang upload avatar...";
     }
-    showToast("Đang upload avatar...", "success");
+    showToast("Dang upload avatar...", "success");
 
-    // Preview ngay
     var reader0 = new FileReader();
     reader0.onload = function(e){
         $("pAv").innerHTML = '<img src="' + e.target.result + '">';
@@ -810,7 +890,6 @@ function uploadAvatar(inputEl){
     var reader2 = new FileReader();
     reader2.onload = function(){
         var base64 = reader2.result.split(",")[1];
-
         var formData = new FormData();
         formData.append("key", IMGBB_API_KEY);
         formData.append("image", base64);
@@ -824,25 +903,20 @@ function uploadAvatar(inputEl){
                 if(res && res.success && res.data && res.data.url){
                     var url = res.data.url;
                     var u = users[cur];
-                    if(u){
-                        u.avatar = url;
-                        saveUserFB(cur, u);
-                    }
+                    if(u){ u.avatar = url; saveUserFB(cur, u); }
                     if(statusEl){
                         statusEl.className = "file-status on ok";
-                        statusEl.textContent = "✅ Đổi avatar thành công!";
+                        statusEl.textContent = "Doi avatar thanh cong!";
                     }
-                    showToast("Đổi avatar thành công!", "success");
+                    showToast("Doi avatar thanh cong!", "success");
                     setTimeout(function(){ if(statusEl){ statusEl.className = "file-status"; } }, 3000);
-                } else {
-                    throw new Error("Upload failed");
-                }
+                } else { throw new Error("Upload failed"); }
             } catch(e) {
                 if(statusEl){
                     statusEl.className = "file-status on err";
-                    statusEl.textContent = "❌ Upload thất bại!";
+                    statusEl.textContent = "Upload that bai!";
                 }
-                showToast("Upload thất bại!", "error");
+                showToast("Upload that bai!", "error");
                 renderProfile();
             }
             inputEl.value = "";
@@ -851,9 +925,9 @@ function uploadAvatar(inputEl){
         xhr.onerror = function(){
             if(statusEl){
                 statusEl.className = "file-status on err";
-                statusEl.textContent = "❌ Lỗi kết nối!";
+                statusEl.textContent = "Loi ket noi!";
             }
-            showToast("Lỗi kết nối!", "error");
+            showToast("Loi ket noi!", "error");
             renderProfile();
             inputEl.value = "";
         };
@@ -863,32 +937,108 @@ function uploadAvatar(inputEl){
     reader2.readAsDataURL(file);
 }
 
-/* SCRIPT */
+function toggleChat(){
+    var p = $("chatPanel");
+    chatOpen = !chatOpen;
+    if(chatOpen){
+        p.classList.add("on");
+        $("chatBadge").classList.remove("on");
+        lastChatCount = chats.length;
+        setTimeout(function(){
+            var el = $("chatMessages");
+            el.scrollTop = el.scrollHeight;
+        }, 100);
+    } else {
+        p.classList.remove("on");
+    }
+}
+
+function sendChat(){
+    if(!cur){ showToast("Vui long dang nhap de chat!", "error"); openAuth(); return; }
+    var text = $("chatInput").value.trim();
+    if(!text){ return; }
+    if(text.length > 500){ showToast("Tin nhan qua dai!", "error"); return; }
+
+    var u = user();
+    var msg = {
+        user: cur,
+        avatar: (u && u.avatar) ? u.avatar : "",
+        text: text,
+        time: Date.now()
+    };
+
+    if(db){
+        db.ref("chat/" + Date.now() + "_" + Math.random().toString(36).slice(2, 8)).set(msg);
+    }
+    $("chatInput").value = "";
+    setTimeout(function(){
+        var el = $("chatMessages");
+        el.scrollTop = el.scrollHeight;
+    }, 200);
+}
+
+function renderChat(){
+    var box = $("chatMessages");
+    if(!box){ return; }
+    if(chats.length === 0){
+        box.innerHTML = '<div class="chat-login-note">Chua co tin nhan nao. Hay la nguoi dau tien!</div>';
+        return;
+    }
+    var html = "";
+    for(var i = 0; i < chats.length; i++){
+        var m = chats[i];
+        var mine = (m.user === cur);
+        var avHtml = "";
+        if(m.avatar){
+            avHtml = '<div class="msg-av"><img src="' + esc(m.avatar) + '"></div>';
+        } else {
+            avHtml = '<div class="msg-av">' + esc(m.user[0].toUpperCase()) + '</div>';
+        }
+        var timeStr = new Date(m.time).toLocaleTimeString("vi-VN", {hour:"2-digit", minute:"2-digit"});
+        html += '<div class="chat-msg' + (mine ? ' mine' : '') + '">';
+        html += avHtml;
+        html += '<div class="msg-body">';
+        html += '<div class="msg-name">' + esc(m.user) + '</div>';
+        html += '<div class="msg-text">' + esc(m.text) + '</div>';
+        html += '<div class="msg-time">' + timeStr + '</div>';
+        html += '</div>';
+        html += '</div>';
+    }
+    box.innerHTML = html;
+    if(chatOpen){
+        box.scrollTop = box.scrollHeight;
+    }
+}
+
+function clearAllChat(){
+    if(!checkSuperAdmin()){ return; }
+    if(!confirm("Xoa TAT CA tin nhan chat?")){ return; }
+    if(db){ db.ref("chat").remove(); }
+    showToast("Da xoa chat", "success");
+}
+
 function addScript(){
     if(!checkAdmin()){ return; }
     var name = $("scName").value.trim();
     var content = $("scContent").value.trim();
-    if(!name){ showToast("Nhập tên script", "error"); return; }
-    if(!content){ showToast("Nhập nội dung script", "error"); return; }
+    if(!name){ showToast("Nhap ten script", "error"); return; }
+    if(!content){ showToast("Nhap noi dung script", "error"); return; }
     var id = "sc" + Date.now();
     if(db){
         db.ref("scripts/" + id).set({
-            id: id,
-            name: name,
-            content: content,
-            createdAt: Date.now()
+            id: id, name: name, content: content, createdAt: Date.now()
         });
     }
     $("scName").value = "";
     $("scContent").value = "";
-    showToast("Đã thêm script!", "success");
+    showToast("Da them script!", "success");
 }
 
 function delScript(id){
     if(!checkAdmin()){ return; }
-    if(!confirm("Xóa script này?")){ return; }
+    if(!confirm("Xoa script nay?")){ return; }
     if(db){ db.ref("scripts/" + id).remove(); }
-    showToast("Đã xóa", "success");
+    showToast("Da xoa", "success");
 }
 
 function renderScriptBox(){
@@ -897,7 +1047,7 @@ function renderScriptBox(){
     if(!stockEl){ return; }
     var count = 0;
     for(var k in scripts){ if(scripts.hasOwnProperty(k)){ count++; } }
-    stockEl.textContent = "Còn " + count + " script";
+    stockEl.textContent = "Con " + count + " script";
     if(count === 0){
         stockEl.classList.add("out");
         if(btn){ btn.disabled = true; }
@@ -913,7 +1063,7 @@ function renderScriptHistory(){
     if(!el){ return; }
     var u = user();
     if(!u || !u.scriptHistory || Object.keys(u.scriptHistory).length === 0){
-        el.innerHTML = '<div class="empty" style="padding:20px">Chưa có script nào</div>';
+        el.innerHTML = '<div class="empty" style="padding:20px">Chua co script nao</div>';
         return;
     }
     var arr = [];
@@ -924,11 +1074,11 @@ function renderScriptHistory(){
     var html = "";
     for(var i = 0; i < arr.length; i++){
         var h = arr[i];
-        html = html + '<div class="script-history-item" onclick="copyFromHistory(' + h.time + ')">';
-        html = html + '<div class="name">📜 ' + esc(h.name) + '</div>';
-        html = html + '<div class="code">' + esc(h.content.substring(0, 200)) + (h.content.length > 200 ? '...' : '') + '</div>';
-        html = html + '<div class="time">' + new Date(h.time).toLocaleString("vi-VN") + ' • Bấm để copy</div>';
-        html = html + '</div>';
+        html += '<div class="script-history-item" onclick="copyFromHistory(' + h.time + ')">';
+        html += '<div class="name">' + esc(h.name) + '</div>';
+        html += '<div class="code">' + esc(h.content.substring(0, 200)) + (h.content.length > 200 ? '...' : '') + '</div>';
+        html += '<div class="time">' + new Date(h.time).toLocaleString("vi-VN") + ' - Bam de copy</div>';
+        html += '</div>';
     }
     el.innerHTML = html;
 }
@@ -941,26 +1091,25 @@ function copyFromHistory(time){
 
 function randomScript(){
     if(randomLock){ return; }
-    if(!user()){ openAuth(); showToast("Vui lòng đăng nhập!", "error"); return; }
+    if(!user()){ openAuth(); showToast("Vui long dang nhap!", "error"); return; }
 
     var ids = [];
     for(var k in scripts){ if(scripts.hasOwnProperty(k)){ ids.push(k); } }
-    if(ids.length === 0){ showToast("Đã hết script! Chờ admin thêm", "error"); return; }
+    if(ids.length === 0){ showToast("Da het script! Cho admin them", "error"); return; }
 
     var balance = Number(user().balance || 0);
     if(balance < SCRIPT_PRICE){
-        showToast("Số dư không đủ! Cần " + money(SCRIPT_PRICE), "error");
+        showToast("So du khong du! Can " + money(SCRIPT_PRICE), "error");
         setTimeout(function(){ go("nap"); }, 700);
         return;
     }
 
-    if(!confirm("Random script với giá " + money(SCRIPT_PRICE) + "?\nCòn " + ids.length + " script")){ return; }
+    if(!confirm("Random script voi gia " + money(SCRIPT_PRICE) + "?\nCon " + ids.length + " script")){ return; }
 
     randomLock = true;
     var overlay = $("randomOverlay");
     var countEl = $("randomCount");
     overlay.classList.add("on");
-
     var count = RANDOM_DELAY;
     countEl.textContent = count;
 
@@ -984,10 +1133,7 @@ function finishRandom(ids){
     u.balance = Number(u.balance || 0) - SCRIPT_PRICE;
     if(!u.scriptHistory){ u.scriptHistory = {}; }
     u.scriptHistory["s" + t] = {
-        name: sc.name,
-        content: sc.content,
-        time: t,
-        price: SCRIPT_PRICE
+        name: sc.name, content: sc.content, time: t, price: SCRIPT_PRICE
     };
     saveUserFB(cur, u);
     if(db){ db.ref("scripts/" + randomId).remove(); }
@@ -998,24 +1144,20 @@ function finishRandom(ids){
     $("scriptResult").scrollIntoView({behavior:"smooth", block:"center"});
 
     randomLock = false;
-    showToast("Đã nhận script!", "success");
+    showToast("Da nhan script!", "success");
 }
 
 function copyScript(){
-    if(!currentScriptText){ showToast("Chưa có script!", "error"); return; }
+    if(!currentScriptText){ showToast("Chua co script!", "error"); return; }
     copyToClipboard(currentScriptText, "Script");
 }
 
 function copyToClipboard(text, name){
     if(navigator.clipboard && window.isSecureContext){
         navigator.clipboard.writeText(text).then(function(){
-            showToast("Đã copy " + name + "!", "success");
-        }).catch(function(){
-            fallbackCopy(text, name);
-        });
-    } else {
-        fallbackCopy(text, name);
-    }
+            showToast("Da copy " + name + "!", "success");
+        }).catch(function(){ fallbackCopy(text, name); });
+    } else { fallbackCopy(text, name); }
 }
 
 function fallbackCopy(text, name){
@@ -1027,10 +1169,8 @@ function fallbackCopy(text, name){
     ta.select();
     try {
         document.execCommand("copy");
-        showToast("Đã copy " + name + "!", "success");
-    } catch(e) {
-        showToast("Không copy được!", "error");
-    }
+        showToast("Da copy " + name + "!", "success");
+    } catch(e) { showToast("Khong copy duoc!", "error"); }
     document.body.removeChild(ta);
 }
 
@@ -1042,22 +1182,21 @@ function renderScriptPoolList(){
     for(var k in scripts){ if(scripts.hasOwnProperty(k)){ ids.push(k); } }
     if(countEl){ countEl.textContent = ids.length; }
     if(ids.length === 0){
-        pl.innerHTML = '<div class="empty" style="padding:16px">Chưa có script nào</div>';
+        pl.innerHTML = '<div class="empty" style="padding:16px">Chua co script nao</div>';
         return;
     }
     var html = "";
     for(var i = 0; i < ids.length; i++){
         var id = ids[i];
         var sc = scripts[id];
-        html = html + '<div class="script-pool-item">';
-        html = html + '<div class="name">' + esc(sc.name) + '</div>';
-        html = html + '<button class="del" onclick="delScript(\'' + id + '\')">x</button>';
-        html = html + '</div>';
+        html += '<div class="script-pool-item">';
+        html += '<div class="name">' + esc(sc.name) + '</div>';
+        html += '<button class="del" onclick="delScript(\'' + id + '\')">x</button>';
+        html += '</div>';
     }
     pl.innerHTML = html;
 }
 
-/* NAV */
 function go(name){
     if(name === "admin" && (!isAdmin() || !adminUnlocked)){ name = "shop"; }
     var pages = document.querySelectorAll(".page");
@@ -1076,7 +1215,7 @@ function go(name){
 }
 
 function openAdminPanel(){
-    if(!isAdmin()){ showToast("Bạn không phải admin!", "error"); return; }
+    if(!isAdmin()){ showToast("Ban khong phai admin!", "error"); return; }
     if(!adminUnlocked){ openAdminPass(); return; }
     go("admin");
 }
@@ -1090,10 +1229,10 @@ function verifyAdminPass(){
     if(ADMINS[cur] && ADMINS[cur] === pass){
         adminUnlocked = true;
         closeAdminPass();
-        showToast("Xác thực thành công!", "success");
+        showToast("Xac thuc thanh cong!", "success");
         setTimeout(function(){ go("admin"); }, 400);
     } else {
-        showToast("Mật khẩu admin sai!", "error");
+        showToast("Mat khau admin sai!", "error");
         $("adminPassInput").value = "";
     }
 }
@@ -1108,12 +1247,12 @@ function closeAuth(){ $("authModal").classList.remove("on"); }
 function switchAuth(){
     if(authMode === "login"){
         authMode = "register";
-        $("aTitle").textContent = "Đăng ký";
-        $("aSubmit").textContent = "Đăng ký";
+        $("aTitle").textContent = "Dang ky";
+        $("aSubmit").textContent = "Dang ky";
     } else {
         authMode = "login";
-        $("aTitle").textContent = "Đăng nhập";
-        $("aSubmit").textContent = "Đăng nhập";
+        $("aTitle").textContent = "Dang nhap";
+        $("aSubmit").textContent = "Dang nhap";
     }
 }
 function validUsername(name){ return /^[a-zA-Z0-9_]{3,20}$/.test(name); }
@@ -1121,9 +1260,9 @@ function validUsername(name){ return /^[a-zA-Z0-9_]{3,20}$/.test(name); }
 function submitAuth(){
     var username = $("aUser").value.trim();
     var pass = $("aPass").value;
-    if(!validUsername(username)){ showToast("Tên 3-20 ký tự, chữ/số/gạch dưới!", "error"); return; }
-    if(pass.length < 6){ showToast("Mật khẩu >= 6 ký tự!", "error"); return; }
-    if(banned[username] === true){ showToast("TÊN TÀI KHOẢN NÀY ĐÃ BỊ CẤM!", "error"); return; }
+    if(!validUsername(username)){ showToast("Ten 3-20 ky tu, chu/so/gach duoi!", "error"); return; }
+    if(pass.length < 6){ showToast("Mat khau >= 6 ky tu!", "error"); return; }
+    if(banned[username] === true){ showToast("TEN TAI KHOAN NAY DA BI CAM!", "error"); return; }
 
     showLoading(true);
     $("aSubmit").disabled = true;
@@ -1134,8 +1273,8 @@ function submitAuth(){
         if(banSnap.val() === true){
             showLoading(false);
             $("aSubmit").disabled = false;
-            $("aSubmit").textContent = "Đăng nhập";
-            showToast("TÊN TÀI KHOẢN NÀY ĐÃ BỊ CẤM!", "error");
+            $("aSubmit").textContent = "Dang nhap";
+            showToast("TEN TAI KHOAN NAY DA BI CAM!", "error");
             return;
         }
         db.ref("users/" + username).once("value").then(function(snap){
@@ -1144,18 +1283,13 @@ function submitAuth(){
                 if(existing){
                     showLoading(false);
                     $("aSubmit").disabled = false;
-                    $("aSubmit").textContent = "Đăng ký";
-                    showToast("Tên tài khoản đã tồn tại!", "error");
+                    $("aSubmit").textContent = "Dang ky";
+                    showToast("Ten tai khoan da ton tai!", "error");
                     return;
                 }
                 var newUser = {
-                    username: username,
-                    password: pass,
-                    balance: 0,
-                    orders: {},
-                    deposits: {},
-                    scriptHistory: {},
-                    avatar: "",
+                    username: username, password: pass, balance: 0,
+                    orders: {}, deposits: {}, scriptHistory: {}, avatar: "",
                     createdAt: Date.now()
                 };
                 db.ref("users/" + username).set(newUser).then(function(){ finishLogin(username); });
@@ -1163,15 +1297,15 @@ function submitAuth(){
                 if(!existing){
                     showLoading(false);
                     $("aSubmit").disabled = false;
-                    $("aSubmit").textContent = "Đăng nhập";
-                    showToast("Tên tài khoản chưa tồn tại!", "error");
+                    $("aSubmit").textContent = "Dang nhap";
+                    showToast("Ten tai khoan chua ton tai!", "error");
                     return;
                 }
                 if(existing.password !== pass){
                     showLoading(false);
                     $("aSubmit").disabled = false;
-                    $("aSubmit").textContent = "Đăng nhập";
-                    showToast("Sai mật khẩu!", "error");
+                    $("aSubmit").textContent = "Dang nhap";
+                    showToast("Sai mat khau!", "error");
                     return;
                 }
                 finishLogin(username);
@@ -1183,19 +1317,19 @@ function submitAuth(){
 function finishLogin(username){
     showLoading(false);
     $("aSubmit").disabled = false;
-    $("aSubmit").textContent = "Đăng nhập";
+    $("aSubmit").textContent = "Dang nhap";
     cur = username;
     localStorage.setItem("sammCurrentUser", username);
     closeAuth();
     renderAll();
     go("shop");
-    var msg = "Đăng nhập thành công!";
-    if(authMode === "register"){ msg = "Đăng ký thành công!"; }
+    var msg = "Dang nhap thanh cong!";
+    if(authMode === "register"){ msg = "Dang ky thanh cong!"; }
     showToast(msg, "success");
 }
 
 function doLogout(){
-    if(!confirm("Đăng xuất?")){ return; }
+    if(!confirm("Dang xuat?")){ return; }
     cur = "";
     adminUnlocked = false;
     localStorage.removeItem("sammCurrentUser");
@@ -1216,17 +1350,16 @@ function submitChangePass(){
     var o = $("oldPass").value;
     var n = $("newPass").value;
     var n2 = $("newPass2").value;
-    if(o !== u.password){ showToast("Mật khẩu hiện tại sai!", "error"); return; }
-    if(n.length < 6){ showToast("Mật khẩu mới >= 6 ký tự!", "error"); return; }
-    if(n !== n2){ showToast("Nhập lại không khớp!", "error"); return; }
+    if(o !== u.password){ showToast("Mat khau hien tai sai!", "error"); return; }
+    if(n.length < 6){ showToast("Mat khau moi >= 6 ky tu!", "error"); return; }
+    if(n !== n2){ showToast("Nhap lai khong khop!", "error"); return; }
     u.password = n;
     saveUserFB(cur, u);
     if(ADMINS[cur]){ ADMINS[cur] = n; }
     closeChangePass();
-    showToast("Đổi mật khẩu thành công!", "success");
+    showToast("Doi mat khau thanh cong!", "success");
 }
 
-/* NẠP */
 var amtInput = $("amt");
 amtInput.oninput = function(e){
     var v = e.target.value.replace(/\D/g, "");
@@ -1242,21 +1375,21 @@ for(var qi = 0; qi < qbs.length; qi++){
 }
 function createDeposit(){
     if(!user()){ openAuth(); return; }
-    if(deposit){ showToast("Đang có phiên nạp!", "error"); return; }
+    if(deposit){ showToast("Dang co phien nap!", "error"); return; }
     var amt = Number(amtInput.value.replace(/\D/g, ""));
-    if(amt < 10000){ showToast("Tối thiểu 10.000 d", "error"); return; }
-    if(amt > 50000000){ showToast("Tối đa 50.000.000 d", "error"); return; }
+    if(amt < 10000){ showToast("Toi thieu 10.000 d", "error"); return; }
+    if(amt > 50000000){ showToast("Toi da 50.000.000 d", "error"); return; }
     deposit = { amount: amt, expiresAt: Date.now() + 600000 };
     var u = users[cur];
     if(!u.deposits){ u.deposits = {}; }
-    u.deposits["d" + Date.now()] = { amount: amt, status: "Chờ xác nhận", time: Date.now() };
+    u.deposits["d" + Date.now()] = { amount: amt, status: "Cho xac nhan", time: Date.now() };
     saveUserFB(cur, u);
     $("qrAmt").textContent = money(amt);
     $("form").style.display = "none";
     $("warn").style.display = "none";
     $("qr").style.display = "block";
     startTimer();
-    showToast("Yêu cầu nạp đã gửi!", "success");
+    showToast("Yeu cau nap da gui!", "success");
 }
 function startTimer(){
     clearInterval(timerId);
@@ -1275,7 +1408,7 @@ function tick(){
     }
 }
 function cancelDeposit(ask){
-    if(ask){ if(!confirm("Bạn có chắc muốn hủy yêu cầu nạp?")){ return; } }
+    if(ask){ if(!confirm("Ban co chac muon huy yeu cau nap?")){ return; } }
     clearInterval(timerId);
     timerId = null;
     deposit = null;
@@ -1283,26 +1416,25 @@ function cancelDeposit(ask){
     $("form").style.display = "block";
     $("warn").style.display = "block";
     $("timer").textContent = "10:00";
-    if(ask){ showToast("Đã hủy yêu cầu nạp", "success"); }
+    if(ask){ showToast("Da huy yeu cau nap", "success"); }
 }
 
-/* BUY */
 function buy(id){
-    if(!user()){ openAuth(); showToast("Vui lòng đăng nhập!", "error"); return; }
+    if(!user()){ openAuth(); showToast("Vui long dang nhap!", "error"); return; }
     var p = null;
     for(var i = 0; i < products.length; i++){
         if(products[i].id === id){ p = products[i]; break; }
     }
-    if(!p){ showToast("Sản phẩm không tồn tại!", "error"); return; }
+    if(!p){ showToast("San pham khong ton tai!", "error"); return; }
     var price = Number(p.price || 0);
     var stock = Number(p.stock || 0);
-    if(stock <= 0){ showToast("Sản phẩm đã hết hàng!", "error"); return; }
+    if(stock <= 0){ showToast("San pham da het hang!", "error"); return; }
     if(Number(user().balance || 0) < price){
-        showToast("Số dư không đủ! Cần " + money(price), "error");
+        showToast("So du khong du! Can " + money(price), "error");
         setTimeout(function(){ go("nap"); }, 700);
         return;
     }
-    if(!confirm("Mua \"" + p.name + "\" giá " + money(price) + "?\nCòn " + stock + " sản phẩm")){ return; }
+    if(!confirm("Mua \"" + p.name + "\" gia " + money(price) + "?\nCon " + stock + " san pham")){ return; }
     var t = Date.now();
     var code = "DH" + String(t).slice(-8);
     var u = users[cur];
@@ -1332,7 +1464,7 @@ function buy(id){
 }
 function closeOrderModal(){ $("orderModal").classList.remove("on"); }
 function openOrderLink(){ if(currentOrderUrl){ window.open(currentOrderUrl, "_blank"); } }
-function viewOrderInHistory(){ closeOrderModal(); go("don"); showToast("Đã chuyển đến Đơn hàng!", "success"); }
+function viewOrderInHistory(){ closeOrderModal(); go("don"); showToast("Da chuyen den Don hang!", "success"); }
 
 function showDetail(id){
     var u = user();
@@ -1340,22 +1472,22 @@ function showDetail(id){
     var o = u.orders[id];
     var d = new Date(o.time);
     var html = '<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:14px">';
-    html = html + '<div class="detail-row"><span class="lbl">Sản phẩm</span><span class="val">' + esc(o.name) + '</span></div>';
-    html = html + '<div class="detail-row"><span class="lbl">Giá</span><span class="val price">' + money(o.price) + '</span></div>';
-    html = html + '<div class="detail-row"><span class="lbl">Mã đơn</span><span class="val">' + esc(o.code) + '</span></div>';
-    html = html + '<div class="detail-row"><span class="lbl">Thời gian</span><span class="val">' + d.toLocaleString("vi-VN") + '</span></div>';
-    html = html + '<div class="detail-row"><span class="lbl">Trạng thái</span><span class="val" style="color:#16a34a">Hoàn tất</span></div>';
-    html = html + '</div>';
+    html += '<div class="detail-row"><span class="lbl">San pham</span><span class="val">' + esc(o.name) + '</span></div>';
+    html += '<div class="detail-row"><span class="lbl">Gia</span><span class="val price">' + money(o.price) + '</span></div>';
+    html += '<div class="detail-row"><span class="lbl">Ma don</span><span class="val">' + esc(o.code) + '</span></div>';
+    html += '<div class="detail-row"><span class="lbl">Thoi gian</span><span class="val">' + d.toLocaleString("vi-VN") + '</span></div>';
+    html += '<div class="detail-row"><span class="lbl">Trang thai</span><span class="val" style="color:#16a34a">Hoan tat</span></div>';
+    html += '</div>';
     if(o.url){
-        html = html + '<div class="link-box">Link giao hàng:<br><a href="' + esc(o.url) + '" target="_blank">' + esc(o.url) + '</a></div>';
-        html = html + '<button onclick="window.open(\'' + o.url + '\',\'_blank\')" style="width:100%;padding:14px;border:0;border-radius:12px;font-weight:900;cursor:pointer;font-family:inherit;font-size:13px;text-transform:uppercase;margin-top:14px;background:#16a34a;color:#fff">MỞ LINK GIAO HÀNG</button>';
+        html += '<div class="link-box">Link giao hang:<br><a href="' + esc(o.url) + '" target="_blank">' + esc(o.url) + '</a></div>';
+        html += '<button onclick="window.open(\'' + o.url + '\',\'_blank\')" style="width:100%;padding:14px;border:0;border-radius:12px;font-weight:900;cursor:pointer;font-family:inherit;font-size:13px;text-transform:uppercase;margin-top:14px;background:#16a34a;color:#fff">MO LINK GIAO HANG</button>';
     }
     $("detailBody").innerHTML = html;
     $("detailModal").classList.add("on");
 }
 function closeDetailModal(){ $("detailModal").classList.remove("on"); }
 function deleteOrder(id){
-    if(!confirm("Xóa đơn hàng này?")){ return; }
+    if(!confirm("Xoa don hang nay?")){ return; }
     var u = user();
     if(!u){ return; }
     if(u.orders && u.orders[id]){
@@ -1363,16 +1495,10 @@ function deleteOrder(id){
         saveUserFB(cur, u);
         renderOrders();
         renderProfile();
-        showToast("Đã xóa đơn hàng", "success");
+        showToast("Da xoa don hang", "success");
     }
 }
 
-/* ADMIN */
-function checkAdmin(){
-    if(!isAdmin()){ showToast("Bạn không phải admin!", "error"); return false; }
-    if(!adminUnlocked){ showToast("Chưa xác thực!", "error"); return false; }
-    return true;
-}
 function addProduct(){
     if(!checkAdmin()){ return; }
     var name = $("pName").value.trim();
@@ -1381,32 +1507,31 @@ function addProduct(){
     var stock = Number($("pStock").value) || 100;
     var image = $("pImage").value.trim();
     var url = $("pUrl").value.trim();
-    if(!name){ showToast("Nhập tên sản phẩm", "error"); return; }
-    if(!price || price <= 0){ showToast("Nhập giá hợp lệ", "error"); return; }
-    if(stock < 1 || stock > 1000000){ showToast("Số lượng 1-1.000.000", "error"); return; }
+    if(!name){ showToast("Nhap ten san pham", "error"); return; }
+    if(!price || price <= 0){ showToast("Nhap gia hop le", "error"); return; }
+    if(stock < 1 || stock > 1000000){ showToast("So luong 1-1.000.000", "error"); return; }
     var id = Date.now();
     saveProductFB(id, { id: id, name: name, desc: desc, price: price, stock: stock, image: image, url: url, createdAt: Date.now() });
     $("pName").value = ""; $("pDesc").value = ""; $("pPrice").value = "";
     $("pImage").value = ""; $("pUrl").value = ""; $("pStock").value = "100";
     $("pImagePreview").style.display = "none";
     $("pImagePreview").src = "";
-    showToast("Đã đẩy sản phẩm!", "success");
+    showToast("Da day san pham!", "success");
 }
 function delProduct(id){
-    if(!checkAdmin()){ return; }
-    if(!confirm("Xóa sản phẩm?")){ return; }
+    if(!checkSuperAdmin()){ return; }
+    if(!confirm("Xoa san pham?")){ return; }
     deleteProductFB(id);
-    showToast("Đã xóa", "success");
+    showToast("Da xoa", "success");
 }
 
-/* ===== CHỈNH SỬA SẢN PHẨM ===== */
 function openEditProduct(id){
-    if(!checkAdmin()){ return; }
+    if(!checkSuperAdmin()){ return; }
     var p = null;
     for(var i = 0; i < products.length; i++){
         if(products[i].id === id){ p = products[i]; break; }
     }
-    if(!p){ showToast("Sản phẩm không tồn tại!", "error"); return; }
+    if(!p){ showToast("San pham khong ton tai!", "error"); return; }
 
     $("epId").value = p.id;
     $("epName").value = p.name || "";
@@ -1421,9 +1546,7 @@ function openEditProduct(id){
         img.src = p.image;
         img.style.display = "block";
         img.onerror = function(){ img.style.display = "none"; };
-    } else {
-        img.style.display = "none";
-    }
+    } else { img.style.display = "none"; }
 
     $("editProductModal").classList.add("on");
 }
@@ -1434,8 +1557,7 @@ function closeEditProduct(){
 }
 
 function saveEditProduct(){
-    if(!checkAdmin()){ return; }
-
+    if(!checkSuperAdmin()){ return; }
     var id = Number($("epId").value);
     var name = $("epName").value.trim();
     var desc = $("epDesc").value.trim();
@@ -1444,24 +1566,19 @@ function saveEditProduct(){
     var image = $("epImage").value.trim();
     var url = $("epUrl").value.trim();
 
-    if(!name){ showToast("Nhập tên sản phẩm", "error"); return; }
-    if(!price || price <= 0){ showToast("Nhập giá hợp lệ", "error"); return; }
-    if(stock < 0){ showToast("Số lượng không hợp lệ", "error"); return; }
+    if(!name){ showToast("Nhap ten san pham", "error"); return; }
+    if(!price || price <= 0){ showToast("Nhap gia hop le", "error"); return; }
+    if(stock < 0){ showToast("So luong khong hop le", "error"); return; }
 
     if(db){
         db.ref("products/" + id).update({
-            name: name,
-            desc: desc,
-            price: price,
-            stock: stock,
-            image: image,
-            url: url,
-            updatedAt: Date.now()
+            name: name, desc: desc, price: price, stock: stock,
+            image: image, url: url, updatedAt: Date.now()
         }).then(function(){
-            showToast("Đã lưu thay đổi!", "success");
+            showToast("Da luu thay doi!", "success");
             closeEditProduct();
         }).catch(function(err){
-            showToast("Lỗi: " + err.message, "error");
+            showToast("Loi: " + err.message, "error");
         });
     }
 }
@@ -1469,38 +1586,38 @@ function saveEditProduct(){
 function setNotice(){
     if(!checkAdmin()){ return; }
     var text = $("nText").value.trim();
-    if(!text){ showToast("Nhập nội dung", "error"); return; }
+    if(!text){ showToast("Nhap noi dung", "error"); return; }
     saveNoticeFB(text);
     $("nText").value = "";
-    showToast("Đã gửi!", "success");
+    showToast("Da gui!", "success");
 }
 function clearNotice(){
     if(!checkAdmin()){ return; }
     clearNoticeFB();
-    showToast("Đã xóa!", "success");
+    showToast("Da xoa!", "success");
 }
 function banUser(){
-    if(!checkAdmin()){ return; }
+    if(!checkSuperAdmin()){ return; }
     var name = $("banUserInput").value.trim();
-    if(!name){ showToast("Nhập tên", "error"); return; }
-    if(ADMINS[name]){ showToast("Không thể ban admin!", "error"); return; }
-    if(!users[name]){ showToast("Tài khoản không tồn tại!", "error"); return; }
+    if(!name){ showToast("Nhap ten", "error"); return; }
+    if(ADMINS[name]){ showToast("Khong the ban admin!", "error"); return; }
+    if(!users[name]){ showToast("Tai khoan khong ton tai!", "error"); return; }
     if(!confirm("Ban \"" + name + "\"?")){ return; }
     banUserFB(name);
     $("banUserInput").value = "";
-    showToast("Đã ban " + name, "success");
+    showToast("Da ban " + name, "success");
 }
 function unbanUser(name){
-    if(!checkAdmin()){ return; }
-    if(!confirm("Bỏ ban \"" + name + "\"?")){ return; }
+    if(!checkSuperAdmin()){ return; }
+    if(!confirm("Bo ban \"" + name + "\"?")){ return; }
     unbanUserFB(name);
-    showToast("Đã bỏ ban", "success");
+    showToast("Da bo ban", "success");
 }
 function quickBan(name){
-    if(!checkAdmin()){ return; }
+    if(!checkSuperAdmin()){ return; }
     if(!confirm("Ban \"" + name + "\"?")){ return; }
     banUserFB(name);
-    showToast("Đã ban " + name, "success");
+    showToast("Da ban " + name, "success");
 }
 function approveDeposit(username, key){
     if(!checkAdmin() || !db){ return; }
@@ -1508,45 +1625,44 @@ function approveDeposit(username, key){
         var u = snap.val();
         if(!u || !u.deposits || !u.deposits[key]){ return; }
         var d = u.deposits[key];
-        if(d.status === "Đã duyệt"){ return; }
+        if(d.status === "Da duyet"){ return; }
         u.balance = Number(u.balance || 0) + Number(d.amount);
-        u.deposits[key].status = "Đã duyệt";
+        u.deposits[key].status = "Da duyet";
         u.deposits[key].approvedAt = Date.now();
         db.ref("users/" + username).set(u).then(function(){
-            showToast("Đã duyệt " + money(d.amount), "success");
+            showToast("Da duyet " + money(d.amount), "success");
         });
     });
 }
 function rejectDeposit(username, key){
     if(!checkAdmin() || !db){ return; }
-    db.ref("users/" + username + "/deposits/" + key + "/status").set("Đã hủy");
-    showToast("Đã hủy", "success");
+    db.ref("users/" + username + "/deposits/" + key + "/status").set("Da huy");
+    showToast("Da huy", "success");
 }
 function clearAllProducts(){
-    if(!checkAdmin()){ return; }
-    if(!confirm("Xóa TẤT CẢ sản phẩm?")){ return; }
+    if(!checkSuperAdmin()){ return; }
+    if(!confirm("Xoa TAT CA san pham?")){ return; }
     if(db){ db.ref("products").remove(); }
-    showToast("Đã xóa", "success");
+    showToast("Da xoa", "success");
 }
 function clearAllUsers(){
-    if(!checkAdmin()){ return; }
-    if(!confirm("Xóa TẤT CẢ users?")){ return; }
+    if(!checkSuperAdmin()){ return; }
+    if(!confirm("Xoa TAT CA users?")){ return; }
     if(db){
         db.ref("users").remove().then(function(){
             cur = ""; adminUnlocked = false;
             localStorage.removeItem("sammCurrentUser");
             renderAll(); go("shop");
-            showToast("Đã xóa", "success");
+            showToast("Da xoa", "success");
         });
     }
 }
 
-/* RENDER */
 function renderProducts(){
     var box = $("products");
     if(!box){ return; }
     if(!products.length){
-        box.innerHTML = '<div class="empty" style="grid-column:1/-1">Chưa có sản phẩm</div>';
+        box.innerHTML = '<div class="empty" style="grid-column:1/-1">Chua co san pham</div>';
         return;
     }
     var html = "";
@@ -1555,9 +1671,9 @@ function renderProducts(){
         var img = p.image ? esc(p.image) : "https://placehold.co/400x300/fef2f2/dc2626?text=SAMM";
         var stock = Number(p.stock || 0);
         var stockClass = stock <= 0 ? "out" : "";
-        var stockText = stock <= 0 ? "HẾT HÀNG" : "Còn " + stock;
+        var stockText = stock <= 0 ? "HET HANG" : "Con " + stock;
         var disabled = stock <= 0 ? " disabled" : "";
-        html = html + '<div class="product"><div class="img-wrap"><img src="' + img + '" onerror="this.src=\'https://placehold.co/400x300?text=SAMM\'"><div class="badge">HOT</div><div class="stock ' + stockClass + '">' + stockText + '</div></div><div class="product-body"><div class="product-title">' + esc(p.name) + '</div><div class="product-desc">' + esc(p.desc || "") + '</div><div class="product-price">' + money(p.price) + '</div><button class="buy" onclick="buy(' + p.id + ')"' + disabled + '>Mua ngay</button></div></div>';
+        html += '<div class="product"><div class="img-wrap"><img src="' + img + '" onerror="this.src=\'https://placehold.co/400x300?text=SAMM\'"><div class="badge">HOT</div><div class="stock ' + stockClass + '">' + stockText + '</div></div><div class="product-body"><div class="product-title">' + esc(p.name) + '</div><div class="product-desc">' + esc(p.desc || "") + '</div><div class="product-price">' + money(p.price) + '</div><button class="buy" onclick="buy(' + p.id + ')"' + disabled + '>Mua ngay</button></div></div>';
     }
     box.innerHTML = html;
 }
@@ -1576,7 +1692,7 @@ function renderOrders(){
     var ob = $("orders");
     if(!ob){ return; }
     if(!u || !u.orders || Object.keys(u.orders).length === 0){
-        ob.innerHTML = '<div class="empty">Chưa có đơn hàng</div>';
+        ob.innerHTML = '<div class="empty">Chua co don hang</div>';
         return;
     }
     var arr = [];
@@ -1588,7 +1704,7 @@ function renderOrders(){
     for(var j = 0; j < arr.length; j++){
         var o = arr[j];
         var d = new Date(o.time);
-        html = html + '<div class="order-card"><div class="o-name">' + esc(o.name) + '</div><div class="o-time">Mã: ' + esc(o.code) + ' • ' + d.toLocaleString("vi-VN") + '</div><div class="o-price">' + money(o.price) + '</div><div class="o-actions"><button class="order-btn detail" onclick="showDetail(\'' + o._id + '\')">Chi tiết</button><button class="order-btn del" onclick="deleteOrder(\'' + o._id + '\')">Xóa</button></div></div>';
+        html += '<div class="order-card"><div class="o-name">' + esc(o.name) + '</div><div class="o-time">Ma: ' + esc(o.code) + ' - ' + d.toLocaleString("vi-VN") + '</div><div class="o-price">' + money(o.price) + '</div><div class="o-actions"><button class="order-btn detail" onclick="showDetail(\'' + o._id + '\')">Chi tiet</button><button class="order-btn del" onclick="deleteOrder(\'' + o._id + '\')">Xoa</button></div></div>';
     }
     ob.innerHTML = html;
 }
@@ -1596,7 +1712,7 @@ function renderOrders(){
 function renderProfile(){
     var u = user();
     if(!u){
-        $("cName").textContent = "Đăng nhập";
+        $("cName").textContent = "Dang nhap";
         $("cBal").textContent = "0 VND";
         $("cAv").textContent = "?";
         $("guestView").style.display = "block";
@@ -1606,7 +1722,6 @@ function renderProfile(){
     $("cName").textContent = u.username;
     $("cBal").textContent = Number(u.balance || 0).toLocaleString("vi-VN") + " VND";
 
-    // Avatar chip
     if(u.avatar){
         $("cAv").innerHTML = '<img src="' + esc(u.avatar) + '">';
         $("pAv").innerHTML = '<img src="' + esc(u.avatar) + '">';
@@ -1623,7 +1738,7 @@ function renderProfile(){
     if(u.orders){ for(var k in u.orders){ if(u.orders.hasOwnProperty(k)){ oCount++; } } }
     $("pOrderCount").textContent = oCount;
     if(u.createdAt){
-        $("pJoined").textContent = "Thành viên từ " + new Date(u.createdAt).toLocaleDateString("vi-VN");
+        $("pJoined").textContent = "Thanh vien tu " + new Date(u.createdAt).toLocaleDateString("vi-VN");
     } else { $("pJoined").textContent = ""; }
 }
 
@@ -1642,11 +1757,11 @@ function renderBanned(){
         if(banned.hasOwnProperty(k)){
             if(banned[k] === true){
                 count++;
-                html = html + '<div class="dep-item"><div><b style="color:#dc2626">' + esc(k) + '</b></div><button class="btn-no" onclick="unbanUser(\'' + k + '\')" style="padding:5px 10px;border:0;border-radius:6px;font-weight:800;cursor:pointer;font-size:11px">Bỏ ban</button></div>';
+                html += '<div class="dep-item"><div><b style="color:#dc2626">' + esc(k) + '</b></div><button class="btn-no" onclick="unbanUser(\'' + k + '\')" style="padding:5px 10px;border:0;border-radius:6px;font-weight:800;cursor:pointer;font-size:11px">Bo ban</button></div>';
             }
         }
     }
-    if(count === 0){ html = '<div class="empty" style="padding:16px">Chưa có ai bị ban</div>'; }
+    if(count === 0){ html = '<div class="empty" style="padding:16px">Chua co ai bi ban</div>'; }
     bl.innerHTML = html;
 }
 
@@ -1672,7 +1787,7 @@ function renderUserList(){
     var countEl = $("userCount");
     if(countEl){ countEl.textContent = arr.length; }
     if(arr.length === 0){
-        box.innerHTML = '<div class="empty" style="padding:16px">Không có user nào</div>';
+        box.innerHTML = '<div class="empty" style="padding:16px">Khong co user nao</div>';
         return;
     }
 
@@ -1693,10 +1808,8 @@ function renderUserList(){
         var isSuperAdmin = (name === SUPER_ADMIN);
         var isMe = (name === cur);
 
-        // Ẩn thông tin nhạy cảm: admin phụ xem super admin (không phải mình)
         var hideSensitive = isSuperAdmin && !isSuper && !isMe;
 
-        // Avatar của user trong list
         var avatarHtml = "";
         if(u.avatar){
             avatarHtml = '<div style="width:50px;height:50px;border-radius:12px;overflow:hidden;flex-shrink:0;border:2px solid #e2e8f0"><img src="' + esc(u.avatar) + '" style="width:100%;height:100%;object-fit:cover"></div>';
@@ -1706,71 +1819,67 @@ function renderUserList(){
         }
 
         var created = u.createdAt ? new Date(u.createdAt).toLocaleDateString("vi-VN") : "?";
-
         var borderColor = "#e2e8f0";
         if(isBannedUser){ borderColor = "#dc2626"; }
         else if(isSuperAdmin){ borderColor = "#fbbf24"; }
         else if(isAdm){ borderColor = "#dc2626"; }
 
         var displayName = esc(name);
-        if(isSuperAdmin){ displayName = "👑 SUPER ADMIN"; }
+        if(isSuperAdmin){ displayName = "SUPER ADMIN"; }
         else if(isAdm){ displayName = "ADMIN - " + displayName; }
         if(isBannedUser){ displayName = "BANNED - " + displayName; }
+        if(hideSensitive){ displayName = "AN DANH"; }
 
-        if(hideSensitive){
-            displayName = "🔒 ẨN DANH";
-        }
-
-        html = html + '<div style="background:#f8fafc;border:1px solid ' + borderColor + ';border-radius:12px;padding:12px;margin-bottom:8px">';
-        html = html + '<div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:8px">';
-        html = html + avatarHtml;
-        html = html + '<div style="flex:1;min-width:0">';
-        html = html + '<div style="font-weight:900;font-size:14px;color:#1a1a1a">' + displayName + '</div>';
-        html = html + '<div style="color:#64748b;font-size:11px;margin-top:2px">Ngày tạo: ' + created + '</div>';
-        html = html + '</div>';
+        html += '<div style="background:#f8fafc;border:1px solid ' + borderColor + ';border-radius:12px;padding:12px;margin-bottom:8px">';
+        html += '<div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:8px">';
+        html += avatarHtml;
+        html += '<div style="flex:1;min-width:0">';
+        html += '<div style="font-weight:900;font-size:14px;color:#1a1a1a">' + displayName + '</div>';
+        html += '<div style="color:#64748b;font-size:11px;margin-top:2px">Ngay tao: ' + created + '</div>';
+        html += '</div>';
         if(isBannedUser){
-            html = html + '<span style="background:#dc2626;color:#fff;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:900;flex-shrink:0">BỊ BAN</span>';
+            html += '<span style="background:#dc2626;color:#fff;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:900;flex-shrink:0">BI BAN</span>';
         } else if(isSuperAdmin){
-            html = html + '<span style="background:#fbbf24;color:#000;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:900;flex-shrink:0">SUPER</span>';
+            html += '<span style="background:#fbbf24;color:#000;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:900;flex-shrink:0">SUPER</span>';
         } else if(isAdm){
-            html = html + '<span style="background:#dc2626;color:#fff;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:900;flex-shrink:0">ADMIN</span>';
+            html += '<span style="background:#dc2626;color:#fff;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:900;flex-shrink:0">ADMIN</span>';
         } else {
-            html = html + '<span style="background:#dcfce7;color:#16a34a;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:900;flex-shrink:0">ACTIVE</span>';
+            html += '<span style="background:#dcfce7;color:#16a34a;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:900;flex-shrink:0">ACTIVE</span>';
         }
-        html = html + '</div>';
+        html += '</div>';
 
         if(hideSensitive){
-            html = html + '<div style="background:#f1f5f9;border-radius:8px;padding:12px;font-size:11px;margin-bottom:8px;text-align:center;color:#64748b;font-style:italic">';
-            html = html + '🔒 Thông tin bảo mật — Không thể xem';
-            html = html + '</div>';
-            html = html + '<div style="background:#f1f5f9;border-radius:8px;padding:8px;font-size:11px;text-align:center;color:#94a3b8;font-style:italic">';
-            html = html + 'Chi tiết bị ẩn';
-            html = html + '</div>';
+            html += '<div style="background:#f1f5f9;border-radius:8px;padding:12px;font-size:11px;margin-bottom:8px;text-align:center;color:#64748b;font-style:italic">';
+            html += 'Thong tin bao mat - Khong the xem';
+            html += '</div>';
+            html += '<div style="background:#f1f5f9;border-radius:8px;padding:8px;font-size:11px;text-align:center;color:#94a3b8;font-style:italic">';
+            html += 'Chi tiet bi an';
+            html += '</div>';
         } else {
             var pass = u.password || "?";
-            html = html + '<div style="background:#fff;border-radius:8px;padding:8px;font-size:11px;margin-bottom:8px;word-break:break-all">';
-            html = html + '<div style="color:#64748b">User: <b style="color:#1a1a1a">' + esc(name) + '</b></div>';
-            html = html + '<div style="color:#64748b;margin-top:3px">Pass: <b style="color:#dc2626">' + esc(pass) + '</b></div>';
-            html = html + '</div>';
-            html = html + '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;font-size:11px">';
-            html = html + '<div style="background:#fff;padding:6px;border-radius:6px;text-align:center"><div style="color:#64748b">Dư</div><div style="color:#dc2626;font-weight:900;margin-top:2px">' + money(balance) + '</div></div>';
-            html = html + '<div style="background:#fff;padding:6px;border-radius:6px;text-align:center"><div style="color:#64748b">Đơn</div><div style="color:#1a1a1a;font-weight:900;margin-top:2px">' + orderCount + '</div></div>';
-            html = html + '<div style="background:#fff;padding:6px;border-radius:6px;text-align:center"><div style="color:#64748b">Nạp</div><div style="color:#1a1a1a;font-weight:900;margin-top:2px">' + depCount + '</div></div>';
-            html = html + '</div>';
+            html += '<div style="background:#fff;border-radius:8px;padding:8px;font-size:11px;margin-bottom:8px;word-break:break-all">';
+            html += '<div style="color:#64748b">User: <b style="color:#1a1a1a">' + esc(name) + '</b></div>';
+            html += '<div style="color:#64748b;margin-top:3px">Pass: <b style="color:#dc2626">' + esc(pass) + '</b></div>';
+            html += '</div>';
+            html += '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;font-size:11px">';
+            html += '<div style="background:#fff;padding:6px;border-radius:6px;text-align:center"><div style="color:#64748b">Du</div><div style="color:#dc2626;font-weight:900;margin-top:2px">' + money(balance) + '</div></div>';
+            html += '<div style="background:#fff;padding:6px;border-radius:6px;text-align:center"><div style="color:#64748b">Don</div><div style="color:#1a1a1a;font-weight:900;margin-top:2px">' + orderCount + '</div></div>';
+            html += '<div style="background:#fff;padding:6px;border-radius:6px;text-align:center"><div style="color:#64748b">Nap</div><div style="color:#1a1a1a;font-weight:900;margin-top:2px">' + depCount + '</div></div>';
+            html += '</div>';
         }
 
-        var canBan = !isMe && !isSuperAdmin && !(isAdm && !isSuper);
+        var canBan = isSuper && !isMe && !isSuperAdmin;
         if(canBan){
-            html = html + '<div style="display:flex;gap:6px;margin-top:8px">';
+            html += '<div style="display:flex;gap:6px;margin-top:8px">';
             if(isBannedUser){
-                html = html + '<button onclick="unbanUser(\'' + name + '\')" style="flex:1;padding:8px;border:0;border-radius:8px;background:#16a34a;color:#fff;font-weight:900;font-size:11px;cursor:pointer;font-family:inherit">BỎ BAN</button>';
+                html += '<button onclick="unbanUser(\'' + name + '\')" style="flex:1;padding:8px;border:0;border-radius:8px;background:#16a34a;color:#fff;font-weight:900;font-size:11px;cursor:pointer;font-family:inherit">BO BAN</button>';
             } else {
-                html = html + '<button onclick="quickBan(\'' + name + '\')" style="flex:1;padding:8px;border:0;border-radius:8px;background:#dc2626;color:#fff;font-weight:900;font-size:11px;cursor:pointer;font-family:inherit">BAN</button>';
+                html += '<button onclick="quickBan(\'' + name + '\')" style="flex:1;padding:8px;border:0;border-radius:8px;background:#dc2626;color:#fff;font-weight:900;font-size:11px;cursor:pointer;font-family:inherit">BAN</button>';
             }
-            html = html + '</div>';
+            html += '</div>';
         }
 
-        html = html + '</div>';
+        html += '</div>';
     }
     box.innerHTML = html;
 }
@@ -1780,7 +1889,7 @@ function renderAdmin(){
     var pl = $("productList");
     if(pl){
         if(products.length === 0){
-            pl.innerHTML = '<div class="empty">Chưa có sản phẩm</div>';
+            pl.innerHTML = '<div class="empty">Chua co san pham</div>';
         } else {
             var html = "";
             for(var i = 0; i < products.length; i++){
@@ -1793,12 +1902,16 @@ function renderAdmin(){
                 html += '<div style="font-weight:800;font-size:13px;color:#1a1a1a">' + esc(p.name) + '</div>';
                 html += '<div style="color:#dc2626;font-size:12px;font-weight:800;margin-top:2px">' + money(p.price) + '</div>';
                 html += '<div style="color:#64748b;font-size:11px;margin-top:3px">Kho: <b style="color:#16a34a">' + (p.stock || 0) + '</b></div>';
-                html += '</div>';
-                html += '</div>';
-                html += '<div style="display:flex;gap:6px;margin-top:8px">';
-                html += '<button onclick="openEditProduct(' + p.id + ')" style="flex:1;padding:8px;border:0;border-radius:8px;background:#dc2626;color:#fff;font-weight:900;font-size:11px;cursor:pointer;font-family:inherit">✏️ SỬA</button>';
-                html += '<button onclick="delProduct(' + p.id + ')" style="flex:1;padding:8px;border:0;border-radius:8px;background:#94a3b8;color:#fff;font-weight:900;font-size:11px;cursor:pointer;font-family:inherit">🗑️ XÓA</button>';
-                html += '</div>';
+                html += '</div></div>';
+
+                if(isSuperAdmin()){
+                    html += '<div style="display:flex;gap:6px;margin-top:8px">';
+                    html += '<button onclick="openEditProduct(' + p.id + ')" style="flex:1;padding:8px;border:0;border-radius:8px;background:#dc2626;color:#fff;font-weight:900;font-size:11px;cursor:pointer;font-family:inherit">SUA</button>';
+                    html += '<button onclick="delProduct(' + p.id + ')" style="flex:1;padding:8px;border:0;border-radius:8px;background:#94a3b8;color:#fff;font-weight:900;font-size:11px;cursor:pointer;font-family:inherit">XOA</button>';
+                    html += '</div>';
+                } else {
+                    html += '<div style="margin-top:8px;padding:8px;background:#fef3c7;border:1px solid #fcd34d;border-radius:8px;font-size:11px;color:#92400e;text-align:center">Chi Super Admin sua/xoa duoc</div>';
+                }
                 html += '</div>';
             }
             pl.innerHTML = html;
@@ -1813,19 +1926,19 @@ function renderAdmin(){
             if(!u.deposits){ continue; }
             for(var k in u.deposits){
                 if(u.deposits.hasOwnProperty(k)){
-                    if(u.deposits[k].status === "Chờ xác nhận"){
+                    if(u.deposits[k].status === "Cho xac nhan"){
                         pending.push({ username: username, key: k, amount: u.deposits[k].amount });
                     }
                 }
             }
         }
         if(pending.length === 0){
-            dl.innerHTML = '<div class="empty">Không có yêu cầu nạp</div>';
+            dl.innerHTML = '<div class="empty">Khong co yeu cau nap</div>';
         } else {
             var h = "";
             for(var j = 0; j < pending.length; j++){
                 var d = pending[j];
-                h = h + '<div class="dep-approve"><div><div class="amt">' + money(d.amount) + '</div><div class="email">@' + esc(d.username) + '</div></div><div><button class="btn-ok" onclick="approveDeposit(\'' + d.username + '\',\'' + d.key + '\')">Duyệt</button><button class="btn-no" onclick="rejectDeposit(\'' + d.username + '\',\'' + d.key + '\')">Hủy</button></div></div>';
+                h += '<div class="dep-approve"><div><div class="amt">' + money(d.amount) + '</div><div class="email">@' + esc(d.username) + '</div></div><div><button class="btn-ok" onclick="approveDeposit(\'' + d.username + '\',\'' + d.key + '\')">Duyet</button><button class="btn-no" onclick="rejectDeposit(\'' + d.username + '\',\'' + d.key + '\')">Huy</button></div></div>';
             }
             dl.innerHTML = h;
         }
@@ -1833,6 +1946,11 @@ function renderAdmin(){
     renderBanned();
     renderUserList();
     renderScriptPoolList();
+
+    var banCard = $("banCard");
+    if(banCard){ banCard.style.display = isSuperAdmin() ? "block" : "none"; }
+    var dangerCard = $("dangerCard");
+    if(dangerCard){ dangerCard.style.display = isSuperAdmin() ? "block" : "none"; }
 }
 
 function renderAll(){
@@ -1851,10 +1969,10 @@ function checkApprovedNotification(){
     for(var k in u.deposits){
         if(!u.deposits.hasOwnProperty(k)){ continue; }
         var d = u.deposits[k];
-        if(d.status === "Đã duyệt" && d.approvedAt && !d.notified){
+        if(d.status === "Da duyet" && d.approvedAt && !d.notified){
             u.deposits[k].notified = true;
             saveUserFB(cur, u);
-            showToast("Đã thanh toán thành công! Số dư " + money(d.amount) + " đã được cộng.", "success");
+            showToast("Da thanh toan thanh cong! So du " + money(d.amount) + " da duoc cong.", "success");
             return;
         }
     }
@@ -1873,23 +1991,23 @@ function toggleDepHistory(){
         }
         arr.sort(function(a, b){ return b.time - a.time; });
         if(arr.length === 0){
-            el.innerHTML = '<div class="empty" style="padding:16px">Chưa có lịch sử</div>';
+            el.innerHTML = '<div class="empty" style="padding:16px">Chua co lich su</div>';
         } else {
             var html = "";
             for(var i = 0; i < arr.length; i++){
                 var d = arr[i];
                 var cls = "wait";
-                if(d.status === "Đã duyệt"){ cls = "done"; }
-                if(d.status === "Đã hủy"){ cls = "cancel"; }
-                html = html + '<div class="dep-item"><div><b style="color:#1a1a1a">' + money(d.amount) + '</b><br><span style="color:#64748b;font-size:11px">' + new Date(d.time).toLocaleString("vi-VN") + '</span></div><span class="st ' + cls + '">' + esc(d.status) + '</span></div>';
+                if(d.status === "Da duyet"){ cls = "done"; }
+                if(d.status === "Da huy"){ cls = "cancel"; }
+                html += '<div class="dep-item"><div><b style="color:#1a1a1a">' + money(d.amount) + '</b><br><span style="color:#64748b;font-size:11px">' + new Date(d.time).toLocaleString("vi-VN") + '</span></div><span class="st ' + cls + '">' + esc(d.status) + '</span></div>';
             }
             el.innerHTML = html;
         }
         el.style.display = "block";
-        arw.textContent = "▲";
+        arw.textContent = "^";
     } else {
         el.style.display = "none";
-        arw.textContent = "▼";
+        arw.textContent = "v";
     }
 }
 
