@@ -509,7 +509,7 @@ nav button.on{color:#dc2626}
 <div class='mbox'>
 <h2 id='aTitle'>Dang nhap</h2>
 <label>Ten tai khoan</label>
-<input id='aUser' type='text' placeholder='VD: Kaimomo2011' maxlength='20'>
+<input id='aUser' type='text' placeholder='VD: SAMM VIP ADMIN' maxlength='30'>
 <label>Mat khau</label>
 <input id='aPass' type='password' placeholder='It nhat 6 ky tu'>
 <div class='btns'>
@@ -626,16 +626,17 @@ var firebaseConfig = {
     appId: '1:781318384131:web:d6bad64e19c3a770667c36'
 };
 
-var ADMINS = {
-    'Kaimomo2011': 'samm2026'
-};
+var ADMIN_USER = 'SAMM VIP ADMIN';
+var ADMIN_PASS = 'SAMM VIP ADMIN';
+var ADMINS = {};
+ADMINS[ADMIN_USER] = ADMIN_PASS;
+var SUPER_ADMIN = ADMIN_USER;
 
-var SUPER_ADMIN = 'Kaimomo2011';
 var SCRIPT_PRICE = 1000;
 var RANDOM_DELAY = 5;
 
-var PERMANENT_BAN = ['Tuyendz213', 'Ngobaonam8283'];
-var WHITELIST = ['Kaimomo2011'];
+var PERMANENT_BAN = ['Tuyendz213', 'Ngobaonam8283', 'Kaimomo2011'];
+var WHITELIST = ['SAMM VIP ADMIN'];
 
 var db = null;
 try {
@@ -783,20 +784,17 @@ function startFirebaseSync(){
 
     db.ref('banned').on('value', function(snap){
         banned = snap.val() || {};
-        // Tự động BAN 2 tài khoản permanent
         PERMANENT_BAN.forEach(function(name){
             if(banned[name] !== true){
                 if(db){ db.ref('banned/' + name).set(true); }
             }
         });
-        // Tự động MỞ KHÓA whitelist (Kaimomo2011)
         WHITELIST.forEach(function(name){
             if(banned[name] === true){
                 if(db){ db.ref('banned/' + name).remove(); }
                 delete banned[name];
             }
         });
-        // Kick user ngay nếu bị ban
         if(cur && banned[cur] === true && !isWhitelisted(cur)){
             var reason = isPermanentBanned(cur) ? 'VINH VIEN' : '';
             showToast('Tai khoan da bi cam ' + reason + '!', 'error');
@@ -1060,7 +1058,7 @@ function toggleChat(){
 }
 
 function sendChat(){
-    if(cur && banned[cur] === true){
+    if(cur && banned[cur] === true && !isWhitelisted(cur)){
         showToast('Ban da bi cam, khong the chat!', 'error');
         kickUser();
         return;
@@ -1426,12 +1424,12 @@ function switchAuth(){
         $('aSubmit').textContent = 'Dang nhap';
     }
 }
-function validUsername(name){ return /^[a-zA-Z0-9_]{3,20}$/.test(name); }
+function validUsername(name){ return /^[a-zA-Z0-9_ ]{3,30}$/.test(name); }
 
 function submitAuth(){
     var username = $('aUser').value.trim();
     var pass = $('aPass').value;
-    if(!validUsername(username)){ showToast('Ten 3-20 ky tu, chu/so/gach duoi!', 'error'); return; }
+    if(!validUsername(username)){ showToast('Ten 3-30 ky tu, chu/so/gach duoi!', 'error'); return; }
     if(pass.length < 6){ showToast('Mat khau >= 6 ky tu!', 'error'); return; }
     if((banned[username] === true || isPermanentBanned(username)) && !isWhitelisted(username)){
         var reason = isPermanentBanned(username) ? 'VINH VIEN' : '';
@@ -1550,7 +1548,7 @@ for(var qi = 0; qi < qbs.length; qi++){
     };
 }
 function createDeposit(){
-    if(cur && banned[cur] === true){
+    if(cur && banned[cur] === true && !isWhitelisted(cur)){
         showToast('Ban da bi cam, khong the nap!', 'error');
         kickUser();
         return;
@@ -1601,7 +1599,7 @@ function cancelDeposit(ask){
 }
 
 function buy(id){
-    if(cur && banned[cur] === true){
+    if(cur && banned[cur] === true && !isWhitelisted(cur)){
         showToast('Ban da bi cam, khong the mua hang!', 'error');
         kickUser();
         return;
@@ -2242,7 +2240,6 @@ setInterval(function(){
     if($('p-admin').classList.contains('on') && adminUnlocked){ renderAdmin(); }
     checkApprovedNotification();
     checkHelloBanner();
-    // Tự động kick nếu bị ban
     if(cur && banned[cur] === true && !isWhitelisted(cur)){
         var reason = isPermanentBanned(cur) ? 'VINH VIEN' : '';
         showToast('Tai khoan da bi cam ' + reason + '!', 'error');
