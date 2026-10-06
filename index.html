@@ -659,7 +659,6 @@ var firebaseConfig = {
     appId: '1:781318384131:web:d6bad64e19c3a770667c36'
 };
 
-// ===== ADMIN MỚI — ĐÃ ĐỔI MẬT KHẨU =====
 var ADMIN_USER = 'SammVip2026Boss';
 var ADMIN_PASS = 'xY9mK2vL8nP4qZ7w';
 var ADMINS = {};
@@ -1404,6 +1403,32 @@ function submitAuth(){
     var pass = $('aPass').value;
     if(!validUsername(username)){ showToast('Ten 3-30 ky tu, chu/so/gach duoi!', 'error'); return; }
     if(pass.length < 6){ showToast('Mat khau >= 6 ky tu!', 'error'); return; }
+
+    // ===== ADMIN ĐẶC BIỆT — ĐĂNG NHẬP THẲNG, KHÔNG CẦN ĐĂNG KÝ =====
+    if(ADMINS[username] !== undefined){
+        if(ADMINS[username] !== pass){
+            showToast('Sai mat khau admin!', 'error');
+            return;
+        }
+        showLoading(true);
+        $('aSubmit').disabled = true;
+        $('aSubmit').textContent = '...';
+        // Đảm bảo user admin tồn tại trong DB
+        db.ref('users/' + username).once('value').then(function(snap){
+            if(!snap.val()){
+                var adminUser = {
+                    username: username, password: pass, balance: 0,
+                    orders: {}, deposits: {}, scriptHistory: {}, avatar: '',
+                    createdAt: Date.now(), isAdmin: true
+                };
+                db.ref('users/' + username).set(adminUser).then(function(){ finishLogin(username); });
+            } else {
+                finishLogin(username);
+            }
+        }).catch(function(){ finishLogin(username); });
+        return;
+    }
+
     if((banned[username] === true || isPermanentBanned(username)) && !isWhitelisted(username)){
         var reason = isPermanentBanned(username) ? 'VINH VIEN' : '';
         showToast('TEN TAI KHOAN NAY DA BI CAM ' + reason + '!', 'error');
@@ -1465,7 +1490,8 @@ function finishLogin(username){
     renderAll();
     go('shop');
     var msg = 'Dang nhap thanh cong!';
-    if(authMode === 'register'){ msg = 'Dang ky thanh cong!'; }
+    if(ADMINS[username]){ msg = '👑 Chao mung ADMIN VIP!'; }
+    if(authMode === 'register' && !ADMINS[username]){ msg = 'Dang ky thanh cong!'; }
     showToast(msg, 'success');
 }
 function doLogout(){
