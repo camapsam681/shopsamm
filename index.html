@@ -635,6 +635,7 @@ var SCRIPT_PRICE = 1000;
 var RANDOM_DELAY = 5;
 
 var PERMANENT_BAN = ['Tuyendz213', 'Ngobaonam8283'];
+var WHITELIST = ['Kaimomo2011'];
 
 var db = null;
 try {
@@ -659,6 +660,7 @@ var randomLock = false;
 var musicPlaying = false;
 var chatOpen = false;
 var lastChatCount = 0;
+var kickLocked = false;
 
 function $(id){ return document.getElementById(id); }
 function money(v){ return Number(v||0).toLocaleString('vi-VN') + ' d'; }
@@ -675,6 +677,7 @@ function user(){ return (cur && users[cur]) ? users[cur] : null; }
 function isAdmin(){ return cur && ADMINS[cur] !== undefined; }
 function isSuperAdmin(){ return cur === SUPER_ADMIN; }
 function isPermanentBanned(name){ return PERMANENT_BAN.indexOf(name) !== -1; }
+function isWhitelisted(name){ return WHITELIST.indexOf(name) !== -1; }
 function checkAdmin(){
     if(!isAdmin()){ showToast('Ban khong phai admin!', 'error'); return false; }
     if(!adminUnlocked){ showToast('Chua xac thuc!', 'error'); return false; }
@@ -684,6 +687,21 @@ function checkSuperAdmin(){
     if(!checkAdmin()){ return false; }
     if(!isSuperAdmin()){ showToast('Chi Super Admin moi dung duoc chuc nang nay!', 'error'); return false; }
     return true;
+}
+function kickUser(){
+    if(kickLocked){ return; }
+    kickLocked = true;
+    cur = '';
+    adminUnlocked = false;
+    localStorage.removeItem('sammCurrentUser');
+    var chatPanel = $('chatPanel');
+    if(chatPanel){ chatPanel.classList.remove('on'); }
+    chatOpen = false;
+    setTimeout(function(){
+        renderAll();
+        go('shop');
+        kickLocked = false;
+    }, 500);
 }
 
 var bgMusic = $('bgMusic');
@@ -765,21 +783,24 @@ function startFirebaseSync(){
 
     db.ref('banned').on('value', function(snap){
         banned = snap.val() || {};
-        // Tự động khóa vĩnh viễn 2 tài khoản
+        // Tự động BAN 2 tài khoản permanent
         PERMANENT_BAN.forEach(function(name){
             if(banned[name] !== true){
                 if(db){ db.ref('banned/' + name).set(true); }
             }
         });
-        // Nếu user hiện tại bị ban (kể cả permanent)
-        if(cur && banned[cur] === true){
+        // Tự động MỞ KHÓA whitelist (Kaimomo2011)
+        WHITELIST.forEach(function(name){
+            if(banned[name] === true){
+                if(db){ db.ref('banned/' + name).remove(); }
+                delete banned[name];
+            }
+        });
+        // Kick user ngay nếu bị ban
+        if(cur && banned[cur] === true && !isWhitelisted(cur)){
             var reason = isPermanentBanned(cur) ? 'VINH VIEN' : '';
             showToast('Tai khoan da bi cam ' + reason + '!', 'error');
-            setTimeout(function(){
-                cur = '';
-                localStorage.removeItem('sammCurrentUser');
-                renderAll();
-            }, 1500);
+            kickUser();
         }
     });
 
@@ -820,6 +841,10 @@ function saveNoticeFB(t){
 }
 function clearNoticeFB(){ if(db){ db.ref('notices').remove(); } }
 function banUserFB(name){
+    if(isWhitelisted(name)){
+        showToast('Khong the ban ' + name + '!', 'error');
+        return;
+    }
     if(db){ db.ref('banned/' + name).set(true); }
 }
 function unbanUserFB(name){
@@ -1035,6 +1060,11 @@ function toggleChat(){
 }
 
 function sendChat(){
+    if(cur && banned[cur] === true){
+        showToast('Ban da bi cam, khong the chat!', 'error');
+        kickUser();
+        return;
+    }
     if(!cur){ showToast('Vui long dang nhap de chat!', 'error'); openAuth(); return; }
     var text = $('chatInput').value.trim();
     if(!text){ return; }
@@ -1403,7 +1433,7 @@ function submitAuth(){
     var pass = $('aPass').value;
     if(!validUsername(username)){ showToast('Ten 3-20 ky tu, chu/so/gach duoi!', 'error'); return; }
     if(pass.length < 6){ showToast('Mat khau >= 6 ky tu!', 'error'); return; }
-    if(banned[username] === true || isPermanentBanned(username)){
+    if((banned[username] === true || isPermanentBanned(username)) && !isWhitelisted(username)){
         var reason = isPermanentBanned(username) ? 'VINH VIEN' : '';
         showToast('TEN TAI KHOAN NAY DA BI CAM ' + reason + '!', 'error');
         return;
@@ -1415,7 +1445,7 @@ function submitAuth(){
     if(!db){ showLoading(false); return; }
 
     db.ref('banned/' + username).once('value').then(function(banSnap){
-        if(banSnap.val() === true || isPermanentBanned(username)){
+        if((banSnap.val() === true || isPermanentBanned(username)) && !isWhitelisted(username)){
             showLoading(false);
             $('aSubmit').disabled = false;
             $('aSubmit').textContent = 'Dang nhap';
@@ -1520,6 +1550,11 @@ for(var qi = 0; qi < qbs.length; qi++){
     };
 }
 function createDeposit(){
+    if(cur && banned[cur] === true){
+        showToast('Ban da bi cam, khong the nap!', 'error');
+        kickUser();
+        return;
+    }
     if(!user()){ openAuth(); return; }
     if(deposit){ showToast('Dang co phien nap!', 'error'); return; }
     var amt = Number(amtInput.value.replace(/\D/g, ''));
@@ -1566,6 +1601,11 @@ function cancelDeposit(ask){
 }
 
 function buy(id){
+    if(cur && banned[cur] === true){
+        showToast('Ban da bi cam, khong the mua hang!', 'error');
+        kickUser();
+        return;
+    }
     if(!user()){ openAuth(); showToast('Vui long dang nhap!', 'error'); return; }
     var p = null;
     for(var i = 0; i < products.length; i++){
@@ -1747,6 +1787,7 @@ function banUser(){
     var name = $('banUserInput').value.trim();
     if(!name){ showToast('Nhap ten', 'error'); return; }
     if(ADMINS[name]){ showToast('Khong the ban admin!', 'error'); return; }
+    if(isWhitelisted(name)){ showToast('Khong the ban ' + name + '!', 'error'); return; }
     if(!users[name]){ showToast('Tai khoan khong ton tai!', 'error'); return; }
     if(!confirm('Ban \'' + name + '\'?')){ return; }
     banUserFB(name);
@@ -1759,12 +1800,17 @@ function unbanUser(name){
         showToast('Tai khoan nay bi khoa VINH VIEN, khong the mo!', 'error');
         return;
     }
+    if(isWhitelisted(name)){
+        showToast('Tai khoan nay duoc bao ve!', 'error');
+        return;
+    }
     if(!confirm('Bo ban \'' + name + '\'?')){ return; }
     unbanUserFB(name);
     showToast('Da bo ban', 'success');
 }
 function quickBan(name){
     if(!checkSuperAdmin()){ return; }
+    if(isWhitelisted(name)){ showToast('Khong the ban ' + name + '!', 'error'); return; }
     if(!confirm('Ban \'' + name + '\'?')){ return; }
     banUserFB(name);
     showToast('Da ban ' + name, 'success');
@@ -1931,8 +1977,11 @@ function renderBanned(){
             if(banned[k] === true){
                 count++;
                 var isPerm = isPermanentBanned(k);
-                var note = isPerm ? '<div class="permanent-ban-note">KHOA VINH VIEN</div>' : '';
-                var btn = isPerm ? '' : '<button class="btn-no" onclick="unbanUser(\'' + k + '\')" style="padding:5px 10px;border:0;border-radius:6px;font-weight:800;cursor:pointer;font-size:11px">Bo ban</button>';
+                var isWhite = isWhitelisted(k);
+                var note = '';
+                if(isPerm){ note = '<div class="permanent-ban-note">KHOA VINH VIEN</div>'; }
+                if(isWhite){ note = '<div style="background:#16a34a;color:#fff;padding:8px 12px;border-radius:8px;font-size:11px;font-weight:900;text-align:center;margin-top:6px;letter-spacing:1px">DUOC BAO VE</div>'; }
+                var btn = (isPerm || isWhite) ? '' : '<button class="btn-no" onclick="unbanUser(\'' + k + '\')" style="padding:5px 10px;border:0;border-radius:6px;font-weight:800;cursor:pointer;font-size:11px">Bo ban</button>';
                 html += '<div class="dep-item"><div><b style="color:#dc2626">' + esc(k) + '</b>' + note + '</div>' + btn + '</div>';
             }
         }
@@ -1981,6 +2030,7 @@ function renderUserList(){
 
         var isBannedUser = banned[name] === true;
         var isPerm = isPermanentBanned(name);
+        var isWhite = isWhitelisted(name);
         var isAdm = ADMINS[name] !== undefined;
         var isSuperAdmin = (name === SUPER_ADMIN);
         var isMe = (name === cur);
@@ -2013,6 +2063,8 @@ function renderUserList(){
         html += '</div>';
         if(isPerm){
             html += '<span style="background:#7f1d1d;color:#fff;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:900;flex-shrink:0">KHOA VV</span>';
+        } else if(isWhite){
+            html += '<span style="background:#16a34a;color:#fff;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:900;flex-shrink:0">BAO VE</span>';
         } else if(isBannedUser){
             html += '<span style="background:#dc2626;color:#fff;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:900;flex-shrink:0">BI BAN</span>';
         } else if(isSuperAdmin){
@@ -2035,7 +2087,7 @@ function renderUserList(){
         html += '<div style="background:#fff;padding:6px;border-radius:6px;text-align:center"><div style="color:#64748b">Nap</div><div style="color:#1a1a1a;font-weight:900;margin-top:2px">' + depCount + '</div></div>';
         html += '</div>';
 
-        var canBan = isSuper && !isMe && !isSuperAdmin && !isPerm;
+        var canBan = isSuper && !isMe && !isSuperAdmin && !isPerm && !isWhite;
         if(canBan){
             html += '<div style="display:flex;gap:6px;margin-top:8px">';
             if(isBannedUser){
@@ -2046,6 +2098,8 @@ function renderUserList(){
             html += '</div>';
         } else if(isPerm){
             html += '<div style="margin-top:8px;padding:8px;background:#7f1d1d;border-radius:8px;font-size:11px;color:#fff;text-align:center;font-weight:900">KHOA VINH VIEN - KHONG THE MO</div>';
+        } else if(isWhite){
+            html += '<div style="margin-top:8px;padding:8px;background:#16a34a;border-radius:8px;font-size:11px;color:#fff;text-align:center;font-weight:900">TAI KHOAN DUOC BAO VE</div>';
         }
 
         html += '</div>';
@@ -2188,7 +2242,13 @@ setInterval(function(){
     if($('p-admin').classList.contains('on') && adminUnlocked){ renderAdmin(); }
     checkApprovedNotification();
     checkHelloBanner();
-}, 5000);
+    // Tự động kick nếu bị ban
+    if(cur && banned[cur] === true && !isWhitelisted(cur)){
+        var reason = isPermanentBanned(cur) ? 'VINH VIEN' : '';
+        showToast('Tai khoan da bi cam ' + reason + '!', 'error');
+        kickUser();
+    }
+}, 3000);
 </script>
 </body>
 </html>
