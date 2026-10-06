@@ -21,6 +21,8 @@ header{position:sticky;top:0;background:rgba(255,255,255,.95);backdrop-filter:bl
 .chip .bal{color:#dc2626;font-size:10px;font-weight:800}
 .chip .av{width:34px;height:34px;border-radius:11px;background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#000;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;overflow:hidden}
 .chip .av img{width:100%;height:100%;object-fit:cover}
+.settings-btn{position:fixed;top:70px;right:16px;z-index:99;background:linear-gradient(135deg,#0ea5e9,#0369a1);border:0;padding:10px 14px;border-radius:12px;color:#fff;font-weight:900;font-size:16px;cursor:pointer;display:none;box-shadow:0 4px 15px rgba(14,165,233,.4)}
+.settings-btn.on{display:flex;align-items:center;gap:6px}
 main{padding:16px;max-width:640px;margin:0 auto}
 .title{display:flex;align-items:center;gap:12px;font-size:22px;font-weight:900;text-transform:uppercase;margin:8px 0 18px}
 .title::before{content:'';width:42px;height:38px;border:3px solid #dc2626;border-radius:11px;flex-shrink:0}
@@ -106,7 +108,7 @@ nav button.on{color:#dc2626}
 .order-btn{flex:1;padding:10px;border-radius:10px;font-weight:900;font-size:12px;cursor:pointer;font-family:inherit;text-transform:uppercase}
 .order-btn.detail{background:#dc2626;color:#fff;border:0}
 .order-btn.del{background:transparent;border:1.5px solid #dc2626;color:#dc2626}
-.admin-fab{position:fixed;top:70px;right:16px;z-index:99;background:linear-gradient(135deg,#dc2626,#991b1b);border:0;padding:10px 14px;border-radius:12px;color:#fff;font-weight:900;font-size:12px;cursor:pointer;display:none;font-family:inherit;text-transform:uppercase}
+.admin-fab{position:fixed;top:70px;left:16px;z-index:99;background:linear-gradient(135deg,#dc2626,#991b1b);border:0;padding:10px 14px;border-radius:12px;color:#fff;font-weight:900;font-size:12px;cursor:pointer;display:none;font-family:inherit;text-transform:uppercase}
 .admin-fab.on{display:flex}
 .dep-approve{background:#f8fafc;border:1px solid var(--border);border-radius:12px;padding:12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;font-size:13px;gap:10px}
 .dep-approve .amt{color:#dc2626;font-weight:900;font-size:15px}
@@ -194,6 +196,10 @@ nav button.on{color:#dc2626}
 .chat-msg.admin.mine .msg-name{color:#fff !important}
 .chat-msg.admin.mine .msg-text{color:#fff !important}
 .chat-msg.user .msg-name{background:linear-gradient(135deg,#3b82f6,#8b5cf6);-webkit-background-clip:text;background-clip:text;color:transparent;font-size:11px;font-weight:900}
+.chat-msg.bot .msg-body{background:linear-gradient(135deg,#eff6ff,#dbeafe);border:2px solid #0ea5e9}
+.chat-msg.bot .msg-name{color:#0369a1 !important;font-size:12px;font-weight:900}
+.chat-msg.bot .msg-text{color:#0c4a6e !important;font-size:13px;font-weight:600}
+.chat-msg.bot .msg-av{background:linear-gradient(135deg,#0ea5e9,#0369a1);color:#fff}
 .chat-input-area{padding:10px;background:#fff;border-top:1px solid var(--border);display:flex;gap:8px;padding-bottom:max(10px,env(safe-area-inset-bottom))}
 .chat-input-area input{margin:0;flex:1;padding:12px;border-radius:22px;font-size:14px}
 .chat-input-area button{background:linear-gradient(135deg,#dc2626,#991b1b);border:0;color:#fff;width:44px;height:44px;border-radius:50%;font-size:18px;cursor:pointer;font-family:inherit;flex-shrink:0;display:flex;align-items:center;justify-content:center}
@@ -221,12 +227,31 @@ nav button.on{color:#dc2626}
 .pv-name-row{display:flex;align-items:center;justify-content:center;gap:2px;margin-bottom:6px}
 .pv-name-row .pv-name{margin:0}
 .permanent-ban-note{background:#7f1d1d;color:#fff;padding:8px 12px;border-radius:8px;font-size:11px;font-weight:900;text-align:center;margin-top:6px;letter-spacing:1px}
+/* Settings modal */
+.settings-modal .mbox{max-width:420px}
+.set-row{display:flex;justify-content:space-between;padding:12px 0;font-size:14px;border-bottom:1px solid var(--border)}
+.set-row:last-child{border-bottom:0}
+.set-row .lbl{color:var(--muted);font-weight:600}
+.set-row .val{color:var(--text);font-weight:800;text-align:right;max-width:60%;word-break:break-word}
+.set-row .val.green{color:#16a34a}
+.set-row .val.blue{color:#0ea5e9}
+.settings-header{text-align:center;padding:8px 0 16px;border-bottom:1px solid var(--border);margin-bottom:14px}
+.settings-header .big-av{margin-bottom:10px}
+.settings-header h2{color:#dc2626;font-size:17px;text-transform:uppercase;margin-bottom:4px}
+.settings-header .sub{color:var(--muted);font-size:12px}
+.device-item{background:#f0f9ff;border:1px solid #bae6fd;border-radius:10px;padding:10px 12px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;font-size:12px}
+.device-item.current{background:#dcfce7;border-color:#86efac}
+.device-item .dev-name{font-weight:800;color:#0c4a6e}
+.device-item .dev-time{color:#64748b;font-size:10px}
+.device-item .tag{font-size:9px;font-weight:900;padding:2px 6px;border-radius:6px;background:#0ea5e9;color:#fff}
+.device-item.current .tag{background:#16a34a}
 @media(max-width:380px){.products-grid{grid-template-columns:1fr}}
 </style>
 </head><body>
 <audio id='bgMusic' src='https://files.catbox.moe/xzwsdp.mp3' loop preload='auto'></audio>
 <div class='loading-overlay' id='loadingOverlay'><div class='spinner'></div></div>
 <button class='admin-fab' id='adminFab' onclick='openAdminPanel()'>ADMIN</button>
+<button class='settings-btn' id='settingsBtn' onclick='openSettings()'>&#9881;&#65039; CAI DAT</button>
 <div class='toast' id='toast'></div>
 
 <button class='chat-fab' id='chatFab' onclick='toggleChat()'>
@@ -241,7 +266,7 @@ nav button.on{color:#dc2626}
 </div>
 <div class='chat-messages' id='chatMessages'></div>
 <div class='chat-input-area' id='chatInputArea'>
-<input id='chatInput' placeholder='Nhap tin nhan...' maxlength='500' onkeydown='if(event.key===&quot;Enter&quot;)sendChat()'>
+<input id='chatInput' placeholder='Nhap tin nhan... (/help de xem lenh bot)' maxlength='500' onkeydown='if(event.key===&quot;Enter&quot;)sendChat()'>
 <button onclick='sendChat()' id='chatSendBtn'>&gt;</button>
 </div>
 </div>
@@ -371,49 +396,6 @@ nav button.on{color:#dc2626}
 </a>
 </div>
 
-<div class='page' id='p-acc'>
-<div class='title'><span>Tai khoan</span></div>
-<div id='guestView'>
-<div class='empty'>Vui long dang nhap.</div>
-<button class='create' onclick='openAuth()'>Dang nhap / Dang ky</button>
-</div>
-<div id='profileView' style='display:none'>
-<div class='card'>
-<div class='profile-head'>
-<div id='pAvWrap'>
-<div class='big-av' id='pAv'>?</div>
-</div>
-<div class='admin-name-row'>
-<span class='email' id='pEmail'></span>
-<span class='verified-badge' id='pVerified' style='display:none'>&#10003;</span>
-</div>
-<div class='joined' id='pJoined'></div>
-<button class='avatar-btn' id='avatarBtn' onclick='document.getElementById(&quot;avatarFile&quot;).click()' style='display:none'>DOI ANH DAI DIEN</button>
-<input type='file' id='avatarFile' accept='image/*,image/gif,image/webp' style='display:none' onchange='uploadAvatar(this)'>
-<div class='file-status' id='avatarStatus'></div>
-<div id='avatarNote' style='font-size:11px;color:#94a3b8;margin-top:8px;font-style:italic'>Chi Admin moi doi duoc anh dai dien</div>
-</div>
-<div class='stat-row'>
-<div class='stat'><div class='lb'>So du</div><div class='vl' id='pBal'>0 d</div></div>
-<div class='stat'><div class='lb'>Don hang</div><div class='vl' id='pOrderCount'>0</div></div>
-</div>
-<div class='menu-item' onclick='toggleDepHistory()'>
-<span>Lich su nap</span>
-<span class='arw' id='depArrow'>&#9660;</span>
-</div>
-<div id='depHistory' style='display:none;margin-bottom:8px'></div>
-<div class='menu-item' onclick='openChangePass()'>
-<span>Doi mat khau</span>
-<span class='arw'>&rsaquo;</span>
-</div>
-<div class='menu-item' onclick='doLogout()' style='color:#dc2626'>
-<span>Dang xuat</span>
-<span class='arw'>&rsaquo;</span>
-</div>
-</div>
-</div>
-</div>
-
 <div class='page' id='p-admin'>
 <div class='title'><span>Admin Panel</span></div>
 <div class='card'>
@@ -509,12 +491,12 @@ nav button.on{color:#dc2626}
 <div class='mbox'>
 <h2 id='aTitle'>Dang nhap</h2>
 <label>Ten tai khoan</label>
-<input id='aUser' type='text' placeholder='VD: SAMM VIP ADMIN' maxlength='30'>
+<input id='aUser' type='text' placeholder='Vui long nhap ten tai khoan' maxlength='30'>
 <label>Mat khau</label>
 <input id='aPass' type='password' placeholder='It nhat 6 ky tu'>
 <div class='btns'>
 <button class='bt' id='aSubmit' onclick='submitAuth()'>Dang nhap</button>
-<button class='bd' onclick='switchAuth()'>Doi</button>
+<button class='bd' onclick='switchAuth()'>Dang ky</button>
 <button class='bd' onclick='closeAuth()'>Dong</button>
 </div>
 </div>
@@ -541,6 +523,16 @@ nav button.on{color:#dc2626}
 <div class='btns'>
 <button class='bt' onclick='verifyAdminPass()'>Xac nhan</button>
 <button class='bd' onclick='closeAdminPass()'>Dong</button>
+</div>
+</div>
+</div>
+
+<div class='modal settings-modal' id='settingsModal'>
+<div class='mbox'>
+<h2 style='text-align:center;color:#0ea5e9'>&#9881;&#65039; CAI DAT TAI KHOAN</h2>
+<div id='settingsBody'></div>
+<div class='btns' style='margin-top:16px'>
+<button class='bd' onclick='closeSettings()'>DONG</button>
 </div>
 </div>
 </div>
@@ -631,6 +623,7 @@ var ADMIN_PASS = 'SAMM VIP ADMIN';
 var ADMINS = {};
 ADMINS[ADMIN_USER] = ADMIN_PASS;
 var SUPER_ADMIN = ADMIN_USER;
+var BOT_NAME = 'BOT SAMM';
 
 var SCRIPT_PRICE = 1000;
 var RANDOM_DELAY = 5;
@@ -650,6 +643,7 @@ var notices = [];
 var banned = {};
 var scripts = {};
 var chats = [];
+var muted = {};
 var cur = localStorage.getItem('sammCurrentUser') || '';
 var deposit = null;
 var timerId = null;
@@ -662,6 +656,11 @@ var musicPlaying = false;
 var chatOpen = false;
 var lastChatCount = 0;
 var kickLocked = false;
+var sessionId = localStorage.getItem('sammSessionId') || '';
+if(!sessionId){
+    sessionId = 'S' + Date.now() + Math.random().toString(36).slice(2, 10);
+    localStorage.setItem('sammSessionId', sessionId);
+}
 
 function $(id){ return document.getElementById(id); }
 function money(v){ return Number(v||0).toLocaleString('vi-VN') + ' d'; }
@@ -679,6 +678,20 @@ function isAdmin(){ return cur && ADMINS[cur] !== undefined; }
 function isSuperAdmin(){ return cur === SUPER_ADMIN; }
 function isPermanentBanned(name){ return PERMANENT_BAN.indexOf(name) !== -1; }
 function isWhitelisted(name){ return WHITELIST.indexOf(name) !== -1; }
+function isMuted(name){
+    if(!muted[name]){ return false; }
+    var until = Number(muted[name].until || 0);
+    return Date.now() < until;
+}
+function getMuteRemaining(name){
+    if(!muted[name]){ return ''; }
+    var until = Number(muted[name].until || 0);
+    var diff = until - Date.now();
+    if(diff <= 0){ return ''; }
+    var h = Math.floor(diff / 3600000);
+    var m = Math.floor((diff % 3600000) / 60000);
+    return h + 'h ' + m + 'm';
+}
 function checkAdmin(){
     if(!isAdmin()){ showToast('Ban khong phai admin!', 'error'); return false; }
     if(!adminUnlocked){ showToast('Chua xac thuc!', 'error'); return false; }
@@ -802,10 +815,21 @@ function startFirebaseSync(){
         }
     });
 
+    db.ref('muted').on('value', function(snap){
+        muted = snap.val() || {};
+        renderChat();
+    });
+
     db.ref('scripts').on('value', function(snap){
         scripts = snap.val() || {};
         renderScriptBox();
         renderScriptPoolList();
+    });
+
+    db.ref('sessions').on('value', function(snap){
+        var data = snap.val() || {};
+        window._allSessions = data;
+        if($('settingsModal').classList.contains('on')){ renderSettings(); }
     });
 
     db.ref('chat').limitToLast(200).on('value', function(snap){
@@ -816,7 +840,7 @@ function startFirebaseSync(){
 
         if(chats.length > lastChatCount && lastChatCount > 0 && !chatOpen){
             var lastMsg = chats[chats.length - 1];
-            if(lastMsg.user !== cur){
+            if(lastMsg.user !== cur && lastMsg.user !== BOT_NAME){
                 var badge = $('chatBadge');
                 var unread = chats.length - lastChatCount;
                 badge.textContent = unread > 99 ? '99+' : unread;
@@ -853,7 +877,16 @@ function unbanUserFB(name){
     if(db){ db.ref('banned/' + name).remove(); }
 }
 
-function uploadImage(inputEl, targetId){
+function botSend(text){
+    var msg = {
+        user: BOT_NAME,
+        avatar: '',
+        text: text,
+        time: Date.now(),
+        isBot: true
+    };
+    if(db){ db.ref('chat/' + Date.now() + '_' + Math.random().toString(36).slice(2, 8)).set(msg); }
+}function uploadImage(inputEl, targetId){
     var file = inputEl.files && inputEl.files[0];
     if(!file){ return; }
     if(file.size > 5 * 1024 * 1024){
@@ -866,33 +899,23 @@ function uploadImage(inputEl, targetId){
         inputEl.value = '';
         return;
     }
-
     var statusEl = $(targetId + 'Status');
     var previewEl = $(targetId + 'Preview');
     var hiddenEl = $(targetId);
 
     var reader = new FileReader();
     reader.onload = function(e){
-        if(previewEl){
-            previewEl.src = e.target.result;
-            previewEl.style.display = 'block';
-        }
+        if(previewEl){ previewEl.src = e.target.result; previewEl.style.display = 'block'; }
     };
     reader.readAsDataURL(file);
 
-    if(statusEl){
-        statusEl.className = 'file-status on loading';
-        statusEl.textContent = 'Dang upload... (' + (file.size / 1024).toFixed(0) + ' KB)';
-    }
+    if(statusEl){ statusEl.className = 'file-status on loading'; statusEl.textContent = 'Dang upload... (' + (file.size / 1024).toFixed(0) + ' KB)'; }
     showToast('Dang upload anh...', 'success');
 
     uploadToCatbox(file, function(url){
         if(hiddenEl){ hiddenEl.value = url; }
         if(previewEl){ previewEl.src = url; previewEl.style.display = 'block'; }
-        if(statusEl){
-            statusEl.className = 'file-status on ok';
-            statusEl.textContent = 'Upload thanh cong!';
-        }
+        if(statusEl){ statusEl.className = 'file-status on ok'; statusEl.textContent = 'Upload thanh cong!'; }
         showToast('Upload anh thanh cong!', 'success');
         setTimeout(function(){ if(statusEl){ statusEl.className = 'file-status'; } }, 3000);
         inputEl.value = '';
@@ -901,18 +924,12 @@ function uploadImage(inputEl, targetId){
         uploadToImgBB(file, function(url){
             if(hiddenEl){ hiddenEl.value = url; }
             if(previewEl){ previewEl.src = url; previewEl.style.display = 'block'; }
-            if(statusEl){
-                statusEl.className = 'file-status on ok';
-                statusEl.textContent = 'Upload thanh cong!';
-            }
+            if(statusEl){ statusEl.className = 'file-status on ok'; statusEl.textContent = 'Upload thanh cong!'; }
             showToast('Upload anh thanh cong!', 'success');
             setTimeout(function(){ if(statusEl){ statusEl.className = 'file-status'; } }, 3000);
             inputEl.value = '';
         }, function(){
-            if(statusEl){
-                statusEl.className = 'file-status on err';
-                statusEl.textContent = 'Upload that bai! Kiem tra mang.';
-            }
+            if(statusEl){ statusEl.className = 'file-status on err'; statusEl.textContent = 'Upload that bai! Kiem tra mang.'; }
             showToast('Upload that bai!', 'error');
             inputEl.value = '';
         });
@@ -923,11 +940,9 @@ function uploadToCatbox(file, onSuccess, onError){
     var formData = new FormData();
     formData.append('reqtype', 'fileupload');
     formData.append('fileToUpload', file);
-
     var xhr = new XMLHttpRequest();
     var timeoutId = setTimeout(function(){ xhr.abort(); }, 60000);
     xhr.open('POST', 'https://catbox.moe/user/api.php', true);
-
     xhr.onload = function(){
         clearTimeout(timeoutId);
         if(xhr.status === 200 && xhr.responseText && xhr.responseText.indexOf('http') === 0){
@@ -948,18 +963,15 @@ function uploadToImgBB(file, onSuccess, onError){
         var formData = new FormData();
         formData.append('key', IMGBB_KEY);
         formData.append('image', base64);
-
         var xhr = new XMLHttpRequest();
         var timeoutId = setTimeout(function(){ xhr.abort(); }, 60000);
         xhr.open('POST', 'https://api.imgbb.com/1/upload', true);
-
         xhr.onload = function(){
             clearTimeout(timeoutId);
             try {
                 var res = JSON.parse(xhr.responseText);
-                if(res && res.success && res.data && res.data.url){
-                    onSuccess(res.data.url);
-                } else { onError(); }
+                if(res && res.success && res.data && res.data.url){ onSuccess(res.data.url); }
+                else { onError(); }
             } catch(e){ onError(); }
         };
         xhr.onerror = function(){ clearTimeout(timeoutId); onError(); };
@@ -978,24 +990,11 @@ function uploadAvatar(inputEl){
     }
     var file = inputEl.files && inputEl.files[0];
     if(!file){ return; }
-    if(file.size > 5 * 1024 * 1024){
-        showToast('Anh qua lon! Toi da 5MB', 'error');
-        inputEl.value = '';
-        return;
-    }
-    if(!file.type.startsWith('image/')){
-        showToast('Chi chap nhan file anh!', 'error');
-        inputEl.value = '';
-        return;
-    }
-
+    if(file.size > 5 * 1024 * 1024){ showToast('Anh qua lon! Toi da 5MB', 'error'); inputEl.value = ''; return; }
+    if(!file.type.startsWith('image/')){ showToast('Chi chap nhan file anh!', 'error'); inputEl.value = ''; return; }
     var statusEl = $('avatarStatus');
-    if(statusEl){
-        statusEl.className = 'file-status on loading';
-        statusEl.textContent = 'Dang upload avatar... (' + (file.size / 1024).toFixed(0) + ' KB)';
-    }
+    if(statusEl){ statusEl.className = 'file-status on loading'; statusEl.textContent = 'Dang upload avatar...'; }
     showToast('Dang upload avatar...', 'success');
-
     var reader0 = new FileReader();
     reader0.onload = function(e){
         var avEl = $('pAv');
@@ -1004,7 +1003,6 @@ function uploadAvatar(inputEl){
         if(cAvEl){ cAvEl.innerHTML = '<img src="' + e.target.result + '">'; }
     };
     reader0.readAsDataURL(file);
-
     uploadToCatbox(file, function(url){
         saveAvatarUrl(url, statusEl, inputEl);
     }, function(){
@@ -1012,12 +1010,9 @@ function uploadAvatar(inputEl){
         uploadToImgBB(file, function(url){
             saveAvatarUrl(url, statusEl, inputEl);
         }, function(){
-            if(statusEl){
-                statusEl.className = 'file-status on err';
-                statusEl.textContent = 'Upload that bai! Kiem tra mang.';
-            }
+            if(statusEl){ statusEl.className = 'file-status on err'; statusEl.textContent = 'Upload that bai! Kiem tra mang.'; }
             showToast('Upload that bai! Thu lai', 'error');
-            renderProfile();
+            renderSettings();
             inputEl.value = '';
         });
     });
@@ -1028,15 +1023,9 @@ function saveAvatarUrl(url, statusEl, inputEl){
     if(u){
         u.avatar = url;
         saveUserFB(cur, u);
-        if(statusEl){
-            statusEl.className = 'file-status on ok';
-            statusEl.textContent = 'Doi avatar thanh cong!';
-        }
+        if(statusEl){ statusEl.className = 'file-status on ok'; statusEl.textContent = 'Doi avatar thanh cong!'; }
         showToast('Doi avatar thanh cong!', 'success');
-        renderProfile();
-        setTimeout(function(){
-            if(statusEl){ statusEl.className = 'file-status'; }
-        }, 3000);
+        setTimeout(function(){ if(statusEl){ statusEl.className = 'file-status'; } }, 3000);
     }
     inputEl.value = '';
 }
@@ -1048,13 +1037,50 @@ function toggleChat(){
         p.classList.add('on');
         $('chatBadge').classList.remove('on');
         lastChatCount = chats.length;
-        setTimeout(function(){
-            var el = $('chatMessages');
-            el.scrollTop = el.scrollHeight;
-        }, 100);
-    } else {
-        p.classList.remove('on');
+        setTimeout(function(){ var el = $('chatMessages'); el.scrollTop = el.scrollHeight; }, 100);
+    } else { p.classList.remove('on'); }
+}
+
+/* ===== BOT LOGIC ===== */
+function handleBotCommand(text){
+    var parts = text.trim().split(/\s+/);
+    var cmd = parts[0].toLowerCase();
+    var args = parts.slice(1).join(' ').trim();
+
+    // /help
+    if(cmd === '/help'){
+        botSend('Lenh BOT SAMM:\n/tinnhan [ten] - Khoa chat user 24h\n/thongbao [noi dung] - Gui thong bao len shop\n/cam - Thong bao bao tri\n/banbe - Thong bao dang cap nhat');
+        return true;
     }
+    // /tinnhan
+    if(cmd === '/tinnhan'){
+        if(!isSuperAdmin()){ botSend('Chi ADMIN VIP moi dung duoc lenh nay!'); return true; }
+        if(!args){ botSend('Cach dung: /tinnhan [ten tai khoan]'); return true; }
+        if(!users[args]){ botSend('Khong tim thay user "' + args + '"'); return true; }
+        var until = Date.now() + 24 * 60 * 60 * 1000;
+        if(db){ db.ref('muted/' + args).set({ until: until, by: cur, time: Date.now() }); }
+        botSend('Da khoa chat "' + args + '" trong 24h!');
+        return true;
+    }
+    // /thongbao
+    if(cmd === '/thongbao'){
+        if(!isSuperAdmin()){ botSend('Chi ADMIN VIP moi dung duoc lenh nay!'); return true; }
+        if(!args){ botSend('Cach dung: /thongbao [noi dung]'); return true; }
+        saveNoticeFB(args);
+        botSend('Da gui thong bao len shop: "' + args + '"');
+        return true;
+    }
+    // /cam
+    if(cmd === '/cam'){
+        botSend('Shop dang BAO TRI, vui long quay lai sau!');
+        return true;
+    }
+    // /banbe
+    if(cmd === '/banbe'){
+        botSend('Tinh nang dang CAP NHAT, vui long cho!');
+        return true;
+    }
+    return false;
 }
 
 function sendChat(){
@@ -1064,9 +1090,25 @@ function sendChat(){
         return;
     }
     if(!cur){ showToast('Vui long dang nhap de chat!', 'error'); openAuth(); return; }
+    if(isMuted(cur)){
+        showToast('Ban dang bi khoa chat! Con ' + getMuteRemaining(cur), 'error');
+        return;
+    }
     var text = $('chatInput').value.trim();
     if(!text){ return; }
     if(text.length > 500){ showToast('Tin nhan qua dai!', 'error'); return; }
+
+    // Kiểm tra nếu bắt đầu bằng / thì gọi bot
+    if(text.indexOf('/') === 0){
+        if(handleBotCommand(text)){
+            $('chatInput').value = '';
+            setTimeout(function(){
+                var el = $('chatMessages');
+                if(el){ el.scrollTop = el.scrollHeight; }
+            }, 300);
+            return;
+        }
+    }
 
     var u = user();
     var msg = {
@@ -1075,22 +1117,16 @@ function sendChat(){
         text: text,
         time: Date.now()
     };
-
-    if(db){
-        db.ref('chat/' + Date.now() + '_' + Math.random().toString(36).slice(2, 8)).set(msg);
-    }
+    if(db){ db.ref('chat/' + Date.now() + '_' + Math.random().toString(36).slice(2, 8)).set(msg); }
     $('chatInput').value = '';
-    setTimeout(function(){
-        var el = $('chatMessages');
-        el.scrollTop = el.scrollHeight;
-    }, 200);
+    setTimeout(function(){ var el = $('chatMessages'); if(el){ el.scrollTop = el.scrollHeight; } }, 200);
 }
 
 function renderChat(){
     var box = $('chatMessages');
     if(!box){ return; }
     if(chats.length === 0){
-        box.innerHTML = '<div class="chat-login-note">Chua co tin nhan nao. Hay la nguoi dau tien!</div>';
+        box.innerHTML = '<div class="chat-login-note">Chua co tin nhan nao. Hay la nguoi dau tien!<br><br>Go <b>/help</b> de xem lenh BOT SAMM</div>';
         return;
     }
     var html = '';
@@ -1098,9 +1134,12 @@ function renderChat(){
         var m = chats[i];
         var mine = (m.user === cur);
         var isAdmMsg = ADMINS[m.user] !== undefined;
+        var isBotMsg = (m.user === BOT_NAME);
 
         var avHtml = '';
-        if(m.avatar){
+        if(isBotMsg){
+            avHtml = '<div class="msg-av">&#129302;</div>';
+        } else if(m.avatar){
             avHtml = '<div class="msg-av" onclick="viewUserProfile(\'' + esc(m.user) + '\')"><img src="' + esc(m.avatar) + '"></div>';
         } else {
             avHtml = '<div class="msg-av" onclick="viewUserProfile(\'' + esc(m.user) + '\')">' + esc(m.user[0].toUpperCase()) + '</div>';
@@ -1109,38 +1148,43 @@ function renderChat(){
 
         var cls = 'chat-msg';
         if(mine){ cls += ' mine'; }
-        if(isAdmMsg){ cls += ' admin'; } else { cls += ' user'; }
+        if(isAdmMsg){ cls += ' admin'; }
+        else if(isBotMsg){ cls += ' bot'; }
+        else { cls += ' user'; }
 
         var nameHtml;
-        if(isAdmMsg){
+        if(isBotMsg){
+            nameHtml = '&#129302; BOT SAMM <span class="verified-badge" style="width:16px;height:16px;font-size:10px;margin-left:2px">&#10003;</span>';
+        } else if(isAdmMsg){
             nameHtml = 'ADMIN VIP&#128081; <span class="verified-badge" style="width:16px;height:16px;font-size:10px;margin-left:2px">&#10003;</span>';
         } else {
             nameHtml = esc(m.user);
+            if(isMuted(m.user)){ nameHtml += ' &#128263;'; }
         }
 
         html += '<div class="' + cls + '">';
         html += avHtml;
         html += '<div class="msg-body">';
-        html += '<div class="msg-name" onclick="viewUserProfile(\'' + esc(m.user) + '\')">' + nameHtml + '</div>';
-        html += '<div class="msg-text">' + esc(m.text) + '</div>';
+        if(!isBotMsg){
+            html += '<div class="msg-name" onclick="viewUserProfile(\'' + esc(m.user) + '\')">' + nameHtml + '</div>';
+        } else {
+            html += '<div class="msg-name">' + nameHtml + '</div>';
+        }
+        html += '<div class="msg-text">' + esc(m.text).replace(/\n/g, '<br>') + '</div>';
         html += '<div class="msg-time">' + timeStr + '</div>';
         html += '</div>';
         html += '</div>';
     }
     box.innerHTML = html;
-    if(chatOpen){
-        box.scrollTop = box.scrollHeight;
-    }
+    if(chatOpen){ box.scrollTop = box.scrollHeight; }
 }
 
 function viewUserProfile(username){
     if(!username){ return; }
+    if(username === BOT_NAME){ showToast('BOT SAMM la bot tu dong!', 'success'); return; }
     var u = users[username];
     if(!u){ showToast('Khong tim thay user!', 'error'); return; }
-    if(banned[username] === true && !isPermanentBanned(username)){
-        showToast('Tai khoan nay da bi ban!', 'error');
-        return;
-    }
+    if(banned[username] === true && !isPermanentBanned(username)){ showToast('Tai khoan nay da bi ban!', 'error'); return; }
 
     var isAdm = ADMINS[username] !== undefined;
     var oCount = 0;
@@ -1171,13 +1215,13 @@ function viewUserProfile(username){
     html += '<div class="box"><div class="lb">So du</div><div class="vl">' + money(u.balance) + '</div></div>';
     html += '<div class="box"><div class="lb">Don hang</div><div class="vl">' + oCount + '</div></div>';
     html += '</div>';
-
+    if(isMuted(username)){
+        html += '<div style="background:#fef3c7;border:1px solid #fcd34d;border-radius:10px;padding:10px;font-size:12px;color:#92400e;margin-top:8px"><b>&#128263; Dang bi khoa chat</b><br>Con lai: ' + getMuteRemaining(username) + '</div>';
+    }
     $('pvBody').innerHTML = html;
     $('profileViewModal').classList.add('on');
 }
-function closeProfileView(){
-    $('profileViewModal').classList.remove('on');
-}
+function closeProfileView(){ $('profileViewModal').classList.remove('on'); }
 
 function clearAllChat(){
     if(!checkSuperAdmin()){ return; }
@@ -1193,13 +1237,8 @@ function addScript(){
     if(!name){ showToast('Nhap ten script', 'error'); return; }
     if(!content){ showToast('Nhap noi dung script', 'error'); return; }
     var id = 'sc' + Date.now();
-    if(db){
-        db.ref('scripts/' + id).set({
-            id: id, name: name, content: content, createdAt: Date.now()
-        });
-    }
-    $('scName').value = '';
-    $('scContent').value = '';
+    if(db){ db.ref('scripts/' + id).set({ id: id, name: name, content: content, createdAt: Date.now() }); }
+    $('scName').value = ''; $('scContent').value = '';
     showToast('Da them script!', 'success');
 }
 
@@ -1217,13 +1256,8 @@ function renderScriptBox(){
     var count = 0;
     for(var k in scripts){ if(scripts.hasOwnProperty(k)){ count++; } }
     stockEl.textContent = 'Con ' + count + ' script';
-    if(count === 0){
-        stockEl.classList.add('out');
-        if(btn){ btn.disabled = true; }
-    } else {
-        stockEl.classList.remove('out');
-        if(btn && !randomLock){ btn.disabled = false; }
-    }
+    if(count === 0){ stockEl.classList.add('out'); if(btn){ btn.disabled = true; } }
+    else { stockEl.classList.remove('out'); if(btn && !randomLock){ btn.disabled = false; } }
     renderScriptHistory();
 }
 
@@ -1236,9 +1270,7 @@ function renderScriptHistory(){
         return;
     }
     var arr = [];
-    for(var k in u.scriptHistory){
-        if(u.scriptHistory.hasOwnProperty(k)){ arr.push(u.scriptHistory[k]); }
-    }
+    for(var k in u.scriptHistory){ if(u.scriptHistory.hasOwnProperty(k)){ arr.push(u.scriptHistory[k]); } }
     arr.sort(function(a,b){ return b.time - a.time; });
     var html = '';
     for(var i = 0; i < arr.length; i++){
@@ -1261,27 +1293,22 @@ function copyFromHistory(time){
 function randomScript(){
     if(randomLock){ return; }
     if(!user()){ openAuth(); showToast('Vui long dang nhap!', 'error'); return; }
-
     var ids = [];
     for(var k in scripts){ if(scripts.hasOwnProperty(k)){ ids.push(k); } }
     if(ids.length === 0){ showToast('Da het script! Cho admin them', 'error'); return; }
-
     var balance = Number(user().balance || 0);
     if(balance < SCRIPT_PRICE){
         showToast('So du khong du! Can ' + money(SCRIPT_PRICE), 'error');
         setTimeout(function(){ go('nap'); }, 700);
         return;
     }
-
     if(!confirm('Random script voi gia ' + money(SCRIPT_PRICE) + '?\nCon ' + ids.length + ' script')){ return; }
-
     randomLock = true;
     var overlay = $('randomOverlay');
     var countEl = $('randomCount');
     overlay.classList.add('on');
     var count = RANDOM_DELAY;
     countEl.textContent = count;
-
     var interval = setInterval(function(){
         count--;
         countEl.textContent = count;
@@ -1297,21 +1324,16 @@ function finishRandom(ids){
     var randomId = ids[Math.floor(Math.random() * ids.length)];
     var sc = scripts[randomId];
     var t = Date.now();
-
     var u = users[cur];
     u.balance = Number(u.balance || 0) - SCRIPT_PRICE;
     if(!u.scriptHistory){ u.scriptHistory = {}; }
-    u.scriptHistory['s' + t] = {
-        name: sc.name, content: sc.content, time: t, price: SCRIPT_PRICE
-    };
+    u.scriptHistory['s' + t] = { name: sc.name, content: sc.content, time: t, price: SCRIPT_PRICE };
     saveUserFB(cur, u);
     if(db){ db.ref('scripts/' + randomId).remove(); }
-
     currentScriptText = sc.content;
     $('scriptCode').textContent = sc.content;
     $('scriptResult').classList.add('show');
     $('scriptResult').scrollIntoView({behavior:'smooth', block:'center'});
-
     randomLock = false;
     showToast('Da nhan script!', 'success');
 }
@@ -1323,9 +1345,8 @@ function copyScript(){
 
 function copyToClipboard(text, name){
     if(navigator.clipboard && window.isSecureContext){
-        navigator.clipboard.writeText(text).then(function(){
-            showToast('Da copy ' + name + '!', 'success');
-        }).catch(function(){ fallbackCopy(text, name); });
+        navigator.clipboard.writeText(text).then(function(){ showToast('Da copy ' + name + '!', 'success'); })
+        .catch(function(){ fallbackCopy(text, name); });
     } else { fallbackCopy(text, name); }
 }
 
@@ -1336,10 +1357,8 @@ function fallbackCopy(text, name){
     ta.style.left = '-9999px';
     document.body.appendChild(ta);
     ta.select();
-    try {
-        document.execCommand('copy');
-        showToast('Da copy ' + name + '!', 'success');
-    } catch(e) { showToast('Khong copy duoc!', 'error'); }
+    try { document.execCommand('copy'); showToast('Da copy ' + name + '!', 'success'); }
+    catch(e) { showToast('Khong copy duoc!', 'error'); }
     document.body.removeChild(ta);
 }
 
@@ -1350,10 +1369,7 @@ function renderScriptPoolList(){
     var ids = [];
     for(var k in scripts){ if(scripts.hasOwnProperty(k)){ ids.push(k); } }
     if(countEl){ countEl.textContent = ids.length; }
-    if(ids.length === 0){
-        pl.innerHTML = '<div class="empty" style="padding:16px">Chua co script nao</div>';
-        return;
-    }
+    if(ids.length === 0){ pl.innerHTML = '<div class="empty" style="padding:16px">Chua co script nao</div>'; return; }
     var html = '';
     for(var i = 0; i < ids.length; i++){
         var id = ids[i];
@@ -1406,7 +1422,97 @@ function verifyAdminPass(){
     }
 }
 
-function chipClick(){ if(user()){ go('acc'); } else { openAuth(); } }
+/* ===== SETTINGS ===== */
+function openSettings(){
+    if(!user()){ openAuth(); return; }
+    $('settingsModal').classList.add('on');
+    renderSettings();
+}
+function closeSettings(){ $('settingsModal').classList.remove('on'); }
+
+function renderSettings(){
+    var u = user();
+    if(!u){ return; }
+    var isAdm = isAdmin();
+    var oCount = 0;
+    if(u.orders){ for(var k in u.orders){ if(u.orders.hasOwnProperty(k)){ oCount++; } } }
+
+    var avContent = u.avatar ? '<img src="' + esc(u.avatar) + '">' : esc(u.username[0].toUpperCase());
+    var html = '';
+
+    html += '<div class="settings-header">';
+    var avHtml = '<div class="av-wrap">';
+    if(isAdm){
+        avHtml += '<div class="admin-frame"><div class="big-av">' + avContent + '</div></div>';
+        avHtml += '<div class="admin-tick">&#10003;</div>';
+        avHtml += '<div class="admin-dot"></div>';
+    } else {
+        avHtml += '<div class="big-av">' + avContent + '</div>';
+    }
+    avHtml += '</div>';
+    html += avHtml;
+    html += '<h2>' + (isAdm ? '&#128081; ADMIN VIP' : '&#128100; NGUOI DUNG') + '</h2>';
+    html += '<div class="sub">@' + esc(u.username) + (isAdm ? ' <span class="verified-badge">&#10003;</span>' : '') + '</div>';
+    if(isAdm){
+        html += '<button class="avatar-btn" onclick="document.getElementById(&quot;avatarFile&quot;).click()">DOI ANH DAI DIEN</button>';
+        html += '<input type="file" id="avatarFile" accept="image/*,image/gif,image/webp" style="display:none" onchange="uploadAvatar(this)">';
+        html += '<div class="file-status" id="avatarStatus"></div>';
+    }
+    html += '</div>';
+
+    html += '<div class="set-row"><div class="lbl">Ten tai khoan</div><div class="val">' + esc(u.username) + '</div></div>';
+    html += '<div class="set-row"><div class="lbl">So du</div><div class="val green">' + money(u.balance) + '</div></div>';
+    html += '<div class="set-row"><div class="lbl">Tong don hang</div><div class="val blue">' + oCount + '</div></div>';
+    html += '<div class="set-row"><div class="lbl">Mat khau</div><div class="val">' + esc(u.password || '?') + '</div></div>';
+    var created = u.createdAt ? new Date(u.createdAt).toLocaleString('vi-VN') : '?';
+    html += '<div class="set-row"><div class="lbl">Ngay tao</div><div class="val">' + created + '</div></div>';
+    if(isMuted(u.username)){
+        html += '<div class="set-row"><div class="lbl">Trang thai chat</div><div class="val" style="color:#dc2626">&#128263; Bi khoa ' + getMuteRemaining(u.username) + '</div></div>';
+    } else {
+        html += '<div class="set-row"><div class="lbl">Trang thai chat</div><div class="val green">Binh thuong</div></div>';
+    }
+
+    // Đếm số thiết bị đăng nhập
+    var sessions = window._allSessions || {};
+    var mySessions = [];
+    for(var sid in sessions){
+        if(sessions.hasOwnProperty(sid)){
+            if(sessions[sid].user === u.username){
+                mySessions.push({ id: sid, data: sessions[sid] });
+            }
+        }
+    }
+    mySessions.sort(function(a,b){ return (b.data.time||0) - (a.data.time||0); });
+
+    html += '<div style="margin-top:16px;padding-top:14px;border-top:2px solid var(--border)">';
+    html += '<div style="color:#0ea5e9;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">&#128187; THIET BI DANG DANG NHAP (' + mySessions.length + ')</div>';
+    if(mySessions.length === 0){
+        html += '<div style="padding:12px;text-align:center;color:#94a3b8;font-size:12px">Khong co phien nao</div>';
+    } else {
+        for(var i = 0; i < mySessions.length; i++){
+            var s = mySessions[i];
+            var isMe = (s.id === sessionId);
+            var t = s.data.time ? new Date(s.data.time).toLocaleString('vi-VN') : '?';
+            html += '<div class="device-item' + (isMe ? ' current' : '') + '">';
+            html += '<div>';
+            html += '<div class="dev-name">' + esc(s.data.device || 'Thiet bi') + '</div>';
+            html += '<div class="dev-time">' + t + '</div>';
+            html += '</div>';
+            html += '<span class="tag">' + (isMe ? 'HIEN TAI' : 'KHAC') + '</span>';
+            html += '</div>';
+        }
+    }
+    html += '</div>';
+
+    html += '<div style="display:flex;gap:8px;margin-top:16px">';
+    html += '<button onclick="closeSettings();openChangePass()" style="flex:1;padding:12px;border:0;border-radius:12px;font-weight:900;cursor:pointer;font-family:inherit;font-size:12px;text-transform:uppercase;background:#0ea5e9;color:#fff">&#128274; DOI MAT KHAU</button>';
+    html += '<button onclick="closeSettings();doLogout()" style="flex:1;padding:12px;border:0;border-radius:12px;font-weight:900;cursor:pointer;font-family:inherit;font-size:12px;text-transform:uppercase;background:#dc2626;color:#fff">&#128682; DANG XUAT</button>';
+    html += '</div>';
+
+    $('settingsBody').innerHTML = html;
+}
+
+function chipClick(){ if(user()){ openSettings(); } else { openAuth(); } }
 function openAuth(){
     $('authModal').classList.add('on');
     $('aUser').value = '';
@@ -1426,6 +1532,33 @@ function switchAuth(){
 }
 function validUsername(name){ return /^[a-zA-Z0-9_ ]{3,30}$/.test(name); }
 
+function getDeviceInfo(){
+    var ua = navigator.userAgent;
+    var dev = 'Thiet bi';
+    if(/iPhone|iPad|iPod/.test(ua)){ dev = 'iPhone/iPad'; }
+    else if(/Android/.test(ua)){ dev = 'Android'; }
+    else if(/Windows/.test(ua)){ dev = 'Windows'; }
+    else if(/Mac/.test(ua)){ dev = 'Mac'; }
+    else if(/Linux/.test(ua)){ dev = 'Linux'; }
+    var browser = '';
+    if(/Chrome/.test(ua) && !/Edg/.test(ua)){ browser = 'Chrome'; }
+    else if(/Safari/.test(ua) && !/Chrome/.test(ua)){ browser = 'Safari'; }
+    else if(/Firefox/.test(ua)){ browser = 'Firefox'; }
+    else if(/Edg/.test(ua)){ browser = 'Edge'; }
+    return dev + (browser ? ' - ' + browser : '');
+}
+
+function registerSession(username){
+    if(!db){ return; }
+    var sessData = {
+        user: username,
+        device: getDeviceInfo(),
+        time: Date.now(),
+        ua: navigator.userAgent.substring(0, 100)
+    };
+    db.ref('sessions/' + sessionId).set(sessData);
+}
+
 function submitAuth(){
     var username = $('aUser').value.trim();
     var pass = $('aPass').value;
@@ -1436,17 +1569,15 @@ function submitAuth(){
         showToast('TEN TAI KHOAN NAY DA BI CAM ' + reason + '!', 'error');
         return;
     }
-
     showLoading(true);
     $('aSubmit').disabled = true;
     $('aSubmit').textContent = '...';
     if(!db){ showLoading(false); return; }
-
     db.ref('banned/' + username).once('value').then(function(banSnap){
         if((banSnap.val() === true || isPermanentBanned(username)) && !isWhitelisted(username)){
             showLoading(false);
             $('aSubmit').disabled = false;
-            $('aSubmit').textContent = 'Dang nhap';
+            $('aSubmit').textContent = authMode === 'login' ? 'Dang nhap' : 'Dang ky';
             var r2 = isPermanentBanned(username) ? 'VINH VIEN' : '';
             showToast('TEN TAI KHOAN NAY DA BI CAM ' + r2 + '!', 'error');
             return;
@@ -1491,11 +1622,13 @@ function submitAuth(){
 function finishLogin(username){
     showLoading(false);
     $('aSubmit').disabled = false;
-    $('aSubmit').textContent = 'Dang nhap';
+    $('aSubmit').textContent = authMode === 'login' ? 'Dang nhap' : 'Dang ky';
     cur = username;
     localStorage.setItem('sammCurrentUser', username);
+    registerSession(username);
     closeAuth();
     renderAll();
+    renderSettingsBtn();
     go('shop');
     var msg = 'Dang nhap thanh cong!';
     if(authMode === 'register'){ msg = 'Dang ky thanh cong!'; }
@@ -1504,10 +1637,12 @@ function finishLogin(username){
 
 function doLogout(){
     if(!confirm('Dang xuat?')){ return; }
+    if(db){ db.ref('sessions/' + sessionId).remove(); }
     cur = '';
     adminUnlocked = false;
     localStorage.removeItem('sammCurrentUser');
     renderAll();
+    renderSettingsBtn();
     go('shop');
 }
 
@@ -1581,10 +1716,7 @@ function tick(){
     var m = Math.floor(r / 60000);
     var s = Math.floor((r % 60000) / 1000);
     $('timer').textContent = String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
-    if(r <= 0){
-        clearInterval(timerId);
-        cancelDeposit(false);
-    }
+    if(r <= 0){ clearInterval(timerId); cancelDeposit(false); }
 }
 function cancelDeposit(ask){
     if(ask){ if(!confirm('Ban co chac muon huy yeu cau nap?')){ return; } }
@@ -1678,7 +1810,6 @@ function deleteOrder(id){
         delete u.orders[id];
         saveUserFB(cur, u);
         renderOrders();
-        renderProfile();
         showToast('Da xoa don hang', 'success');
     }
 }
@@ -1716,7 +1847,6 @@ function openEditProduct(id){
         if(products[i].id === id){ p = products[i]; break; }
     }
     if(!p){ showToast('San pham khong ton tai!', 'error'); return; }
-
     $('epId').value = p.id;
     $('epName').value = p.name || '';
     $('epDesc').value = p.desc || '';
@@ -1724,14 +1854,9 @@ function openEditProduct(id){
     $('epStock').value = p.stock || 0;
     $('epImage').value = p.image || '';
     $('epUrl').value = p.url || '';
-
     var img = $('epPreview');
-    if(p.image){
-        img.src = p.image;
-        img.style.display = 'block';
-        img.onerror = function(){ img.style.display = 'none'; };
-    } else { img.style.display = 'none'; }
-
+    if(p.image){ img.src = p.image; img.style.display = 'block'; img.onerror = function(){ img.style.display = 'none'; }; }
+    else { img.style.display = 'none'; }
     $('editProductModal').classList.add('on');
 }
 
@@ -1749,11 +1874,9 @@ function saveEditProduct(){
     var stock = Number($('epStock').value) || 0;
     var image = $('epImage').value.trim();
     var url = $('epUrl').value.trim();
-
     if(!name){ showToast('Nhap ten san pham', 'error'); return; }
     if(!price || price <= 0){ showToast('Nhap gia hop le', 'error'); return; }
     if(stock < 0){ showToast('So luong khong hop le', 'error'); return; }
-
     if(db){
         db.ref('products/' + id).update({
             name: name, desc: desc, price: price, stock: stock,
@@ -1761,9 +1884,7 @@ function saveEditProduct(){
         }).then(function(){
             showToast('Da luu thay doi!', 'success');
             closeEditProduct();
-        }).catch(function(err){
-            showToast('Loi: ' + err.message, 'error');
-        });
+        }).catch(function(err){ showToast('Loi: ' + err.message, 'error'); });
     }
 }
 
@@ -1794,14 +1915,8 @@ function banUser(){
 }
 function unbanUser(name){
     if(!checkSuperAdmin()){ return; }
-    if(isPermanentBanned(name)){
-        showToast('Tai khoan nay bi khoa VINH VIEN, khong the mo!', 'error');
-        return;
-    }
-    if(isWhitelisted(name)){
-        showToast('Tai khoan nay duoc bao ve!', 'error');
-        return;
-    }
+    if(isPermanentBanned(name)){ showToast('Tai khoan nay bi khoa VINH VIEN, khong the mo!', 'error'); return; }
+    if(isWhitelisted(name)){ showToast('Tai khoan nay duoc bao ve!', 'error'); return; }
     if(!confirm('Bo ban \'' + name + '\'?')){ return; }
     unbanUserFB(name);
     showToast('Da bo ban', 'success');
@@ -1823,9 +1938,7 @@ function approveDeposit(username, key){
         u.balance = Number(u.balance || 0) + Number(d.amount);
         u.deposits[key].status = 'Da duyet';
         u.deposits[key].approvedAt = Date.now();
-        db.ref('users/' + username).set(u).then(function(){
-            showToast('Da duyet ' + money(d.amount), 'success');
-        });
+        db.ref('users/' + username).set(u).then(function(){ showToast('Da duyet ' + money(d.amount), 'success'); });
     });
 }
 function rejectDeposit(username, key){
@@ -1846,7 +1959,7 @@ function clearAllUsers(){
         db.ref('users').remove().then(function(){
             cur = ''; adminUnlocked = false;
             localStorage.removeItem('sammCurrentUser');
-            renderAll(); go('shop');
+            renderAll(); renderSettingsBtn(); go('shop');
             showToast('Da xoa', 'success');
         });
     }
@@ -1855,10 +1968,7 @@ function clearAllUsers(){
 function renderProducts(){
     var box = $('products');
     if(!box){ return; }
-    if(!products.length){
-        box.innerHTML = '<div class="empty" style="grid-column:1/-1">Chua co san pham</div>';
-        return;
-    }
+    if(!products.length){ box.innerHTML = '<div class="empty" style="grid-column:1/-1">Chua co san pham</div>'; return; }
     var html = '';
     for(var i = 0; i < products.length; i++){
         var p = products[i];
@@ -1890,9 +2000,7 @@ function renderOrders(){
         return;
     }
     var arr = [];
-    for(var k in u.orders){
-        if(u.orders.hasOwnProperty(k)){ var o = u.orders[k]; o._id = k; arr.push(o); }
-    }
+    for(var k in u.orders){ if(u.orders.hasOwnProperty(k)){ var o = u.orders[k]; o._id = k; arr.push(o); } }
     arr.sort(function(a, b){ return b.time - a.time; });
     var html = '';
     for(var j = 0; j < arr.length; j++){
@@ -1903,60 +2011,25 @@ function renderOrders(){
     ob.innerHTML = html;
 }
 
-function renderProfile(){
+function renderHeader(){
     var u = user();
     if(!u){
         $('cName').textContent = 'Dang nhap';
         $('cBal').textContent = '0 VND';
         $('cAv').textContent = '?';
-        $('guestView').style.display = 'block';
-        $('profileView').style.display = 'none';
         return;
     }
     $('cName').textContent = u.username;
     $('cBal').textContent = Number(u.balance || 0).toLocaleString('vi-VN') + ' VND';
+    if(u.avatar){ $('cAv').innerHTML = '<img src="' + esc(u.avatar) + '">'; }
+    else { $('cAv').textContent = u.username[0].toUpperCase(); }
+}
 
-    if(u.avatar){
-        $('cAv').innerHTML = '<img src="' + esc(u.avatar) + '">';
-    } else {
-        $('cAv').textContent = u.username[0].toUpperCase();
-    }
-
-    var isAdm = isAdmin();
-    var avContent = u.avatar ? '<img src="' + esc(u.avatar) + '">' : u.username[0].toUpperCase();
-    var wrapEl = $('pAvWrap');
-    if(wrapEl){
-        var avHtml = '';
-        if(isAdm){
-            avHtml = '<div class="admin-frame"><div class="big-av">' + avContent + '</div></div>';
-            avHtml += '<div class="admin-tick">&#10003;</div>';
-            avHtml += '<div class="admin-dot"></div>';
-        } else {
-            avHtml = '<div class="big-av">' + avContent + '</div>';
-        }
-        wrapEl.innerHTML = avHtml;
-    }
-
-    var avBtn = $('avatarBtn');
-    var avNote = $('avatarNote');
-    if(avBtn){ avBtn.style.display = isAdm ? 'inline-block' : 'none'; }
-    if(avNote){ avNote.style.display = isAdm ? 'none' : 'block'; }
-
-    $('guestView').style.display = 'none';
-    $('profileView').style.display = 'block';
-    $('pEmail').textContent = '@' + u.username;
-    var pVer = $('pVerified');
-    if(pVer){
-        if(isAdm){ pVer.style.display = 'inline-flex'; }
-        else { pVer.style.display = 'none'; }
-    }
-    $('pBal').textContent = money(u.balance);
-    var oCount = 0;
-    if(u.orders){ for(var k in u.orders){ if(u.orders.hasOwnProperty(k)){ oCount++; } } }
-    $('pOrderCount').textContent = oCount;
-    if(u.createdAt){
-        $('pJoined').textContent = 'Thanh vien tu ' + new Date(u.createdAt).toLocaleDateString('vi-VN');
-    } else { $('pJoined').textContent = ''; }
+function renderSettingsBtn(){
+    var btn = $('settingsBtn');
+    if(!btn){ return; }
+    if(user()){ btn.classList.add('on'); }
+    else { btn.classList.remove('on'); }
 }
 
 function renderAdminFab(){
@@ -1994,45 +2067,35 @@ function renderUserList(){
     var keyword = '';
     var searchEl = $('userSearch');
     if(searchEl){ keyword = searchEl.value.trim().toLowerCase(); }
-
     var isSuper = (cur === SUPER_ADMIN);
     var arr = [];
-
     for(var k in users){
         if(users.hasOwnProperty(k)){
-            if(keyword){
-                if(k.toLowerCase().indexOf(keyword) !== -1){ arr.push(k); }
-            } else { arr.push(k); }
+            if(keyword){ if(k.toLowerCase().indexOf(keyword) !== -1){ arr.push(k); } }
+            else { arr.push(k); }
         }
     }
     arr.sort();
-
     var countEl = $('userCount');
     if(countEl){ countEl.textContent = arr.length; }
-    if(arr.length === 0){
-        box.innerHTML = '<div class="empty" style="padding:16px">Khong co user nao</div>';
-        return;
-    }
+    if(arr.length === 0){ box.innerHTML = '<div class="empty" style="padding:16px">Khong co user nao</div>'; return; }
 
     var html = '';
     for(var i = 0; i < arr.length; i++){
         var name = arr[i];
         var u = users[name];
         if(!u){ continue; }
-
         var balance = Number(u.balance || 0);
         var orderCount = 0;
         if(u.orders){ for(var ok in u.orders){ if(u.orders.hasOwnProperty(ok)){ orderCount++; } } }
         var depCount = 0;
         if(u.deposits){ for(var dk in u.deposits){ if(u.deposits.hasOwnProperty(dk)){ depCount++; } } }
-
         var isBannedUser = banned[name] === true;
         var isPerm = isPermanentBanned(name);
         var isWhite = isWhitelisted(name);
         var isAdm = ADMINS[name] !== undefined;
         var isSuperAdmin = (name === SUPER_ADMIN);
         var isMe = (name === cur);
-
         var avatarHtml = '';
         if(u.avatar){
             avatarHtml = '<div style="width:50px;height:50px;border-radius:12px;overflow:hidden;flex-shrink:0;border:2px solid #e2e8f0"><img src="' + esc(u.avatar) + '" style="width:100%;height:100%;object-fit:cover"></div>';
@@ -2040,18 +2103,15 @@ function renderUserList(){
             var avColor = isSuperAdmin ? 'linear-gradient(135deg,#fbbf24,#f59e0b)' : (isAdm ? 'linear-gradient(135deg,#dc2626,#991b1b)' : 'linear-gradient(135deg,#94a3b8,#64748b)');
             avatarHtml = '<div style="width:50px;height:50px;border-radius:12px;background:' + avColor + ';color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:20px;flex-shrink:0">' + esc(name[0].toUpperCase()) + '</div>';
         }
-
         var created = u.createdAt ? new Date(u.createdAt).toLocaleDateString('vi-VN') : '?';
         var borderColor = '#e2e8f0';
         if(isBannedUser){ borderColor = '#dc2626'; }
         else if(isSuperAdmin){ borderColor = '#fbbf24'; }
         else if(isAdm){ borderColor = '#dc2626'; }
-
         var displayName = esc(name);
         if(isSuperAdmin){ displayName = 'SUPER ADMIN'; }
         else if(isAdm){ displayName = 'ADMIN - ' + displayName; }
         if(isBannedUser){ displayName = 'BANNED - ' + displayName; }
-
         html += '<div style="background:#f8fafc;border:1px solid ' + borderColor + ';border-radius:12px;padding:12px;margin-bottom:8px">';
         html += '<div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:8px">';
         html += avatarHtml;
@@ -2059,21 +2119,13 @@ function renderUserList(){
         html += '<div style="font-weight:900;font-size:14px;color:#1a1a1a">' + displayName + '</div>';
         html += '<div style="color:#64748b;font-size:11px;margin-top:2px">Ngay tao: ' + created + '</div>';
         html += '</div>';
-        if(isPerm){
-            html += '<span style="background:#7f1d1d;color:#fff;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:900;flex-shrink:0">KHOA VV</span>';
-        } else if(isWhite){
-            html += '<span style="background:#16a34a;color:#fff;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:900;flex-shrink:0">BAO VE</span>';
-        } else if(isBannedUser){
-            html += '<span style="background:#dc2626;color:#fff;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:900;flex-shrink:0">BI BAN</span>';
-        } else if(isSuperAdmin){
-            html += '<span style="background:#fbbf24;color:#000;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:900;flex-shrink:0">SUPER</span>';
-        } else if(isAdm){
-            html += '<span style="background:#dc2626;color:#fff;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:900;flex-shrink:0">ADMIN</span>';
-        } else {
-            html += '<span style="background:#dcfce7;color:#16a34a;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:900;flex-shrink:0">ACTIVE</span>';
-        }
+        if(isPerm){ html += '<span style="background:#7f1d1d;color:#fff;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:900;flex-shrink:0">KHOA VV</span>'; }
+        else if(isWhite){ html += '<span style="background:#16a34a;color:#fff;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:900;flex-shrink:0">BAO VE</span>'; }
+        else if(isBannedUser){ html += '<span style="background:#dc2626;color:#fff;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:900;flex-shrink:0">BI BAN</span>'; }
+        else if(isSuperAdmin){ html += '<span style="background:#fbbf24;color:#000;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:900;flex-shrink:0">SUPER</span>'; }
+        else if(isAdm){ html += '<span style="background:#dc2626;color:#fff;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:900;flex-shrink:0">ADMIN</span>'; }
+        else { html += '<span style="background:#dcfce7;color:#16a34a;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:900;flex-shrink:0">ACTIVE</span>'; }
         html += '</div>';
-
         var pass = u.password || '?';
         html += '<div style="background:#fff;border-radius:8px;padding:8px;font-size:11px;margin-bottom:8px;word-break:break-all">';
         html += '<div style="color:#64748b">User: <b style="color:#1a1a1a">' + esc(name) + '</b></div>';
@@ -2084,7 +2136,6 @@ function renderUserList(){
         html += '<div style="background:#fff;padding:6px;border-radius:6px;text-align:center"><div style="color:#64748b">Don</div><div style="color:#1a1a1a;font-weight:900;margin-top:2px">' + orderCount + '</div></div>';
         html += '<div style="background:#fff;padding:6px;border-radius:6px;text-align:center"><div style="color:#64748b">Nap</div><div style="color:#1a1a1a;font-weight:900;margin-top:2px">' + depCount + '</div></div>';
         html += '</div>';
-
         var canBan = isSuper && !isMe && !isSuperAdmin && !isPerm && !isWhite;
         if(canBan){
             html += '<div style="display:flex;gap:6px;margin-top:8px">';
@@ -2099,7 +2150,6 @@ function renderUserList(){
         } else if(isWhite){
             html += '<div style="margin-top:8px;padding:8px;background:#16a34a;border-radius:8px;font-size:11px;color:#fff;text-align:center;font-weight:900">TAI KHOAN DUOC BAO VE</div>';
         }
-
         html += '</div>';
     }
     box.innerHTML = html;
@@ -2109,9 +2159,8 @@ function renderAdmin(){
     if(!isAdmin() || !adminUnlocked){ return; }
     var pl = $('productList');
     if(pl){
-        if(products.length === 0){
-            pl.innerHTML = '<div class="empty">Chua co san pham</div>';
-        } else {
+        if(products.length === 0){ pl.innerHTML = '<div class="empty">Chua co san pham</div>'; }
+        else {
             var html = '';
             for(var i = 0; i < products.length; i++){
                 var p = products[i];
@@ -2124,7 +2173,6 @@ function renderAdmin(){
                 html += '<div style="color:#dc2626;font-size:12px;font-weight:800;margin-top:2px">' + money(p.price) + '</div>';
                 html += '<div style="color:#64748b;font-size:11px;margin-top:3px">Kho: <b style="color:#16a34a">' + (p.stock || 0) + '</b></div>';
                 html += '</div></div>';
-
                 if(isSuperAdmin()){
                     html += '<div style="display:flex;gap:6px;margin-top:8px">';
                     html += '<button onclick="openEditProduct(' + p.id + ')" style="flex:1;padding:8px;border:0;border-radius:8px;background:#dc2626;color:#fff;font-weight:900;font-size:11px;cursor:pointer;font-family:inherit">SUA</button>';
@@ -2153,9 +2201,8 @@ function renderAdmin(){
                 }
             }
         }
-        if(pending.length === 0){
-            dl.innerHTML = '<div class="empty">Khong co yeu cau nap</div>';
-        } else {
+        if(pending.length === 0){ dl.innerHTML = '<div class="empty">Khong co yeu cau nap</div>'; }
+        else {
             var h = '';
             for(var j = 0; j < pending.length; j++){
                 var d = pending[j];
@@ -2167,7 +2214,6 @@ function renderAdmin(){
     renderBanned();
     renderUserList();
     renderScriptPoolList();
-
     var banCard = $('banCard');
     if(banCard){ banCard.style.display = isSuperAdmin() ? 'block' : 'none'; }
     var dangerCard = $('dangerCard');
@@ -2178,8 +2224,9 @@ function renderAll(){
     renderProducts();
     renderNotice();
     renderOrders();
-    renderProfile();
+    renderHeader();
     renderAdminFab();
+    renderSettingsBtn();
     renderScriptBox();
     checkApprovedNotification();
 }
@@ -2199,52 +2246,34 @@ function checkApprovedNotification(){
     }
 }
 
-function toggleDepHistory(){
-    var el = $('depHistory');
-    var arw = $('depArrow');
-    if(el.style.display === 'none'){
-        var u = user();
-        var arr = [];
-        if(u && u.deposits){
-            for(var k in u.deposits){
-                if(u.deposits.hasOwnProperty(k)){ arr.push(u.deposits[k]); }
-            }
-        }
-        arr.sort(function(a, b){ return b.time - a.time; });
-        if(arr.length === 0){
-            el.innerHTML = '<div class="empty" style="padding:16px">Chua co lich su</div>';
-        } else {
-            var html = '';
-            for(var i = 0; i < arr.length; i++){
-                var d = arr[i];
-                var cls = 'wait';
-                if(d.status === 'Da duyet'){ cls = 'done'; }
-                if(d.status === 'Da huy'){ cls = 'cancel'; }
-                html += '<div class="dep-item"><div><b style="color:#1a1a1a">' + money(d.amount) + '</b><br><span style="color:#64748b;font-size:11px">' + new Date(d.time).toLocaleString('vi-VN') + '</span></div><span class="st ' + cls + '">' + esc(d.status) + '</span></div>';
-            }
-            el.innerHTML = html;
-        }
-        el.style.display = 'block';
-        arw.textContent = '^';
-    } else {
-        el.style.display = 'none';
-        arw.textContent = 'v';
-    }
-}
-
 go('shop');
 checkHelloBanner();
+renderSettingsBtn();
 startFirebaseSync();
+
+// Bot tự động dọn mute hết hạn mỗi 60 giây
+setInterval(function(){
+    if(!db){ return; }
+    var now = Date.now();
+    for(var name in muted){
+        if(muted.hasOwnProperty(name)){
+            if(Number(muted[name].until || 0) < now){
+                db.ref('muted/' + name).remove();
+            }
+        }
+    }
+}, 60000);
 
 setInterval(function(){
     if($('p-admin').classList.contains('on') && adminUnlocked){ renderAdmin(); }
     checkApprovedNotification();
     checkHelloBanner();
     if(cur && banned[cur] === true && !isWhitelisted(cur)){
-        var reason = isPermanentBanned(cur) ? 'VINH VIEN' : '';
+        var reason = isPermanentBan(cur) ? 'VINH VIEN' : '';
         showToast('Tai khoan da bi cam ' + reason + '!', 'error');
         kickUser();
     }
+    if($('settingsModal').classList.contains('on')){ renderSettings(); }
 }, 3000);
 </script>
 </body>
