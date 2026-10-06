@@ -659,16 +659,17 @@ var firebaseConfig = {
     appId: '1:781318384131:web:d6bad64e19c3a770667c36'
 };
 
-var ADMIN_USER = 'SAMM VIP ADMIN';
-var ADMIN_PASS = 'SAMM VIP ADMIN';
+// ===== ADMIN MỚI — ĐÃ ĐỔI MẬT KHẨU =====
+var ADMIN_USER = 'SammVip2026Boss';
+var ADMIN_PASS = 'xY9mK2vL8nP4qZ7w';
 var ADMINS = {};
 ADMINS[ADMIN_USER] = ADMIN_PASS;
 var SUPER_ADMIN = ADMIN_USER;
 var BOT_NAME = 'BOT SAMM';
 var SCRIPT_PRICE = 1000;
 var RANDOM_DELAY = 5;
-var PERMANENT_BAN = ['Tuyendz213', 'Ngobaonam8283', 'Kaimomo2011'];
-var WHITELIST = ['SAMM VIP ADMIN'];
+var PERMANENT_BAN = ['Tuyendz213', 'Ngobaonam8283', 'Kaimomo2011', 'SAMMVIPADMIN', 'Okosisjsjsj', 'Skibidi222', 'ghdz', 'sammvip999'];
+var WHITELIST = ['SammVip2026Boss'];
 
 var db = null;
 try {
@@ -832,7 +833,6 @@ function startFirebaseSync(){
         renderNotice();
     });
 
-    // Đồng bộ danh sách cấm vĩnh viễn
     db.ref('permanent_ban').on('value', function(snap){
         var data = snap.val() || {};
         for(var name in data){
