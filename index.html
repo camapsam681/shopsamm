@@ -68,10 +68,18 @@ nav button.on{color:#dc2626}
 .btns button{flex:1;padding:12px;border:0;border-radius:12px;font-weight:900;cursor:pointer;font-family:inherit;font-size:12px;text-transform:uppercase}
 .bt{background:#dc2626;color:#fff}
 .bd{background:#f1f5f9;color:#64748b}
+.profile-head{text-align:center;padding:24px 0 20px;border-bottom:1px solid var(--border);margin-bottom:18px}
+.big-av{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#000;font-size:32px;font-weight:900;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;overflow:hidden;border:3px solid #fff;box-shadow:0 4px 15px rgba(0,0,0,.15)}
+.big-av img{width:100%;height:100%;object-fit:cover}
+.profile-head .email{color:#dc2626;font-size:14px;font-weight:800;margin-bottom:4px}
+.profile-head .joined{color:var(--muted);font-size:11px}
+.avatar-btn{margin-top:10px;padding:10px 16px;background:linear-gradient(135deg,#16a34a,#15803d);border:0;border-radius:10px;color:#fff;font-size:12px;font-weight:900;cursor:pointer;font-family:inherit;text-transform:uppercase}
 .stat-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
 .stat{background:#fef2f2;border:1px solid rgba(220,38,38,.2);border-radius:14px;padding:14px;text-align:center}
 .stat .lb{color:#dc2626;font-size:10px;text-transform:uppercase;margin-bottom:6px;font-weight:800}
 .stat .vl{color:#dc2626;font-size:18px;font-weight:900}
+.menu-item{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:#fff;border:1px solid var(--border);border-radius:14px;margin-bottom:8px;cursor:pointer;font-size:14px;font-weight:600}
+.menu-item .arw{color:var(--muted)}
 .dep-item{background:#f8fafc;border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;font-size:13px}
 .dep-item .st{font-size:10px;padding:3px 8px;border-radius:6px;font-weight:900;text-transform:uppercase}
 .st.wait{background:#fef3c7;color:#d97706}
@@ -198,8 +206,6 @@ nav button.on{color:#dc2626}
 .chat-login-note{padding:20px;text-align:center;color:var(--muted);font-size:13px}
 .av-wrap{position:relative;display:inline-block;margin:0 auto 12px}
 .av-wrap .big-av{margin:0}
-.big-av{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#000;font-size:32px;font-weight:900;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;overflow:hidden;border:3px solid #fff;box-shadow:0 4px 15px rgba(0,0,0,.15)}
-.big-av img{width:100%;height:100%;object-fit:cover}
 .admin-frame{position:relative;padding:5px;background:linear-gradient(135deg,#16a34a,#22c55e,#4ade80,#16a34a);border-radius:50%;box-shadow:0 0 20px rgba(34,197,94,.6);display:inline-block}
 .admin-frame .big-av{border:4px solid #fff}
 .admin-tick{position:absolute;bottom:4px;right:4px;width:26px;height:26px;background:#16a34a;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;font-weight:900;border:3px solid #fff}
@@ -236,7 +242,8 @@ nav button.on{color:#dc2626}
 .device-item .dev-time{color:#64748b;font-size:10px}
 .device-item .tag{font-size:9px;font-weight:900;padding:2px 6px;border-radius:6px;background:#0ea5e9;color:#fff}
 .device-item.current .tag{background:#16a34a}
-.avatar-btn{margin-top:10px;padding:10px 16px;background:linear-gradient(135deg,#16a34a,#15803d);border:0;border-radius:10px;color:#fff;font-size:12px;font-weight:900;cursor:pointer;font-family:inherit;text-transform:uppercase}
+.admin-name-row{display:flex;align-items:center;justify-content:center;gap:2px;flex-wrap:wrap;margin-bottom:4px}
+.admin-name-row .email{color:#dc2626;font-size:16px;font-weight:900;margin:0}
 @media(max-width:380px){.products-grid{grid-template-columns:1fr}}
 </style>
 </head><body>
@@ -386,6 +393,48 @@ nav button.on{color:#dc2626}
 </div>
 <div style='color:#fff;font-size:24px'>&rsaquo;</div>
 </a>
+</div>
+
+<div class='page' id='p-acc'>
+<div class='title'><span>Tai khoan</span></div>
+<div id='guestView'>
+<div class='empty'>Vui long dang nhap.</div>
+<button class='create' onclick='openAuth()'>Dang nhap / Dang ky</button>
+</div>
+<div id='profileView' style='display:none'>
+<div class='card'>
+<div class='profile-head'>
+<div id='pAvWrap'>
+<div class='big-av' id='pAv'>?</div>
+</div>
+<div class='admin-name-row'>
+<span class='email' id='pEmail'></span>
+<span class='verified-badge' id='pVerified' style='display:none'>&#10003;</span>
+</div>
+<div class='joined' id='pJoined'></div>
+<button class='avatar-btn' id='avatarBtn' onclick='document.getElementById(&quot;avatarFile2&quot;).click()' style='display:none'>DOI ANH DAI DIEN</button>
+<input type='file' id='avatarFile2' accept='image/*,image/gif,image/webp' style='display:none' onchange='uploadAvatar(this)'>
+<div class='file-status' id='avatarStatus2'></div>
+</div>
+<div class='stat-row'>
+<div class='stat'><div class='lb'>So du</div><div class='vl' id='pBal'>0 d</div></div>
+<div class='stat'><div class='lb'>Don hang</div><div class='vl' id='pOrderCount'>0</div></div>
+</div>
+<div class='menu-item' onclick='toggleDepHistory()'>
+<span>Lich su nap</span>
+<span class='arw' id='depArrow'>&#9660;</span>
+</div>
+<div id='depHistory' style='display:none;margin-bottom:8px'></div>
+<div class='menu-item' onclick='openChangePass()'>
+<span>Doi mat khau</span>
+<span class='arw'>&rsaquo;</span>
+</div>
+<div class='menu-item' onclick='doLogout()' style='color:#dc2626'>
+<span>Dang xuat</span>
+<span class='arw'>&rsaquo;</span>
+</div>
+</div>
+</div>
 </div>
 
 <div class='page' id='p-admin'>
@@ -856,23 +905,14 @@ function unbanUserFB(name){
     if(isPermanentBanned(name)){ showToast('Tai khoan nay bi khoa VINH VIEN!', 'error'); return; }
     if(db){ db.ref('banned/' + name).remove(); }
 }
-
 function botSend(text){
-    var msg = {
-        user: BOT_NAME,
-        avatar: '',
-        text: text,
-        time: Date.now(),
-        isBot: true
-    };
+    var msg = { user: BOT_NAME, avatar: '', text: text, time: Date.now(), isBot: true };
     if(db){ db.ref('chat/' + Date.now() + '_' + Math.random().toString(36).slice(2, 8)).set(msg); }
 }
-
 function handleBotCommand(text){
     var parts = text.trim().split(/\s+/);
     var cmd = parts[0].toLowerCase();
     var args = parts.slice(1).join(' ').trim();
-
     if(cmd === '/help'){
         botSend('Lenh BOT SAMM:\n/tinnhan [ten] - Khoa chat user 24h\n/thongbao [noi dung] - Gui thong bao len shop\n/cam - Thong bao bao tri\n/banbe - Thong bao dang cap nhat');
         return true;
@@ -916,20 +956,12 @@ function toggleChat(){
 }
 
 function sendChat(){
-    if(cur && banned[cur] === true && !isWhitelisted(cur)){
-        showToast('Ban da bi cam, khong the chat!', 'error');
-        kickUser();
-        return;
-    }
+    if(cur && banned[cur] === true && !isWhitelisted(cur)){ showToast('Ban da bi cam!', 'error'); kickUser(); return; }
     if(!cur){ showToast('Vui long dang nhap!', 'error'); openAuth(); return; }
-    if(isMuted(cur)){
-        showToast('Ban dang bi khoa chat! Con ' + getMuteRemaining(cur), 'error');
-        return;
-    }
+    if(isMuted(cur)){ showToast('Ban dang bi khoa chat! Con ' + getMuteRemaining(cur), 'error'); return; }
     var text = $('chatInput').value.trim();
     if(!text){ return; }
     if(text.length > 500){ showToast('Tin nhan qua dai!', 'error'); return; }
-
     if(text.indexOf('/') === 0){
         if(handleBotCommand(text)){
             $('chatInput').value = '';
@@ -937,14 +969,8 @@ function sendChat(){
             return;
         }
     }
-
     var u = user();
-    var msg = {
-        user: cur,
-        avatar: (u && u.avatar) ? u.avatar : '',
-        text: text,
-        time: Date.now()
-    };
+    var msg = { user: cur, avatar: (u && u.avatar) ? u.avatar : '', text: text, time: Date.now() };
     if(db){ db.ref('chat/' + Date.now() + '_' + Math.random().toString(36).slice(2, 8)).set(msg); }
     $('chatInput').value = '';
     setTimeout(function(){ var el = $('chatMessages'); if(el){ el.scrollTop = el.scrollHeight; } }, 200);
@@ -963,41 +989,28 @@ function renderChat(){
         var mine = (m.user === cur);
         var isAdmMsg = ADMINS[m.user] !== undefined;
         var isBotMsg = (m.user === BOT_NAME);
-
         var avHtml = '';
-        if(isBotMsg){
-            avHtml = '<div class="msg-av">&#129302;</div>';
-        } else if(m.avatar){
-            avHtml = '<div class="msg-av" onclick="viewUserProfile(\'' + esc(m.user) + '\')"><img src="' + esc(m.avatar) + '"></div>';
-        } else {
-            avHtml = '<div class="msg-av" onclick="viewUserProfile(\'' + esc(m.user) + '\')">' + esc(m.user[0].toUpperCase()) + '</div>';
-        }
+        if(isBotMsg){ avHtml = '<div class="msg-av">&#129302;</div>'; }
+        else if(m.avatar){ avHtml = '<div class="msg-av" onclick="viewUserProfile(\'' + esc(m.user) + '\')"><img src="' + esc(m.avatar) + '"></div>'; }
+        else { avHtml = '<div class="msg-av" onclick="viewUserProfile(\'' + esc(m.user) + '\')">' + esc(m.user[0].toUpperCase()) + '</div>'; }
         var timeStr = new Date(m.time).toLocaleTimeString('vi-VN', {hour:'2-digit', minute:'2-digit'});
-
         var cls = 'chat-msg';
         if(mine){ cls += ' mine'; }
         if(isAdmMsg){ cls += ' admin'; }
         else if(isBotMsg){ cls += ' bot'; }
         else { cls += ' user'; }
-
         var nameHtml;
-        if(isBotMsg){
-            nameHtml = '&#129302; BOT SAMM <span class="verified-badge" style="width:16px;height:16px;font-size:10px;margin-left:2px">&#10003;</span>';
-        } else if(isAdmMsg){
-            nameHtml = 'ADMIN VIP&#128081; <span class="verified-badge" style="width:16px;height:16px;font-size:10px;margin-left:2px">&#10003;</span>';
-        } else {
+        if(isBotMsg){ nameHtml = '&#129302; BOT SAMM <span class="verified-badge" style="width:16px;height:16px;font-size:10px;margin-left:2px">&#10003;</span>'; }
+        else if(isAdmMsg){ nameHtml = 'ADMIN VIP&#128081; <span class="verified-badge" style="width:16px;height:16px;font-size:10px;margin-left:2px">&#10003;</span>'; }
+        else {
             nameHtml = esc(m.user);
             if(isMuted(m.user)){ nameHtml += ' &#128263;'; }
         }
-
         html += '<div class="' + cls + '">';
         html += avHtml;
         html += '<div class="msg-body">';
-        if(!isBotMsg){
-            html += '<div class="msg-name" onclick="viewUserProfile(\'' + esc(m.user) + '\')">' + nameHtml + '</div>';
-        } else {
-            html += '<div class="msg-name">' + nameHtml + '</div>';
-        }
+        if(!isBotMsg){ html += '<div class="msg-name" onclick="viewUserProfile(\'' + esc(m.user) + '\')">' + nameHtml + '</div>'; }
+        else { html += '<div class="msg-name">' + nameHtml + '</div>'; }
         html += '<div class="msg-text">' + esc(m.text).replace(/\n/g, '<br>') + '</div>';
         html += '<div class="msg-time">' + timeStr + '</div>';
         html += '</div>';
@@ -1013,11 +1026,9 @@ function viewUserProfile(username){
     var u = users[username];
     if(!u){ showToast('Khong tim thay user!', 'error'); return; }
     if(banned[username] === true && !isPermanentBanned(username)){ showToast('Tai khoan nay da bi ban!', 'error'); return; }
-
     var isAdm = ADMINS[username] !== undefined;
     var oCount = 0;
     if(u.orders){ for(var k in u.orders){ if(u.orders.hasOwnProperty(k)){ oCount++; } } }
-
     var avContent = u.avatar ? '<img src="' + esc(u.avatar) + '">' : esc(username[0].toUpperCase());
     var avHtml = '<div class="pv-av-wrap">';
     if(isAdm){
@@ -1027,10 +1038,8 @@ function viewUserProfile(username){
         avHtml += '<div class="pv-av">' + avContent + '</div>';
     }
     avHtml += '</div>';
-
     var nameLabel = isAdm ? 'ADMIN VIP&#128081;' : esc(username);
     var joined = u.createdAt ? new Date(u.createdAt).toLocaleDateString('vi-VN') : '?';
-
     var html = avHtml;
     if(isAdm){
         html += '<div class="pv-name-row"><span class="pv-name">' + nameLabel + '</span><span class="verified-badge big">&#10003;</span></div>';
@@ -1054,7 +1063,7 @@ function closeProfileView(){ $('profileViewModal').classList.remove('on'); }
 function uploadImage(inputEl, targetId){
     var file = inputEl.files && inputEl.files[0];
     if(!file){ return; }
-    if(file.size > 5 * 1024 * 1024){ showToast('Anh qua lon! Toi da 5MB', 'error'); inputEl.value = ''; return; }
+    if(file.size > 5 * 1024 * 1024){ showToast('Anh qua lon!', 'error'); inputEl.value = ''; return; }
     if(!file.type.startsWith('image/')){ showToast('Chi chap nhan file anh!', 'error'); inputEl.value = ''; return; }
     var statusEl = $(targetId + 'Status');
     var previewEl = $(targetId + 'Preview');
@@ -1139,7 +1148,7 @@ function uploadAvatar(inputEl){
     if(!file){ return; }
     if(file.size > 5 * 1024 * 1024){ showToast('Anh qua lon!', 'error'); inputEl.value = ''; return; }
     if(!file.type.startsWith('image/')){ showToast('Chi chap nhan file anh!', 'error'); inputEl.value = ''; return; }
-    var statusEl = $('avatarStatus');
+    var statusEl = $('avatarStatus') || $('avatarStatus2');
     if(statusEl){ statusEl.className = 'file-status on loading'; statusEl.textContent = 'Dang upload avatar...'; }
     showToast('Dang upload avatar...', 'success');
     var reader0 = new FileReader();
@@ -1155,6 +1164,7 @@ function uploadAvatar(inputEl){
         uploadToImgBB(file, function(url){ saveAvatarUrl(url, statusEl, inputEl); }, function(){
             if(statusEl){ statusEl.className = 'file-status on err'; statusEl.textContent = 'Upload that bai!'; }
             showToast('Upload that bai!', 'error');
+            renderProfile();
             renderSettings();
             inputEl.value = '';
         });
@@ -1168,6 +1178,7 @@ function saveAvatarUrl(url, statusEl, inputEl){
         saveUserFB(cur, u);
         if(statusEl){ statusEl.className = 'file-status on ok'; statusEl.textContent = 'Doi avatar thanh cong!'; }
         showToast('Doi avatar thanh cong!', 'success');
+        renderProfile();
         setTimeout(function(){ if(statusEl){ statusEl.className = 'file-status'; } }, 3000);
     }
     inputEl.value = '';
@@ -1188,7 +1199,6 @@ function renderSettings(){
     if(u.orders){ for(var k in u.orders){ if(u.orders.hasOwnProperty(k)){ oCount++; } } }
     var avContent = u.avatar ? '<img src="' + esc(u.avatar) + '">' : esc(u.username[0].toUpperCase());
     var html = '';
-
     html += '<div class="settings-header">';
     var avHtml = '<div class="av-wrap">';
     if(isAdm){
@@ -1208,7 +1218,6 @@ function renderSettings(){
         html += '<div class="file-status" id="avatarStatus"></div>';
     }
     html += '</div>';
-
     html += '<div class="set-row"><div class="lbl">Ten tai khoan</div><div class="val">' + esc(u.username) + '</div></div>';
     html += '<div class="set-row"><div class="lbl">So du</div><div class="val green">' + money(u.balance) + '</div></div>';
     html += '<div class="set-row"><div class="lbl">Tong don hang</div><div class="val blue">' + oCount + '</div></div>';
@@ -1220,18 +1229,14 @@ function renderSettings(){
     } else {
         html += '<div class="set-row"><div class="lbl">Trang thai chat</div><div class="val green">Binh thuong</div></div>';
     }
-
     var sessions = window._allSessions || {};
     var mySessions = [];
     for(var sid in sessions){
         if(sessions.hasOwnProperty(sid)){
-            if(sessions[sid].user === u.username){
-                mySessions.push({ id: sid, data: sessions[sid] });
-            }
+            if(sessions[sid].user === u.username){ mySessions.push({ id: sid, data: sessions[sid] }); }
         }
     }
     mySessions.sort(function(a,b){ return (b.data.time||0) - (a.data.time||0); });
-
     html += '<div style="margin-top:16px;padding-top:14px;border-top:2px solid var(--border)">';
     html += '<div style="color:#0ea5e9;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">&#128187; THIET BI DANG DANG NHAP (' + mySessions.length + ')</div>';
     if(mySessions.length === 0){
@@ -1251,13 +1256,84 @@ function renderSettings(){
         }
     }
     html += '</div>';
-
     html += '<div style="display:flex;gap:8px;margin-top:16px">';
     html += '<button onclick="closeSettings();openChangePass()" style="flex:1;padding:12px;border:0;border-radius:12px;font-weight:900;cursor:pointer;font-family:inherit;font-size:12px;text-transform:uppercase;background:#0ea5e9;color:#fff">&#128274; DOI MAT KHAU</button>';
     html += '<button onclick="closeSettings();doLogout()" style="flex:1;padding:12px;border:0;border-radius:12px;font-weight:900;cursor:pointer;font-family:inherit;font-size:12px;text-transform:uppercase;background:#dc2626;color:#fff">&#128682; DANG XUAT</button>';
     html += '</div>';
-
     $('settingsBody').innerHTML = html;
+}
+
+function renderProfile(){
+    var u = user();
+    if(!u){
+        var gv = $('guestView');
+        var pv = $('profileView');
+        if(gv){ gv.style.display = 'block'; }
+        if(pv){ pv.style.display = 'none'; }
+        return;
+    }
+    var isAdm = isAdmin();
+    var avContent = u.avatar ? '<img src="' + esc(u.avatar) + '">' : u.username[0].toUpperCase();
+    var wrapEl = $('pAvWrap');
+    if(wrapEl){
+        var avHtml = '';
+        if(isAdm){
+            avHtml = '<div class="admin-frame"><div class="big-av">' + avContent + '</div></div>';
+            avHtml += '<div class="admin-tick">&#10003;</div>';
+            avHtml += '<div class="admin-dot"></div>';
+        } else {
+            avHtml = '<div class="big-av">' + avContent + '</div>';
+        }
+        wrapEl.innerHTML = avHtml;
+    }
+    var gv = $('guestView');
+    var pv = $('profileView');
+    if(gv){ gv.style.display = 'none'; }
+    if(pv){ pv.style.display = 'block'; }
+    if($('pEmail')){ $('pEmail').textContent = '@' + u.username; }
+    if($('pVerified')){ $('pVerified').style.display = isAdm ? 'inline-flex' : 'none'; }
+    if($('pBal')){ $('pBal').textContent = money(u.balance); }
+    var oCount = 0;
+    if(u.orders){ for(var k in u.orders){ if(u.orders.hasOwnProperty(k)){ oCount++; } } }
+    if($('pOrderCount')){ $('pOrderCount').textContent = oCount; }
+    if($('pJoined')){
+        if(u.createdAt){ $('pJoined').textContent = 'Thanh vien tu ' + new Date(u.createdAt).toLocaleDateString('vi-VN'); }
+        else { $('pJoined').textContent = ''; }
+    }
+    var avBtn = $('avatarBtn');
+    if(avBtn){ avBtn.style.display = isAdm ? 'inline-block' : 'none'; }
+}
+
+function toggleDepHistory(){
+    var el = $('depHistory');
+    var arw = $('depArrow');
+    if(!el){ return; }
+    if(el.style.display === 'none' || el.style.display === ''){
+        var u = user();
+        var arr = [];
+        if(u && u.deposits){
+            for(var k in u.deposits){ if(u.deposits.hasOwnProperty(k)){ arr.push(u.deposits[k]); } }
+        }
+        arr.sort(function(a, b){ return b.time - a.time; });
+        if(arr.length === 0){
+            el.innerHTML = '<div class="empty" style="padding:16px">Chua co lich su</div>';
+        } else {
+            var html = '';
+            for(var i = 0; i < arr.length; i++){
+                var d = arr[i];
+                var cls = 'wait';
+                if(d.status === 'Da duyet'){ cls = 'done'; }
+                if(d.status === 'Da huy'){ cls = 'cancel'; }
+                html += '<div class="dep-item"><div><b style="color:#1a1a1a">' + money(d.amount) + '</b><br><span style="color:#64748b;font-size:11px">' + new Date(d.time).toLocaleString('vi-VN') + '</span></div><span class="st ' + cls + '">' + esc(d.status) + '</span></div>';
+            }
+            el.innerHTML = html;
+        }
+        el.style.display = 'block';
+        if(arw){ arw.textContent = '^'; }
+    } else {
+        el.style.display = 'none';
+        if(arw){ arw.textContent = 'v'; }
+    }
 }
 
 function chipClick(){ if(user()){ openSettings(); } else { openAuth(); } }
@@ -1279,7 +1355,6 @@ function switchAuth(){
     }
 }
 function validUsername(name){ return /^[a-zA-Z0-9_ ]{3,30}$/.test(name); }
-
 function getDeviceInfo(){
     var ua = navigator.userAgent;
     var dev = 'Thiet bi';
@@ -1295,17 +1370,10 @@ function getDeviceInfo(){
     else if(/Edg/.test(ua)){ browser = 'Edge'; }
     return dev + (browser ? ' - ' + browser : '');
 }
-
 function registerSession(username){
     if(!db){ return; }
-    db.ref('sessions/' + sessionId).set({
-        user: username,
-        device: getDeviceInfo(),
-        time: Date.now(),
-        ua: navigator.userAgent.substring(0, 100)
-    });
+    db.ref('sessions/' + sessionId).set({ user: username, device: getDeviceInfo(), time: Date.now(), ua: navigator.userAgent.substring(0, 100) });
 }
-
 function submitAuth(){
     var username = $('aUser').value.trim();
     var pass = $('aPass').value;
@@ -1339,11 +1407,7 @@ function submitAuth(){
                     showToast('Ten tai khoan da ton tai!', 'error');
                     return;
                 }
-                var newUser = {
-                    username: username, password: pass, balance: 0,
-                    orders: {}, deposits: {}, scriptHistory: {}, avatar: '',
-                    createdAt: Date.now()
-                };
+                var newUser = { username: username, password: pass, balance: 0, orders: {}, deposits: {}, scriptHistory: {}, avatar: '', createdAt: Date.now() };
                 db.ref('users/' + username).set(newUser).then(function(){ finishLogin(username); });
             } else {
                 if(!existing){
@@ -1365,7 +1429,6 @@ function submitAuth(){
         });
     });
 }
-
 function finishLogin(username){
     showLoading(false);
     $('aSubmit').disabled = false;
@@ -1380,7 +1443,6 @@ function finishLogin(username){
     if(authMode === 'register'){ msg = 'Dang ky thanh cong!'; }
     showToast(msg, 'success');
 }
-
 function doLogout(){
     if(!confirm('Dang xuat?')){ return; }
     if(db){ db.ref('sessions/' + sessionId).remove(); }
@@ -1390,7 +1452,6 @@ function doLogout(){
     renderAll();
     go('shop');
 }
-
 function openChangePass(){
     $('passModal').classList.add('on');
     $('oldPass').value = '';
@@ -1413,7 +1474,6 @@ function submitChangePass(){
     closeChangePass();
     showToast('Doi mat khau thanh cong!', 'success');
 }
-
 function openAdminPanel(){
     if(!isAdmin()){ showToast('Ban khong phai admin!', 'error'); return; }
     if(!adminUnlocked){ openAdminPass(); return; }
@@ -1436,7 +1496,6 @@ function verifyAdminPass(){
         $('adminPassInput').value = '';
     }
 }
-
 function go(name){
     if(name === 'admin' && (!isAdmin() || !adminUnlocked)){ name = 'shop'; }
     var pages = document.querySelectorAll('.page');
@@ -1452,13 +1511,16 @@ function go(name){
     if(name === 'don'){ renderOrders(); }
     if(name === 'box'){ renderScriptBox(); }
     if(name === 'shop'){ checkHelloBanner(); }
+    if(name === 'acc'){ renderProfile(); }
 }
 
 var amtInput = $('amt');
-amtInput.oninput = function(e){
-    var v = e.target.value.replace(/\D/g, '');
-    e.target.value = v ? Number(v).toLocaleString('vi-VN') : '';
-};
+if(amtInput){
+    amtInput.oninput = function(e){
+        var v = e.target.value.replace(/\D/g, '');
+        e.target.value = v ? Number(v).toLocaleString('vi-VN') : '';
+    };
+}
 var qbs = document.querySelectorAll('.quick button');
 for(var qi = 0; qi < qbs.length; qi++){
     qbs[qi].onclick = function(){
@@ -1510,7 +1572,6 @@ function cancelDeposit(ask){
     $('timer').textContent = '10:00';
     if(ask){ showToast('Da huy yeu cau nap', 'success'); }
 }
-
 function buy(id){
     if(cur && banned[cur] === true && !isWhitelisted(cur)){ showToast('Ban da bi cam!', 'error'); kickUser(); return; }
     if(!user()){ openAuth(); showToast('Vui long dang nhap!', 'error'); return; }
@@ -1533,10 +1594,7 @@ function buy(id){
     var u = users[cur];
     u.balance = Number(u.balance || 0) - price;
     if(!u.orders){ u.orders = {}; }
-    u.orders['o' + t] = {
-        name: p.name, price: price, time: t, code: code,
-        url: p.url || '', image: p.image || '', desc: p.desc || '', status: 'done'
-    };
+    u.orders['o' + t] = { name: p.name, price: price, time: t, code: code, url: p.url || '', image: p.image || '', desc: p.desc || '', status: 'done' };
     saveUserFB(cur, u);
     if(db){ db.ref('products/' + p.id + '/stock').set(stock - 1); }
     currentOrderUrl = p.url || '';
@@ -1558,7 +1616,6 @@ function buy(id){
 function closeOrderModal(){ $('orderModal').classList.remove('on'); }
 function openOrderLink(){ if(currentOrderUrl){ window.open(currentOrderUrl, '_blank'); } }
 function viewOrderInHistory(){ closeOrderModal(); go('don'); showToast('Da chuyen den Don hang!', 'success'); }
-
 function showDetail(id){
     var u = user();
     if(!u || !u.orders || !u.orders[id]){ return; }
@@ -1590,7 +1647,6 @@ function deleteOrder(id){
         showToast('Da xoa don hang', 'success');
     }
 }
-
 function addProduct(){
     if(!checkAdmin()){ return; }
     var name = $('pName').value.trim();
@@ -1616,7 +1672,6 @@ function delProduct(id){
     deleteProductFB(id);
     showToast('Da xoa', 'success');
 }
-
 function openEditProduct(id){
     if(!checkSuperAdmin()){ return; }
     var p = null;
@@ -1636,12 +1691,10 @@ function openEditProduct(id){
     else { img.style.display = 'none'; }
     $('editProductModal').classList.add('on');
 }
-
 function closeEditProduct(){
     $('editProductModal').classList.remove('on');
     $('epPreview').style.display = 'none';
 }
-
 function saveEditProduct(){
     if(!checkSuperAdmin()){ return; }
     var id = Number($('epId').value);
@@ -1655,16 +1708,11 @@ function saveEditProduct(){
     if(!price || price <= 0){ showToast('Nhap gia hop le', 'error'); return; }
     if(stock < 0){ showToast('So luong khong hop le', 'error'); return; }
     if(db){
-        db.ref('products/' + id).update({
-            name: name, desc: desc, price: price, stock: stock,
-            image: image, url: url, updatedAt: Date.now()
-        }).then(function(){
-            showToast('Da luu thay doi!', 'success');
-            closeEditProduct();
-        }).catch(function(err){ showToast('Loi: ' + err.message, 'error'); });
+        db.ref('products/' + id).update({ name: name, desc: desc, price: price, stock: stock, image: image, url: url, updatedAt: Date.now() })
+        .then(function(){ showToast('Da luu thay doi!', 'success'); closeEditProduct(); })
+        .catch(function(err){ showToast('Loi: ' + err.message, 'error'); });
     }
 }
-
 function setNotice(){
     if(!checkAdmin()){ return; }
     var text = $('nText').value.trim();
@@ -1747,7 +1795,6 @@ function clearAllChat(){
     if(db){ db.ref('chat').remove(); }
     showToast('Da xoa chat', 'success');
 }
-
 function addScript(){
     if(!checkAdmin()){ return; }
     var name = $('scName').value.trim();
@@ -1889,7 +1936,6 @@ function renderScriptPoolList(){
     }
     pl.innerHTML = html;
 }
-
 function renderProducts(){
     var box = $('products');
     if(!box){ return; }
@@ -2141,6 +2187,7 @@ function renderAll(){
     renderAdminFab();
     renderSettingsBtn();
     renderScriptBox();
+    renderProfile();
     checkApprovedNotification();
 }
 function checkApprovedNotification(){
@@ -2168,9 +2215,7 @@ setInterval(function(){
     var now = Date.now();
     for(var name in muted){
         if(muted.hasOwnProperty(name)){
-            if(Number(muted[name].until || 0) < now){
-                db.ref('muted/' + name).remove();
-            }
+            if(Number(muted[name].until || 0) < now){ db.ref('muted/' + name).remove(); }
         }
     }
 }, 60000);
