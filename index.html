@@ -265,7 +265,7 @@ nav button.on{color:#dc2626}
 </div>
 <div class='chat-messages' id='chatMessages'></div>
 <div class='chat-input-area' id='chatInputArea'>
-<input id='chatInput' placeholder='Nhap tin nhan... (go /help de xem lenh bot)' maxlength='500' onkeydown='if(event.key===&quot;Enter&quot;)sendChat()'>
+<input id='chatInput' placeholder='Nhap tin nhan...' maxlength='500' onkeydown='if(event.key===&quot;Enter&quot;)sendChat()'>
 <button onclick='sendChat()' id='chatSendBtn'>&gt;</button>
 </div>
 </div>
@@ -909,7 +909,12 @@ function botSend(text){
     var msg = { user: BOT_NAME, avatar: '', text: text, time: Date.now(), isBot: true };
     if(db){ db.ref('chat/' + Date.now() + '_' + Math.random().toString(36).slice(2, 8)).set(msg); }
 }
+
 function handleBotCommand(text){
+    if(!isSuperAdmin()){
+        botSend('🚫 CHI ADMIN MOI DUOC SU DUNG BOT');
+        return true;
+    }
     var parts = text.trim().split(/\s+/);
     var cmd = parts[0].toLowerCase();
     var args = parts.slice(1).join(' ').trim();
@@ -918,7 +923,6 @@ function handleBotCommand(text){
         return true;
     }
     if(cmd === '/tinnhan'){
-        if(!isSuperAdmin()){ botSend('Chi ADMIN VIP moi dung duoc!'); return true; }
         if(!args){ botSend('Cach dung: /tinnhan [ten tai khoan]'); return true; }
         if(!users[args]){ botSend('Khong tim thay user "' + args + '"'); return true; }
         var until = Date.now() + 24 * 60 * 60 * 1000;
@@ -927,7 +931,6 @@ function handleBotCommand(text){
         return true;
     }
     if(cmd === '/thongbao'){
-        if(!isSuperAdmin()){ botSend('Chi ADMIN VIP moi dung duoc!'); return true; }
         if(!args){ botSend('Cach dung: /thongbao [noi dung]'); return true; }
         saveNoticeFB(args);
         botSend('Da gui thong bao len shop: "' + args + '"');
@@ -980,7 +983,7 @@ function renderChat(){
     var box = $('chatMessages');
     if(!box){ return; }
     if(chats.length === 0){
-        box.innerHTML = '<div class="chat-login-note">Chua co tin nhan nao. Hay la nguoi dau tien!<br><br>Go <b>/help</b> de xem lenh BOT SAMM</div>';
+        box.innerHTML = '<div class="chat-login-note">Chua co tin nhan nao. Hay la nguoi dau tien!</div>';
         return;
     }
     var html = '';
@@ -1513,7 +1516,6 @@ function go(name){
     if(name === 'shop'){ checkHelloBanner(); }
     if(name === 'acc'){ renderProfile(); }
 }
-
 var amtInput = $('amt');
 if(amtInput){
     amtInput.oninput = function(e){
