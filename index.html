@@ -832,6 +832,17 @@ function startFirebaseSync(){
         renderNotice();
     });
 
+    // Đồng bộ danh sách cấm vĩnh viễn
+    db.ref('permanent_ban').on('value', function(snap){
+        var data = snap.val() || {};
+        for(var name in data){
+            if(data.hasOwnProperty(name)){
+                if(PERMANENT_BAN.indexOf(name) === -1){ PERMANENT_BAN.push(name); }
+                if(db && banned[name] !== true){ db.ref('banned/' + name).set(true); }
+            }
+        }
+    });
+
     db.ref('banned').on('value', function(snap){
         banned = snap.val() || {};
         PERMANENT_BAN.forEach(function(name){
@@ -850,6 +861,7 @@ function startFirebaseSync(){
             showToast('Tai khoan da bi cam ' + reason + '!', 'error');
             kickUser();
         }
+        if($('p-admin') && $('p-admin').classList.contains('on') && adminUnlocked){ renderAdmin(); }
     });
 
     db.ref('muted').on('value', function(snap){
@@ -919,7 +931,7 @@ function handleBotCommand(text){
     var cmd = parts[0].toLowerCase();
     var args = parts.slice(1).join(' ').trim();
     if(cmd === '/help'){
-        botSend('Lenh BOT SAMM:\n/tinnhan [ten] - Khoa chat user 24h\n/thongbao [noi dung] - Gui thong bao len shop\n/cam - Thong bao bao tri\n/banbe - Thong bao dang cap nhat');
+        botSend('Lenh BOT SAMM:\n/tinnhan [ten] - Khoa chat user 24h\n/thongbao [noi dung] - Gui thong bao len shop\n/cam [ten] - Cam VINH VIEN user\n/banbe - Thong bao dang cap nhat');
         return true;
     }
     if(cmd === '/tinnhan'){
@@ -937,7 +949,17 @@ function handleBotCommand(text){
         return true;
     }
     if(cmd === '/cam'){
-        botSend('Shop dang BAO TRI, vui long quay lai sau!');
+        if(!args){ botSend('Cach dung: /cam [ten tai khoan]'); return true; }
+        if(!users[args]){ botSend('Khong tim thay user "' + args + '"'); return true; }
+        if(isWhitelisted(args)){ botSend('Khong the cam ' + args + '!'); return true; }
+        if(isPermanentBanned(args)){ botSend(args + ' da bi cam tu truoc!'); return true; }
+        if(!confirm('Cam VINH VIEN user "' + args + '"?')){ return true; }
+        if(db){
+            db.ref('banned/' + args).set(true);
+            db.ref('permanent_ban/' + args).set(true);
+        }
+        if(PERMANENT_BAN.indexOf(args) === -1){ PERMANENT_BAN.push(args); }
+        botSend('Da CAM VINH VIEN user "' + args + '"!');
         return true;
     }
     if(cmd === '/banbe'){
@@ -1541,14 +1563,15 @@ function createDeposit(){
     deposit = { amount: amt, expiresAt: Date.now() + 600000 };
     var u = users[cur];
     if(!u.deposits){ u.deposits = {}; }
-    u.deposits['d' + Date.now()] = { amount: amt, status: 'Cho xac nhan', time: Date.now() };
+    var depKey = 'd' + Date.now();
+    u.deposits[depKey] = { amount: amt, status: 'Cho xac nhan', time: Date.now(), user: cur };
     saveUserFB(cur, u);
     $('qrAmt').textContent = money(amt);
     $('form').style.display = 'none';
     $('warn').style.display = 'none';
     $('qr').style.display = 'block';
     startTimer();
-    showToast('Yeu cau nap da gui!', 'success');
+    showToast('Yeu cau nap da gui! Cho Admin duyet', 'success');
 }
 function startTimer(){
     clearInterval(timerId);
@@ -2158,7 +2181,7 @@ function renderAdmin(){
             for(var k in u.deposits){
                 if(u.deposits.hasOwnProperty(k)){
                     if(u.deposits[k].status === 'Cho xac nhan'){
-                        pending.push({ username: username, key: k, amount: u.deposits[k].amount });
+                        pending.push({ username: username, key: k, amount: u.deposits[k].amount, time: u.deposits[k].time });
                     }
                 }
             }
@@ -2168,7 +2191,7 @@ function renderAdmin(){
             var h = '';
             for(var j = 0; j < pending.length; j++){
                 var d = pending[j];
-                h += '<div class="dep-approve"><div><div class="amt">' + money(d.amount) + '</div><div class="email">@' + esc(d.username) + '</div></div><div><button class="btn-ok" onclick="approveDeposit(\'' + d.username + '\',\'' + d.key + '\')">Duyet</button><button class="btn-no" onclick="rejectDeposit(\'' + d.username + '\',\'' + d.key + '\')">Huy</button></div></div>';
+                h += '<div class="dep-approve"><div><div class="amt">' + money(d.amount) + '</div><div class="email">@' + esc(d.username) + '</div><div class="email">' + new Date(d.time).toLocaleString('vi-VN') + '</div></div><div><button class="btn-ok" onclick="approveDeposit(\'' + d.username + '\',\'' + d.key + '\')">Duyet</button><button class="btn-no" onclick="rejectDeposit(\'' + d.username + '\',\'' + d.key + '\')">Huy</button></div></div>';
             }
             dl.innerHTML = h;
         }
