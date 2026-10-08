@@ -80,6 +80,15 @@
     100% { background-position: 200% 50%; }
   }
 
+  /* ✓ TICK XANH VIP */
+  .tick{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:14px;height:14px;border-radius:50%;
+    background:#1da1f2;color:#fff;font-size:10px;
+    margin-left:4px;vertical-align:middle;
+    box-shadow:0 0 0 1px #fff;
+  }
+
   .msg img.chat-img{max-width:200px;max-height:200px;border-radius:8px;display:block;cursor:pointer;margin-top:4px}
   .msg .file-box{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.6);padding:8px;border-radius:8px;margin-top:4px;text-decoration:none;color:#050505}
   .me .msg .file-box{background:rgba(255,255,255,.2);color:#fff}
@@ -159,7 +168,7 @@
   </div>
 
   <div class="bar hidden" id="barBot">
-    <input id="iBot" type="text" placeholder="Gõ /help để xem lệnh, hoặc 'link' để lấy link..." autocomplete="off">
+    <input id="iBot" type="text" placeholder="Gõ /help để xem lệnh..." autocomplete="off">
     <button class="send" onclick="sendBot()">Gửi</button>
   </div>
 
@@ -188,6 +197,9 @@ var ROOM_USERS = 'sammnet_users';
 var ROOM_AVATARS = 'sammnet_avatars';
 var BOT_NAME = 'SAMM BOT';
 
+/* 👑 DANH SÁCH VIP — thêm tên vào đây để có tick xanh */
+var VIP_LIST = ['SAMMVIP', 'admin'];
+
 var MUSIC_LIST = [
   { name: '🎵 Bài 1', url: 'https://files.catbox.moe/zy9l6e.mp3' },
   { name: '🎵 Bài 2', url: 'https://files.catbox.moe/g65v1o.mp3' },
@@ -196,6 +208,10 @@ var MUSIC_LIST = [
 
 function safeKey(name){
   return name.toLowerCase().replace(/[.#$\[\]\/]/g, '_');
+}
+
+function isVIP(name){
+  return VIP_LIST.some(function(v){ return v.toLowerCase() === name.toLowerCase(); });
 }
 
 db.ref('.info/connected').on('value', function(s){
@@ -251,7 +267,9 @@ async function changeMyAvatar(e){
     var data = await resizeImage(file, 150, 0.8);
     await db.ref(ROOM_AVATARS + '/' + safeKey(currentUser)).set(data);
     myAvatar = data;
+    avatarCache[safeKey(currentUser)] = data;
     updateMyAvatarUI(data);
+    // Cập nhật lại TOÀN BỘ tin nhắn cũ của mình (cả 2 kênh)
     document.querySelectorAll('.row.me .av').forEach(function(av){
       av.innerHTML = '<img src="' + data + '">';
     });
@@ -416,6 +434,11 @@ function renderAvatar(name, dataURL){
   return '<div class="av" style="background:' + c + '">' + ini + '</div>';
 }
 
+/* Tên + tick xanh nếu VIP */
+function renderName(name){
+  return esc(name) + (isVIP(name) ? '<span class="tick">✓</span>' : '');
+}
+
 function formatSize(bytes){
   if (bytes < 1024) return bytes + ' B';
   if (bytes < 1024*1024) return (bytes/1024).toFixed(1) + ' KB';
@@ -447,18 +470,17 @@ function addOther(name, d){
   var av = renderAvatar(name, avatarCache[safeKey(name)] || null);
   mChat.insertAdjacentHTML('beforeend',
     '<div class="row">' + av +
-    '<div><div class="name">' + esc(name) + '</div><div class="msg">' + renderMsgContent(d) + '</div></div></div>');
+    '<div><div class="name">' + renderName(name) + '</div><div class="msg">' + renderMsgContent(d) + '</div></div></div>');
   mChat.scrollTop = mChat.scrollHeight;
 }
 
-/* 🌈 Tin nhắn bot — tên 7 màu, avatar 7 màu */
 function addBotMsg(textOrHTML, isHTML, msgId, isMe){
   var content = isHTML ? textOrHTML : esc(textOrHTML);
 
   if (isMe){
+    var av2 = renderAvatar(currentUser, myAvatar);
     mBot.insertAdjacentHTML('beforeend',
-      '<div class="row me">' +
-      '<div class="av" style="background:' + colorOf(currentUser) + '">' + currentUser[0].toUpperCase() + '</div>' +
+      '<div class="row me">' + av2 +
       '<div class="msg" style="white-space:pre-wrap">' + content + '</div></div>');
   } else {
     mBot.insertAdjacentHTML('beforeend',
@@ -570,21 +592,21 @@ async function sendFile(e){
   }
 }
 
-/* ========== BOT — CHỈ GIỮ 3 LỆNH: /help, link, /music ========== */
+/* ========== BOT — CHỈ GIỮ: /help, link, /music, /vip, /top ========== */
 async function botReply(text){
   var lower = text.toLowerCase().trim();
   var cmd = lower.split(/\s+/)[0];
   var reply = '';
   var isHTML = false;
 
-  /* 📌 Nếu có chữ "link" → gửi Quick Guide */
+  /* 📌 Có chữ "link" → Quick Guide */
   if (lower.indexOf('link') !== -1){
     reply = buildLinkHTML();
     isHTML = true;
     return { reply: reply, isHTML: isHTML };
   }
 
-  /* 📋 Lệnh /help */
+  /* 📋 /help */
   if (cmd === '/help'){
     reply = '📋 DANH SÁCH LỆNH:\n' +
       '\n' +
@@ -592,11 +614,11 @@ async function botReply(text){
       '🎵 /music 1 — Phát nhạc bài 1\n' +
       '🎵 /music 2 — Phát nhạc bài 2\n' +
       '🎵 /music 3 — Phát nhạc bài 3\n' +
-      '📋 /help — Xem danh sách lệnh\n' +
-      '\n' +
-      '💡 Gõ "link" để xem Quick Guide!';
+      '👤 /vip — Xem hồ sơ của bạn\n' +
+      '🏆 /top — Bảng xếp hạng thành viên\n' +
+      '📋 /help — Xem danh sách lệnh';
   }
-  /* 🎵 Lệnh /music */
+  /* 🎵 /music */
   else if (cmd === '/music'){
     var songNum = parseInt(text.slice(6).trim());
     if (!songNum || songNum < 1 || songNum > MUSIC_LIST.length){
@@ -607,6 +629,16 @@ async function botReply(text){
       isHTML = true;
     }
   }
+  /* 👤 /vip — Xem hồ sơ cá nhân */
+  else if (cmd === '/vip'){
+    reply = await buildProfileHTML(currentUser);
+    isHTML = true;
+  }
+  /* 🏆 /top — Bảng xếp hạng */
+  else if (cmd === '/top'){
+    reply = await buildTopHTML();
+    isHTML = true;
+  }
   /* ❓ Lệnh khác */
   else {
     reply = '❓ Không có lệnh "' + cmd + '".\n\n💡 Gõ /help để xem danh sách lệnh.';
@@ -615,7 +647,7 @@ async function botReply(text){
   return { reply: reply, isHTML: isHTML };
 }
 
-/* 🎵 HTML phát nhạc */
+/* 🎵 HTML nhạc */
 function buildMusicHTML(index){
   if (index === undefined || index < 0) index = 0;
   var song = MUSIC_LIST[index];
@@ -626,7 +658,7 @@ function buildMusicHTML(index){
   return html;
 }
 
-/* 📌 HTML QUICK GUIDE */
+/* 📌 QUICK GUIDE */
 function buildLinkHTML(){
   var html = '<div style="background:#fff;border-left:4px solid #4fc3f7;border-radius:10px;padding:14px 16px;min-width:250px;max-width:100%;color:#000">';
   html += '<div style="font-size:16px;font-weight:bold;margin-bottom:12px;color:#000">📌 Quick Guide</div>';
@@ -654,6 +686,83 @@ function buildLinkHTML(){
   return html;
 }
 
+/* 👤 HỒ SƠ CÁ NHÂN */
+async function buildProfileHTML(username){
+  var isV = isVIP(username);
+  var av = avatarCache[safeKey(username)] || null;
+  var avHTML = av
+    ? '<img src="' + av + '" style="width:70px;height:70px;border-radius:50%;object-fit:cover;border:3px solid #0084ff">'
+    : '<div style="width:70px;height:70px;border-radius:50%;background:' + colorOf(username) + ';color:#fff;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:bold;border:3px solid #0084ff">' + username[0].toUpperCase() + '</div>';
+
+  var statusBadge = isV
+    ? '<span style="display:inline-block;background:linear-gradient(90deg,#ff0000,#ff7f00,#ffff00,#00ff00,#00ffff,#0000ff,#8b00ff);color:#fff;padding:3px 10px;border-radius:12px;font-size:12px;font-weight:bold;margin-left:6px">👑 VIP</span>'
+    : '<span style="display:inline-block;background:#aaa;color:#fff;padding:3px 10px;border-radius:12px;font-size:12px;font-weight:bold;margin-left:6px">No VIP</span>';
+
+  var html = '<div style="background:#fff;border-radius:12px;padding:16px;min-width:240px;color:#000;border:2px solid #0084ff">';
+  html += '<div style="text-align:center;margin-bottom:10px">' + avHTML + '</div>';
+  html += '<div style="text-align:center;font-size:17px;font-weight:bold;margin-bottom:8px">' + esc(username) + (isV ? '<span class="tick">✓</span>' : '') + '</div>';
+  html += '<div style="text-align:center;margin-bottom:12px">' + statusBadge + '</div>';
+  html += '<div style="font-size:13px;color:#444;border-top:1px solid #eee;padding-top:10px">';
+  html += '<div style="margin:4px 0">👤 <b>Tên:</b> ' + esc(username) + '</div>';
+  html += '<div style="margin:4px 0">🎖️ <b>Trạng thái:</b> ' + (isV ? 'VIP 👑' : 'Thành viên thường') + '</div>';
+  html += '<div style="margin:4px 0">📅 <b>Ngày tạo:</b> ' + new Date().toLocaleDateString('vi-VN') + '</div>';
+  html += '</div>';
+  html += '</div>';
+  return html;
+}
+
+/* 🏆 BẢNG XẾP HẠNG */
+async function buildTopHTML(){
+  // Lấy danh sách user
+  var snap = await db.ref(ROOM_USERS).once('value');
+  var users = snap.val() || {};
+  var list = [];
+  Object.keys(users).forEach(function(k){
+    list.push(users[k].u);
+  });
+
+  // Sắp xếp: VIP trước, sau đó theo thứ tự
+  list.sort(function(a, b){
+    var aV = isVIP(a) ? 0 : 1;
+    var bV = isVIP(b) ? 0 : 1;
+    if (aV !== bV) return aV - bV;
+    return a.localeCompare(b);
+  });
+
+  // SAMMVIP luôn top 1
+  var vipIndex = list.findIndex(function(n){ return n.toLowerCase() === 'sammvip'; });
+  if (vipIndex > 0){
+    var vip = list.splice(vipIndex, 1)[0];
+    list.unshift(vip);
+  }
+
+  var html = '<div style="background:#fff;border-radius:12px;padding:14px;min-width:270px;color:#000;border:2px solid #ffc107">';
+  html += '<div style="text-align:center;font-size:17px;font-weight:bold;margin-bottom:12px">🏆 BẢNG XẾP HẠNG</div>';
+
+  var medals = ['🥇', '🥈', '🥉'];
+
+  list.forEach(function(name, i){
+    var rank = i + 1;
+    var medal = medals[i] || ('#' + rank);
+    var isV = isVIP(name);
+    var av = avatarCache[safeKey(name)] || null;
+    var avHTML = av
+      ? '<img src="' + av + '" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid #ffc107">'
+      : '<div style="width:36px;height:36px;border-radius:50%;background:' + colorOf(name) + ';color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:bold;border:2px solid #ffc107">' + name[0].toUpperCase() + '</div>';
+
+    html += '<div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid #f0f0f0">';
+    html += '<div style="font-size:16px;font-weight:bold;width:34px;text-align:center">' + medal + '</div>';
+    html += '<div>' + avHTML + '</div>';
+    html += '<div style="flex:1;font-size:14px;font-weight:bold">' + esc(name) + (isV ? '<span class="tick">✓</span>' : '') + '</div>';
+    if (isV) html += '<div style="font-size:11px;color:#d39e00;font-weight:bold">👑 VIP</div>';
+    html += '</div>';
+  });
+
+  html += '<div style="font-size:11px;color:#888;margin-top:10px;text-align:center">Tổng: ' + list.length + ' thành viên</div>';
+  html += '</div>';
+  return html;
+}
+
 function send(){
   var t = iChat.value.trim();
   if (!t || !currentUser) return;
@@ -663,14 +772,14 @@ function send(){
     .catch(function(e){ alert('❌ Không gửi được!\n\nLỗi: ' + e.message); });
 }
 
-/* Gửi kênh BOT — hiện tin CỦA BẠN + bot trả lời */
+/* Gửi kênh BOT */
 function sendBot(){
   var t = iBot.value.trim();
   if (!t || !currentUser) return;
   iBot.value = '';
   iBot.focus();
 
-  // Hiện tin nhắn của mình trong kênh BOT
+  // Hiện tin nhắn của mình
   addBotMsg(t, false, null, true);
 
   if (t.indexOf('/') === 0 || t.toLowerCase().indexOf('link') !== -1) {
